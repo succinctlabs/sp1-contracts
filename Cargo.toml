@@ -9,4 +9,6 @@ path = "src/bin/artifacts.rs"
 
 [dependencies]
 anyhow = "1.0.86"
+dotenv = "0.15.0"
+log = "0.4.21"
 sp1-sdk = { git = "https://github.com/succinctlabs/sp1", branch = "ratan/try-updated-commit" }

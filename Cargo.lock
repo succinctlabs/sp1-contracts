@@ -3945,6 +3945,8 @@ name = "sp1-contracts"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "dotenv",
+ "log",
  "sp1-sdk",
 ]
 
