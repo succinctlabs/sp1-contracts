@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
-
 pragma solidity ^0.8.0;
+
+import {ISP1Verifier} from "./ISP1Verifier.sol";
 
 /// @title Groth16 verifier template.
 /// @author Remco Bloemen
@@ -803,8 +804,6 @@ contract Verifier {
         }
     }
 }
-
-import {ISP1Verifier} from "./ISP1Verifier.sol";
 
 /// @title SP1 Verifier
 /// @author Succinct Labs
