@@ -5,6 +5,9 @@ pragma solidity ^0.8.17;
 /// @author Succinct Labs
 /// @notice This contract is the interface for the SP1 Verifier.
 interface ISP1Verifier {
+    /// @notice Returns the version of the SP1 Verifier.
+    function VERSION() external pure returns (string memory);
+
     /// @notice Verifies a proof with given public values and vkey.
     /// @param vkey The verification key for the RISC-V program.
     /// @param publicValues The public values encoded as bytes.
