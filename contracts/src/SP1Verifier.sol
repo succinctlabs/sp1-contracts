@@ -9,7 +9,7 @@ import {Verifier} from "./Groth16Verifier.sol";
 /// @notice This contracts implements a solidity verifier for SP1.
 contract SP1Verifier is Verifier, ISP1Verifier {
     function VERSION() external pure returns (string memory) {
-        return "TODO";
+        return "v1.0.2-testnet";
     }
 
     /// @notice Deserializes a proof from the given bytes.
