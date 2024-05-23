@@ -3,4 +3,10 @@ name = "sp1-contracts"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "artifacts"
+path = "src/bin/artifacts.rs"
+
 [dependencies]
+anyhow = "1.0.86"
+sp1-sdk = { git = "https://github.com/succinctlabs/sp1", branch = "main" }
