@@ -3951,7 +3951,7 @@ dependencies = [
 [[package]]
 name = "sp1-core"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=main#ab0efc008737407e609439a4d362395bb2e325b1"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
 dependencies = [
  "anyhow",
  "arrayref",
@@ -4011,7 +4011,7 @@ dependencies = [
 [[package]]
 name = "sp1-derive"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=main#ab0efc008737407e609439a4d362395bb2e325b1"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4021,7 +4021,7 @@ dependencies = [
 [[package]]
 name = "sp1-primitives"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=main#ab0efc008737407e609439a4d362395bb2e325b1"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
 dependencies = [
  "itertools 0.12.1",
  "lazy_static",
@@ -4034,7 +4034,7 @@ dependencies = [
 [[package]]
 name = "sp1-prover"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=main#ab0efc008737407e609439a4d362395bb2e325b1"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
 dependencies = [
  "anyhow",
  "backtrace",
@@ -4077,7 +4077,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-circuit"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=main#ab0efc008737407e609439a4d362395bb2e325b1"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
 dependencies = [
  "bincode",
  "itertools 0.12.1",
@@ -4100,7 +4100,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-compiler"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=main#ab0efc008737407e609439a4d362395bb2e325b1"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
 dependencies = [
  "backtrace",
  "itertools 0.12.1",
@@ -4126,7 +4126,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-core"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=main#ab0efc008737407e609439a4d362395bb2e325b1"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
 dependencies = [
  "arrayref",
  "backtrace",
@@ -4159,7 +4159,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-derive"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=main#ab0efc008737407e609439a4d362395bb2e325b1"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4169,10 +4169,11 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-gnark-ffi"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=main#ab0efc008737407e609439a4d362395bb2e325b1"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
 dependencies = [
  "bindgen",
  "cc",
+ "cfg-if",
  "crossbeam",
  "log",
  "num-bigint 0.4.5",
@@ -4190,7 +4191,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-program"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=main#ab0efc008737407e609439a4d362395bb2e325b1"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
 dependencies = [
  "array-macro",
  "itertools 0.12.1",
@@ -4218,13 +4219,14 @@ dependencies = [
 [[package]]
 name = "sp1-sdk"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=main#ab0efc008737407e609439a4d362395bb2e325b1"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
 dependencies = [
  "alloy",
  "anyhow",
  "async-trait",
  "axum",
  "bincode",
+ "cfg-if",
  "dirs",
  "dotenv",
  "futures",
