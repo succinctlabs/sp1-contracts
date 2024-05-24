@@ -1,72 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.25;
 
+import {PlonkVerifier} from "./PlonkVerifier.sol";
 import {ISP1Verifier} from "./ISP1Verifier.sol";
-import {Verifier} from "./Groth16Verifier.sol";
 
 /// @title SP1 Verifier
 /// @author Succinct Labs
 /// @notice This contracts implements a solidity verifier for SP1.
-contract SP1Verifier is Verifier, ISP1Verifier {
+contract SP1Verifier is PlonkVerifier, ISP1Verifier {
     function VERSION() external pure returns (string memory) {
         return "v1.0.2-testnet";
-    }
-
-    /// @notice Deserializes a proof from the given bytes.
-    /// @param proofBytes The proof bytes.
-    function deserializeProof(
-        bytes memory proofBytes
-    )
-        public
-        pure
-        returns (
-            uint256[8] memory proof,
-            uint256[2] memory commitments,
-            uint256[2] memory commitmentPok
-        )
-    {
-        require(
-            proofBytes.length == 8 * 32 + 4 + 2 * 32 + 2 * 32,
-            "invalid proof bytes length"
-        );
-
-        uint256 offset = 32;
-        for (uint256 i = 0; i < 8; i++) {
-            assembly {
-                mstore(
-                    add(proof, add(0, mul(32, i))),
-                    mload(add(proofBytes, add(offset, mul(32, i))))
-                )
-            }
-        }
-
-        uint32 commitmentCount;
-        offset += 8 * 32;
-        assembly {
-            let dataLocation := add(proofBytes, offset)
-            let loadedData := mload(dataLocation)
-            commitmentCount := and(shr(224, loadedData), 0xFFFFFFFF)
-        }
-
-        offset += 4;
-        for (uint256 i = 0; i < 2; i++) {
-            assembly {
-                mstore(
-                    add(commitments, add(0, mul(32, i))),
-                    mload(add(proofBytes, add(offset, mul(32, i))))
-                )
-            }
-        }
-
-        offset += 2 * 32;
-        for (uint256 i = 0; i < 2; i++) {
-            assembly {
-                mstore(
-                    add(commitmentPok, add(0, mul(32, i))),
-                    mload(add(proofBytes, add(offset, mul(32, i))))
-                )
-            }
-        }
     }
 
     /// @notice Hashes the public values to a field elements inside Bn254.
@@ -86,13 +29,10 @@ contract SP1Verifier is Verifier, ISP1Verifier {
         bytes memory publicValues,
         bytes memory proofBytes
     ) public view {
-        (
-            uint256[8] memory proof,
-            uint256[2] memory commitments,
-            uint256[2] memory commitmentPok
-        ) = deserializeProof(proofBytes);
         bytes32 publicValuesDigest = hashPublicValues(publicValues);
-        uint256[2] memory inputs = [uint256(vkey), uint256(publicValuesDigest)];
-        this.verifyProof(proof, commitments, commitmentPok, inputs);
+        uint256[] memory inputs = new uint256[](2);
+        inputs[0] = uint256(vkey);
+        inputs[1] = uint256(publicValuesDigest);
+        this.Verify(proofBytes, inputs);
     }
 }
