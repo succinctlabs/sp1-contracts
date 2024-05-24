@@ -661,12 +661,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "array-macro"
-version = "2.1.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "220a2c618ab466efe41d0eace94dfeff1c35e3aa47891bdb95e1c0fefffd3c99"
-
-[[package]]
 name = "arrayref"
 version = "0.3.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -929,11 +923,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "blake3-zkvm"
-version = "0.1.0"
-source = "git+https://github.com/sp1-patches/BLAKE3.git?branch=patch-blake3_zkvm/v.1.0.0#bac2d59f9122b07a4d91475560b4c3214ae62444"
-
-[[package]]
 name = "block-buffer"
 version = "0.10.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1174,28 +1163,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "crossbeam"
-version = "0.8.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1137cd7e7fc0fb5d3c5a8678be38ec56e819125d8d7907411fe24ccb943faca8"
-dependencies = [
- "crossbeam-channel",
- "crossbeam-deque",
- "crossbeam-epoch",
- "crossbeam-queue",
- "crossbeam-utils",
-]
-
-[[package]]
-name = "crossbeam-channel"
-version = "0.5.13"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "33480d6946193aa8033910124896ca395333cae7e2d1113d1fef6c3272217df2"
-dependencies = [
- "crossbeam-utils",
-]
-
-[[package]]
 name = "crossbeam-deque"
 version = "0.8.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1210,15 +1177,6 @@ name = "crossbeam-epoch"
 version = "0.9.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5b82ac4a3c2ca9c3460964f020e1402edd5753411d7737aa39c3714ad1b5420e"
-dependencies = [
- "crossbeam-utils",
-]
-
-[[package]]
-name = "crossbeam-queue"
-version = "0.3.11"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "df0346b5d5e76ac2fe4e327c5fd1118d6be7c51dfb18f9b7922923f287471e35"
 dependencies = [
  "crossbeam-utils",
 ]
@@ -3196,15 +3154,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "prost-types"
-version = "0.12.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9091c90b0a32608e984ff2fa4091273cbdd755d54935c51d520887f4a1dbd5b0"
-dependencies = [
- "prost",
-]
-
-[[package]]
 name = "quick-error"
 version = "1.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3366,7 +3315,6 @@ dependencies = [
  "base64",
  "bytes",
  "encoding_rs",
- "futures-channel",
  "futures-core",
  "futures-util",
  "h2",
@@ -3953,13 +3901,12 @@ dependencies = [
 [[package]]
 name = "sp1-core"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
+source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
 dependencies = [
  "anyhow",
  "arrayref",
  "bincode",
  "blake3",
- "blake3-zkvm",
  "cfg-if",
  "curve25519-dalek",
  "elf",
@@ -3994,7 +3941,6 @@ dependencies = [
  "rrs-lib",
  "serde",
  "serde_with",
- "serial_test",
  "size",
  "snowbridge-amcl",
  "sp1-derive",
@@ -4013,7 +3959,7 @@ dependencies = [
 [[package]]
 name = "sp1-derive"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
+source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4023,7 +3969,7 @@ dependencies = [
 [[package]]
 name = "sp1-primitives"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
+source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
 dependencies = [
  "itertools 0.12.1",
  "lazy_static",
@@ -4036,7 +3982,7 @@ dependencies = [
 [[package]]
 name = "sp1-prover"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
+source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
 dependencies = [
  "anyhow",
  "backtrace",
@@ -4072,14 +4018,13 @@ dependencies = [
  "thiserror",
  "tokio",
  "tracing",
- "tracing-appender",
  "tracing-subscriber",
 ]
 
 [[package]]
 name = "sp1-recursion-circuit"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
+source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
 dependencies = [
  "bincode",
  "itertools 0.12.1",
@@ -4102,7 +4047,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-compiler"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
+source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
 dependencies = [
  "backtrace",
  "itertools 0.12.1",
@@ -4117,8 +4062,6 @@ dependencies = [
  "p3-symmetric",
  "p3-util",
  "serde",
- "serde_json",
- "serial_test",
  "sp1-core",
  "sp1-recursion-core",
  "sp1-recursion-derive",
@@ -4128,7 +4071,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-core"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
+source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
 dependencies = [
  "arrayref",
  "backtrace",
@@ -4161,7 +4104,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-derive"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
+source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4171,31 +4114,27 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-gnark-ffi"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
+source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
 dependencies = [
  "bindgen",
  "cc",
  "cfg-if",
- "crossbeam",
  "log",
  "num-bigint 0.4.5",
  "p3-baby-bear",
  "p3-field",
  "rand",
- "reqwest",
  "serde",
  "serde_json",
  "sp1-recursion-compiler",
- "subtle-encoding",
  "tempfile",
 ]
 
 [[package]]
 name = "sp1-recursion-program"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
+source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
 dependencies = [
- "array-macro",
  "itertools 0.12.1",
  "p3-air",
  "p3-baby-bear",
@@ -4221,7 +4160,7 @@ dependencies = [
 [[package]]
 name = "sp1-sdk"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=ratan/try-updated-commit#1da8be9c7c6be6e86c2d90388099e9e05bac7bfb"
+source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
 dependencies = [
  "alloy",
  "anyhow",
@@ -4230,7 +4169,6 @@ dependencies = [
  "bincode",
  "cfg-if",
  "dirs",
- "dotenv",
  "futures",
  "hex",
  "indicatif",
@@ -4240,7 +4178,6 @@ dependencies = [
  "p3-field",
  "p3-matrix",
  "prost",
- "prost-types",
  "reqwest",
  "reqwest-middleware",
  "serde",
@@ -4646,18 +4583,6 @@ dependencies = [
  "pin-project-lite",
  "tracing-attributes",
  "tracing-core",
-]
-
-[[package]]
-name = "tracing-appender"
-version = "0.2.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3566e8ce28cc0a3fe42519fc80e6b4c943cc4c8cef275620eb8dac2d3d4e06cf"
-dependencies = [
- "crossbeam-channel",
- "thiserror",
- "time",
- "tracing-subscriber",
 ]
 
 [[package]]

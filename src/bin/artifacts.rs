@@ -1,6 +1,6 @@
 use anyhow::Result;
 use log::info;
-use sp1_sdk::artifacts::try_install_groth16_artifacts;
+use sp1_sdk::artifacts::try_install_plonk_bn254_artifacts;
 use sp1_sdk::utils::setup_logger;
 
 fn main() -> Result<()> {
@@ -8,32 +8,26 @@ fn main() -> Result<()> {
 
     setup_logger();
 
-    let artifacts_dir = try_install_groth16_artifacts();
+    let artifacts_dir = try_install_plonk_bn254_artifacts();
 
     info!("Artifacts installed to: {:?}", artifacts_dir);
 
-    // Write SP1Verifier.sol, ISP1Verifier.sol, SP1MockVerifier.sol and Groth16Verifier.sol from artifacts_dir to ../contracts/src.
-    let sp1_verifier_sol = std::fs::read(artifacts_dir.join("SP1Verifier.sol"))?;
-    let isp1_verifier_sol = std::fs::read(artifacts_dir.join("ISP1Verifier.sol"))?;
-    let sp1_mock_verifier_sol = std::fs::read(artifacts_dir.join("SP1MockVerifier.sol"))?;
-    let groth16_verifier_sol = std::fs::read(artifacts_dir.join("Groth16Verifier.sol"))?;
+    // Read all .sol files from artifacts_dir
+    let sol_files = std::fs::read_dir(artifacts_dir)?
+        .filter_map(|entry| entry.ok())
+        .filter(|entry| entry.path().extension().and_then(|ext| ext.to_str()) == Some("sol"))
+        .collect::<Vec<_>>();
 
-    info!("Writing artifacts to contracts/src");
-
+    // Write each sol file to ../contracts/src
     let contracts_src_dir = std::path::Path::new("contracts/src");
-    std::fs::write(contracts_src_dir.join("SP1Verifier.sol"), sp1_verifier_sol)?;
-    std::fs::write(
-        contracts_src_dir.join("ISP1Verifier.sol"),
-        isp1_verifier_sol,
-    )?;
-    std::fs::write(
-        contracts_src_dir.join("SP1MockVerifier.sol"),
-        sp1_mock_verifier_sol,
-    )?;
-    std::fs::write(
-        contracts_src_dir.join("Groth16Verifier.sol"),
-        groth16_verifier_sol,
-    )?;
+    for sol_file in sol_files {
+        let sol_file_path = sol_file.path();
+        let sol_file_contents = std::fs::read(&sol_file_path)?;
+        std::fs::write(
+            contracts_src_dir.join(sol_file_path.file_name().unwrap()),
+            sol_file_contents,
+        )?;
+    }
 
     Ok(())
 }
