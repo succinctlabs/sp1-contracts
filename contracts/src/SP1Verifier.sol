@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.25;
 
-import {PlonkVerifier} from "./PlonkVerifier.sol";
 import {ISP1Verifier} from "./ISP1Verifier.sol";
+import {PlonkVerifier} from "./PlonkVerifier.sol";
 
 /// @title SP1 Verifier
 /// @author Succinct Labs
 /// @notice This contracts implements a solidity verifier for SP1.
-contract SP1Verifier is PlonkVerifier, ISP1Verifier {
+contract SP1Verifier is PlonkVerifier {
     function VERSION() external pure returns (string memory) {
-        return "v1.0.2-testnet";
+        return "TODO";
     }
 
     /// @notice Hashes the public values to a field elements inside Bn254.

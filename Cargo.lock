@@ -3901,7 +3901,7 @@ dependencies = [
 [[package]]
 name = "sp1-core"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/fix-verifier-export#85042b91dd85b5f098305b84ccf72482faf97868"
 dependencies = [
  "anyhow",
  "arrayref",
@@ -3959,7 +3959,7 @@ dependencies = [
 [[package]]
 name = "sp1-derive"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/fix-verifier-export#85042b91dd85b5f098305b84ccf72482faf97868"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3969,7 +3969,7 @@ dependencies = [
 [[package]]
 name = "sp1-primitives"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/fix-verifier-export#85042b91dd85b5f098305b84ccf72482faf97868"
 dependencies = [
  "itertools 0.12.1",
  "lazy_static",
@@ -3982,7 +3982,7 @@ dependencies = [
 [[package]]
 name = "sp1-prover"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/fix-verifier-export#85042b91dd85b5f098305b84ccf72482faf97868"
 dependencies = [
  "anyhow",
  "backtrace",
@@ -4024,7 +4024,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-circuit"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/fix-verifier-export#85042b91dd85b5f098305b84ccf72482faf97868"
 dependencies = [
  "bincode",
  "itertools 0.12.1",
@@ -4047,7 +4047,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-compiler"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/fix-verifier-export#85042b91dd85b5f098305b84ccf72482faf97868"
 dependencies = [
  "backtrace",
  "itertools 0.12.1",
@@ -4071,7 +4071,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-core"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/fix-verifier-export#85042b91dd85b5f098305b84ccf72482faf97868"
 dependencies = [
  "arrayref",
  "backtrace",
@@ -4104,7 +4104,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-derive"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/fix-verifier-export#85042b91dd85b5f098305b84ccf72482faf97868"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4114,7 +4114,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-gnark-ffi"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/fix-verifier-export#85042b91dd85b5f098305b84ccf72482faf97868"
 dependencies = [
  "bindgen",
  "cc",
@@ -4133,7 +4133,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-program"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/fix-verifier-export#85042b91dd85b5f098305b84ccf72482faf97868"
 dependencies = [
  "itertools 0.12.1",
  "p3-air",
@@ -4160,7 +4160,7 @@ dependencies = [
 [[package]]
 name = "sp1-sdk"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?branch=dev#8af2e2f1707880abaf3ef1c7a46815dd37264675"
+source = "git+https://github.com/succinctlabs/sp1?branch=ratan/fix-verifier-export#85042b91dd85b5f098305b84ccf72482faf97868"
 dependencies = [
  "alloy",
  "anyhow",
