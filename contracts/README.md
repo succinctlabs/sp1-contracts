@@ -10,7 +10,7 @@ This repository contains the smart contracts for verifying [SP1](https://github.
 
 ## Development
 
-Install these contracts by using `forge install`.
+Install these contracts for a Foundry project using `forge install`.
 
 ```bash
 forge install succinctlabs/sp1-contracts@<version>
