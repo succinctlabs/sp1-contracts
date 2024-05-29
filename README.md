@@ -1,5 +1,7 @@
 # SP1 Contracts
 
+## How to make a release for `sp1-contracts`?
+
 1. Update the version tag in `Cargo.toml` with the `sp1` version.
 
 ```toml
