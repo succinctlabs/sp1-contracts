@@ -12,13 +12,13 @@ fn main() -> Result<()> {
 
     info!("Artifacts installed to: {:?}", artifacts_dir);
 
-    // Read all .sol files from artifacts_dir
+    // Read all Solidity files from the artifacts_dir.
     let sol_files = std::fs::read_dir(artifacts_dir)?
         .filter_map(|entry| entry.ok())
         .filter(|entry| entry.path().extension().and_then(|ext| ext.to_str()) == Some("sol"))
         .collect::<Vec<_>>();
 
-    // Write each sol file to ../contracts/src
+    // Write each Solidity file to the contracts directory.
     let contracts_src_dir = std::path::Path::new("contracts/src");
     for sol_file in sol_files {
         let sol_file_path = sol_file.path();
