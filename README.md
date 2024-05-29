@@ -1,6 +1,11 @@
 # SP1 Contracts
 
-1. Update the version tag in `Cargo.toml` with the `sp1` version.
+## Update with New SP1 Version
+
+This section outlines the steps required to update the SP1 contracts repository with a new SP1 version. Follow these instructions to ensure the SP1 contracts are correctly updated and aligned with the latest version.
+
+
+1. Change the version tag in `Cargo.toml` to the target `sp1` version.
 
 ```toml
 [dependencies]
@@ -15,7 +20,7 @@ cargo update
 cargo run --bin artifacts
 ```
 
-3. Change `VERSION` in both `SP1MockVerifier` and `SP1Verifier` to match the `sp1` version tag.
+3. Change `VERSION` in both `SP1MockVerifier.sol` and `SP1Verifier.sol` to match the target `sp1` version tag.
 
 ```solidity
 function VERSION() external pure returns (string memory) {
@@ -28,3 +33,4 @@ function VERSION() external pure returns (string memory) {
 
 ## Miscellaneous
 The SP1 Solidity contract artifacts are included in each release of `sp1`. You can see how these are included in the `sp1` repository [here](https://github.com/succinctlabs/sp1/blob/21455d318ae383b317c92e10709bbfc313d8f1df/recursion/gnark-ffi/src/plonk_bn254.rs#L57-L96).
+
