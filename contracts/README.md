@@ -1,66 +1,17 @@
-## Foundry
+# SP1 Contracts
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This repository contains the smart contracts for verifying [SP1](https://github.com/succinctlabs/sp1) EVM proofs. 
 
-Foundry consists of:
+## Overview
+- [`SP1Verifier`](./src/SP1Verifier.sol): The main contract for verifying SP1 EVM proofs.
+- [`SP1MockVerifier`](./src/SP1MockVerifier.sol): A mock contract for testing SP1 EVM proofs.
+- [`ISP1Verifier`](./src/ISP1Verifier.sol): Interface for SP1Verifier.
+- [`PlonkVerifier`](./src/PlonkVerifier.sol): Core logic for verifying Plonk EVM proofs.
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Development
 
-## Documentation
+Install these contracts for a Foundry project using `forge install`.
 
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+```bash
+forge install succinctlabs/sp1-contracts@<version>
 ```
