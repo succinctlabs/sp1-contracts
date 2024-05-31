@@ -5,9 +5,9 @@ This repository contains the smart contracts for verifying [SP1](https://github.
 ## Installation
 
 > [!WARNING]
-> Foundry installs the latest release version initially, but subsequent `forge update` commands will use the `main` branch. This branch is the development branch and should be avoided in favor of tagged releases. The release process matches a specific SP1 version.
+> [Foundry](https://github.com/foundry-rs/foundry) installs the latest release version initially, but subsequent `forge update` commands will use the `main` branch. This branch is the development branch and should be avoided in favor of tagged releases. The release process matches a specific SP1 version.
 
-To install with [Foundry](https://github.com/foundry-rs/foundry):
+To install the latest release version:
 
 ```bash
 forge install succinctlabs/sp1-contracts
