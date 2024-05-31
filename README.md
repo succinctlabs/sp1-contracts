@@ -5,10 +5,7 @@ This repository contains the smart contracts for verifying [SP1](https://github.
 ## Installation
 
 > [!WARNING]
-> When installing via git, it is a common error to use the `master` branch. This is a development branch that should be avoided in favor of tagged releases. The release process matches a specific SP1 version.
-
-> [!WARNING]
-> Foundry installs the latest version initially, but subsequent `forge update` commands will use the `master` branch.
+> Foundry installs the latest release version initially, but subsequent `forge update` commands will use the `main` branch. This branch is the development branch and should be avoided in favor of tagged releases. The release process matches a specific SP1 version.
 
 To install with [Foundry](https://github.com/foundry-rs/foundry):
 
