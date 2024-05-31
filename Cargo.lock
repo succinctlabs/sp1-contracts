@@ -781,9 +781,9 @@ dependencies = [
 
 [[package]]
 name = "clang-sys"
-version = "1.8.0"
+version = "1.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a483f3cbf7cec2e153d424d0e92329d816becc6421389bd494375c6065921b9b"
+checksum = "0b023947811758c97c59bf9d1c188fd619ad4718dcaa767947df1cadb14f39f4"
 dependencies = [
  "glob",
  "libc",
@@ -2763,7 +2763,7 @@ version = "0.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "681030a937600a36906c185595136d26abfebb4aa9c65701cefcaf8578bb982b"
 dependencies = [
- "proc-macro-crate 1.3.1",
+ "proc-macro-crate 3.1.0",
  "proc-macro2",
  "quote",
  "syn 2.0.66",
@@ -4352,7 +4352,7 @@ dependencies = [
 [[package]]
 name = "sp1-core"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.3-testnet#21455d318ae383b317c92e10709bbfc313d8f1df"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.4-testnet#2ce75c6e01ab1de0969f60f917dc015fa2e1b843"
 dependencies = [
  "anyhow",
  "arrayref",
@@ -4410,7 +4410,7 @@ dependencies = [
 [[package]]
 name = "sp1-derive"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.3-testnet#21455d318ae383b317c92e10709bbfc313d8f1df"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.4-testnet#2ce75c6e01ab1de0969f60f917dc015fa2e1b843"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4420,7 +4420,7 @@ dependencies = [
 [[package]]
 name = "sp1-primitives"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.3-testnet#21455d318ae383b317c92e10709bbfc313d8f1df"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.4-testnet#2ce75c6e01ab1de0969f60f917dc015fa2e1b843"
 dependencies = [
  "itertools 0.12.1",
  "lazy_static",
@@ -4433,7 +4433,7 @@ dependencies = [
 [[package]]
 name = "sp1-prover"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.3-testnet#21455d318ae383b317c92e10709bbfc313d8f1df"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.4-testnet#2ce75c6e01ab1de0969f60f917dc015fa2e1b843"
 dependencies = [
  "anyhow",
  "backtrace",
@@ -4475,7 +4475,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-circuit"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.3-testnet#21455d318ae383b317c92e10709bbfc313d8f1df"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.4-testnet#2ce75c6e01ab1de0969f60f917dc015fa2e1b843"
 dependencies = [
  "bincode",
  "itertools 0.12.1",
@@ -4498,7 +4498,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-compiler"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.3-testnet#21455d318ae383b317c92e10709bbfc313d8f1df"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.4-testnet#2ce75c6e01ab1de0969f60f917dc015fa2e1b843"
 dependencies = [
  "backtrace",
  "itertools 0.12.1",
@@ -4522,7 +4522,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-core"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.3-testnet#21455d318ae383b317c92e10709bbfc313d8f1df"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.4-testnet#2ce75c6e01ab1de0969f60f917dc015fa2e1b843"
 dependencies = [
  "arrayref",
  "backtrace",
@@ -4555,7 +4555,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-derive"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.3-testnet#21455d318ae383b317c92e10709bbfc313d8f1df"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.4-testnet#2ce75c6e01ab1de0969f60f917dc015fa2e1b843"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4565,7 +4565,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-gnark-ffi"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.3-testnet#21455d318ae383b317c92e10709bbfc313d8f1df"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.4-testnet#2ce75c6e01ab1de0969f60f917dc015fa2e1b843"
 dependencies = [
  "bindgen",
  "cc",
@@ -4584,7 +4584,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-program"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.3-testnet#21455d318ae383b317c92e10709bbfc313d8f1df"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.4-testnet#2ce75c6e01ab1de0969f60f917dc015fa2e1b843"
 dependencies = [
  "itertools 0.12.1",
  "p3-air",
@@ -4611,7 +4611,7 @@ dependencies = [
 [[package]]
 name = "sp1-sdk"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.3-testnet#21455d318ae383b317c92e10709bbfc313d8f1df"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.4-testnet#2ce75c6e01ab1de0969f60f917dc015fa2e1b843"
 dependencies = [
  "alloy-primitives",
  "alloy-sol-types",
@@ -4890,9 +4890,9 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 
 [[package]]
 name = "tokio"
-version = "1.37.0"
+version = "1.38.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1adbebffeca75fcfd058afa480fb6c0b81e165a0323f9c9d39c9697e37c46787"
+checksum = "ba4f4a02a7a80d6f274636f0aa95c7e383b912d41fe721a31f29e29698585a4a"
 dependencies = [
  "backtrace",
  "bytes",
@@ -4909,9 +4909,9 @@ dependencies = [
 
 [[package]]
 name = "tokio-macros"
-version = "2.2.0"
+version = "2.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5b8a1e28f2deaa14e508979454cb3a223b10b938b45af148bc0986de36f1923b"
+checksum = "5f5ae998a069d4b5aba8ee9dad856af7d520c3699e6159b185c2acd48155d39a"
 dependencies = [
  "proc-macro2",
  "quote",
