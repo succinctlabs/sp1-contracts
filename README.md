@@ -13,7 +13,7 @@ To install the latest release version:
 forge install succinctlabs/sp1-contracts
 ```
 
-To install a specific version (to verify proofs generated with a specific SP1 version):
+To install a specific version:
 ```bash
 forge install succinctlabs/sp1-contracts@<version>
 ```
