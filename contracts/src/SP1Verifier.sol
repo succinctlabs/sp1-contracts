@@ -9,7 +9,7 @@ import {PlonkVerifier} from "./PlonkVerifier.sol";
 /// @notice This contracts implements a solidity verifier for SP1.
 contract SP1Verifier is PlonkVerifier {
     function VERSION() external pure returns (string memory) {
-        return "v1.0.4-testnet";
+        return "v1.0.5-testnet";
     }
 
     /// @notice Hashes the public values to a field elements inside Bn254.
