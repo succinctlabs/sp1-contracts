@@ -8,7 +8,7 @@ import {ISP1Verifier} from "./ISP1Verifier.sol";
 /// @notice This contracts implements a Mock solidity verifier for SP1.
 contract SP1MockVerifier is ISP1Verifier {
     function VERSION() external pure returns (string memory) {
-        return "v1.0.4-testnet";
+        return "v1.0.5-testnet";
     }
 
     /// @notice Verifies a mock proof with given public values and vkey.
