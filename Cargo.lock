@@ -684,6 +684,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c3ac9f8b63eca6fd385229b3675f6cc0dc5c8a5c8a54a59d4f52ffd670d87b0c"
 
 [[package]]
+name = "bytemuck"
+version = "1.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "78834c15cb5d5efe3452d58b1e8ba890dd62d21907f867f383358198e56ebca5"
+
+[[package]]
 name = "byteorder"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2472,6 +2478,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "itertools"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "413ee7dfc52ee1a4949ceeb7dbc8a33f2d6c088194d9f922fb8318faf1f01186"
+dependencies = [
+ "either",
+]
+
+[[package]]
 name = "itoa"
 version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2672,9 +2687,9 @@ checksum = "0e7465ac9959cc2b1404e8e2367b43684a6d13790fe23056cc8c6c5a6b7bcb94"
 
 [[package]]
 name = "memchr"
-version = "2.7.2"
+version = "2.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6c8640c5d730cb13ebd907d8d04b52f55ac9a2eec55b440c8892f40d56c76c1d"
+checksum = "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
 
 [[package]]
 name = "memuse"
@@ -3688,9 +3703,9 @@ dependencies = [
 
 [[package]]
 name = "redox_syscall"
-version = "0.5.1"
+version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "469052894dcb553421e483e4209ee581a45100d31b4018de03e5a7ad86374a7e"
+checksum = "c82cf8cff14456045f55ec4241383baeff27af886adb72ffb2162f99911de0fd"
 dependencies = [
  "bitflags 2.5.0",
 ]
@@ -4483,19 +4498,20 @@ dependencies = [
 [[package]]
 name = "sp1-core"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.5-testnet#19ef89a4b8a509b7d765c46ff6e0a1c9a8fcbfb4"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.7-testnet#20ab7791c3570cd5712c75098bcd8e8629b28d9b"
 dependencies = [
  "anyhow",
  "arrayref",
  "bincode",
  "blake3",
+ "bytemuck",
  "cfg-if",
  "curve25519-dalek",
  "elf",
  "elliptic-curve",
  "generic-array 1.0.0",
  "hex",
- "itertools 0.12.1",
+ "itertools 0.13.0",
  "k256",
  "log",
  "nohash-hasher",
@@ -4519,6 +4535,7 @@ dependencies = [
  "p3-symmetric",
  "p3-uni-stark",
  "p3-util",
+ "rand",
  "rayon-scan",
  "rrs-lib",
  "serde",
@@ -4541,7 +4558,7 @@ dependencies = [
 [[package]]
 name = "sp1-derive"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.5-testnet#19ef89a4b8a509b7d765c46ff6e0a1c9a8fcbfb4"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.7-testnet#20ab7791c3570cd5712c75098bcd8e8629b28d9b"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4551,9 +4568,9 @@ dependencies = [
 [[package]]
 name = "sp1-primitives"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.5-testnet#19ef89a4b8a509b7d765c46ff6e0a1c9a8fcbfb4"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.7-testnet#20ab7791c3570cd5712c75098bcd8e8629b28d9b"
 dependencies = [
- "itertools 0.12.1",
+ "itertools 0.13.0",
  "lazy_static",
  "p3-baby-bear",
  "p3-field",
@@ -4564,23 +4581,26 @@ dependencies = [
 [[package]]
 name = "sp1-prover"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.5-testnet#19ef89a4b8a509b7d765c46ff6e0a1c9a8fcbfb4"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.7-testnet#20ab7791c3570cd5712c75098bcd8e8629b28d9b"
 dependencies = [
  "anyhow",
  "backtrace",
  "bincode",
+ "bytemuck",
  "clap",
  "dirs",
  "futures",
  "hex",
  "indicatif",
- "itertools 0.12.1",
+ "itertools 0.13.0",
  "num-bigint 0.4.5",
  "p3-baby-bear",
  "p3-bn254-fr",
  "p3-challenger",
  "p3-commit",
  "p3-field",
+ "p3-util",
+ "rand",
  "rayon",
  "reqwest 0.12.4",
  "serde",
@@ -4606,10 +4626,10 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-circuit"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.5-testnet#19ef89a4b8a509b7d765c46ff6e0a1c9a8fcbfb4"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.7-testnet#20ab7791c3570cd5712c75098bcd8e8629b28d9b"
 dependencies = [
  "bincode",
- "itertools 0.12.1",
+ "itertools 0.13.0",
  "p3-air",
  "p3-baby-bear",
  "p3-bn254-fr",
@@ -4629,10 +4649,10 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-compiler"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.5-testnet#19ef89a4b8a509b7d765c46ff6e0a1c9a8fcbfb4"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.7-testnet#20ab7791c3570cd5712c75098bcd8e8629b28d9b"
 dependencies = [
  "backtrace",
- "itertools 0.12.1",
+ "itertools 0.13.0",
  "p3-air",
  "p3-baby-bear",
  "p3-bn254-fr",
@@ -4653,13 +4673,13 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-core"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.5-testnet#19ef89a4b8a509b7d765c46ff6e0a1c9a8fcbfb4"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.7-testnet#20ab7791c3570cd5712c75098bcd8e8629b28d9b"
 dependencies = [
  "arrayref",
  "backtrace",
  "ff 0.13.0",
  "hashbrown 0.14.5",
- "itertools 0.12.1",
+ "itertools 0.13.0",
  "p3-air",
  "p3-baby-bear",
  "p3-bn254-fr",
@@ -4673,6 +4693,7 @@ dependencies = [
  "p3-merkle-tree",
  "p3-poseidon2",
  "p3-symmetric",
+ "p3-util",
  "serde",
  "serde_with",
  "sp1-core",
@@ -4686,7 +4707,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-derive"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.5-testnet#19ef89a4b8a509b7d765c46ff6e0a1c9a8fcbfb4"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.7-testnet#20ab7791c3570cd5712c75098bcd8e8629b28d9b"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4696,18 +4717,24 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-gnark-ffi"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.5-testnet#19ef89a4b8a509b7d765c46ff6e0a1c9a8fcbfb4"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.7-testnet#20ab7791c3570cd5712c75098bcd8e8629b28d9b"
 dependencies = [
+ "anyhow",
+ "bincode",
  "bindgen",
  "cc",
  "cfg-if",
+ "hex",
  "log",
  "num-bigint 0.4.5",
  "p3-baby-bear",
  "p3-field",
+ "p3-symmetric",
  "rand",
  "serde",
  "serde_json",
+ "sha2",
+ "sp1-core",
  "sp1-recursion-compiler",
  "tempfile",
 ]
@@ -4715,9 +4742,9 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-program"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.5-testnet#19ef89a4b8a509b7d765c46ff6e0a1c9a8fcbfb4"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.7-testnet#20ab7791c3570cd5712c75098bcd8e8629b28d9b"
 dependencies = [
- "itertools 0.12.1",
+ "itertools 0.13.0",
  "p3-air",
  "p3-baby-bear",
  "p3-challenger",
@@ -4742,7 +4769,7 @@ dependencies = [
 [[package]]
 name = "sp1-sdk"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.5-testnet#19ef89a4b8a509b7d765c46ff6e0a1c9a8fcbfb4"
+source = "git+https://github.com/succinctlabs/sp1?tag=v1.0.7-testnet#20ab7791c3570cd5712c75098bcd8e8629b28d9b"
 dependencies = [
  "alloy-sol-types",
  "anyhow",
@@ -4771,6 +4798,7 @@ dependencies = [
  "strum",
  "strum_macros",
  "tempfile",
+ "thiserror",
  "tokio",
  "tracing",
  "twirp",
