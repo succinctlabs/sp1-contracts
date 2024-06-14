@@ -16,7 +16,7 @@ sp1-sdk = { git = "https://github.com/succinctlabs/sp1", tag = "<SP1_TAG>" }
 ```bash
 cargo update
 
-cargo run --bin --release
+cargo run --bin artifacts --release
 ```
 
 3. Open a PR to commit the changes to `main`.
