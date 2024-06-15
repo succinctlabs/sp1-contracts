@@ -1,0 +1,44 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+import {ISP1Verifier} from "./ISP1Verifier.sol";
+
+/// @title SP1 Verifier Gateway
+/// @author Succinct Labs
+/// @notice This contracts acts a proxy for the SP1 Verifier.
+contract SP1VerifierGateway is ISP1Verifier {
+    error WrongVersionProof();
+
+    function VERSION() external pure returns (string memory) {
+        return "v1.0.7-testnet";
+    }
+
+    function VKEY_HASH() public pure returns (bytes32) {
+        return 0x8c5bc5e47d8cb77f864aee881f8b66cc2457d46bd0b81b315bf82ccfadf78c50;
+    }
+
+    /// @notice Hashes the public values to a field elements inside Bn254.
+    /// @param publicValues The public values.
+    function hashPublicValues(bytes calldata publicValues) public pure returns (bytes32) {
+        return sha256(publicValues) & bytes32(uint256((1 << 253) - 1));
+    }
+
+    /// @notice Verifies a proof with given public values and vkey.
+    /// @param vkey The verification key for the RISC-V program.
+    /// @param publicValues The public values encoded as bytes.
+    /// @param proofBytes The proof of the program execution the SP1 zkVM encoded as bytes.
+    function verifyProof(bytes32 vkey, bytes calldata publicValues, bytes calldata proofBytes) public view {
+        // To ensure the proof corresponds to this verifier, we check that the first 4 bytes of
+        // proofBytes match the first 4 bytes of VKEY_HASH.
+        bytes4 proofBytesPrefix = bytes4(proofBytes[:4]);
+        if (proofBytesPrefix != bytes4(VKEY_HASH())) {
+            revert WrongVersionProof();
+        }
+
+        bytes32 publicValuesDigest = hashPublicValues(publicValues);
+        uint256[] memory inputs = new uint256[](2);
+        inputs[0] = uint256(vkey);
+        inputs[1] = uint256(publicValuesDigest);
+        this.Verify(proofBytes[4:], inputs);
+    }
+}
