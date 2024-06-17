@@ -1,37 +1,36 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 import {Test, console} from "forge-std/Test.sol";
-import {SP1MockVerifier} from "../src/SP1MockVerifier.sol";
 import {SP1VerifierGateway} from "../src/SP1VerifierGateway.sol";
-import {ISP1Verifier} from "../src/ISP1Verifier.sol";
+import {ISP1VerifierWithHash} from "../src/ISP1Verifier.sol";
 import {Ownable} from "lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 
-contract SP1VerifierV1 is ISP1Verifier {
+contract SP1VerifierV1 is ISP1VerifierWithHash {
     function VERSION() external pure returns (string memory) {
         return "1";
     }
 
-    function VKEY_HASH() public pure returns (bytes32) {
+    function VERIFIER_HASH() public pure returns (bytes32) {
         return 0x19ff1d210e06a53ee50e5bad25fa509a6b00ed395695f7d9b82b68155d9e1065;
     }
 
     function verifyProof(bytes32, bytes calldata, bytes calldata proofBytes) external pure {
-        assert(bytes4(proofBytes[:4]) == bytes4(VKEY_HASH()));
+        assert(bytes4(proofBytes[:4]) == bytes4(VERIFIER_HASH()));
     }
 }
 
-contract SP1VerifierV2 is ISP1Verifier {
+contract SP1VerifierV2 is ISP1VerifierWithHash {
     function VERSION() external pure returns (string memory) {
         return "2";
     }
 
-    function VKEY_HASH() public pure returns (bytes32) {
+    function VERIFIER_HASH() public pure returns (bytes32) {
         return 0xfd4b4d23a917e7d7d75deec81f86b55b1c86689a5e3a3c8ae054741af2a7fea8;
     }
 
     function verifyProof(bytes32, bytes calldata, bytes calldata proofBytes) external pure {
-        assert(bytes4(proofBytes[:4]) == bytes4(VKEY_HASH()));
+        assert(bytes4(proofBytes[:4]) == bytes4(VERIFIER_HASH()));
     }
 }
 
@@ -59,18 +58,18 @@ contract SP1VerifierGatewayTest is Test {
     function test_SetUp() public view {
         assertEq(SP1VerifierGateway(gateway).owner(), owner);
         assertEq(
-            SP1VerifierGateway(gateway).verifiers(bytes4(SP1VerifierV1(verifier1).VKEY_HASH())),
+            SP1VerifierGateway(gateway).verifiers(bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH())),
             address(0)
         );
         assertEq(
-            SP1VerifierGateway(gateway).verifiers(bytes4(SP1VerifierV2(verifier2).VKEY_HASH())),
+            SP1VerifierGateway(gateway).verifiers(bytes4(SP1VerifierV2(verifier2).VERIFIER_HASH())),
             address(0)
         );
     }
 
     function test_UpdateVerifier() public {
         // Add verifier 1
-        bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VKEY_HASH());
+        bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
         vm.expectEmit(true, true, true, true);
         emit VerifierUpdated(verifier1Selector, verifier1);
         vm.prank(owner);
@@ -81,9 +80,9 @@ contract SP1VerifierGatewayTest is Test {
 
     function test_RemoveVerifier() public {
         /// Add verifier 1
-        bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VKEY_HASH());
-        vm.expectEmit(true, true, true, true);
-        emit VerifierUpdated(verifier1Selector, verifier1);
+        bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
+        // vm.expectEmit(true, true, true, true);
+        // emit VerifierUpdated(verifier1Selector, verifier1);
         vm.prank(owner);
         SP1VerifierGateway(gateway).updateVerifier(verifier1Selector, verifier1);
 
@@ -91,15 +90,15 @@ contract SP1VerifierGatewayTest is Test {
 
         /// Remove verifier 1
         vm.expectEmit(true, true, true, true);
-        emit VerifierUpdated(verifier1Selector, REMOVED_VERIFIER);
+        emit VerifierUpdated(verifier1Selector, address(0));
         vm.prank(owner);
-        SP1VerifierGateway(gateway).updateVerifier(verifier1Selector, REMOVED_VERIFIER);
+        SP1VerifierGateway(gateway).updateVerifier(verifier1Selector, address(0));
 
         assertEq(SP1VerifierGateway(gateway).verifiers(verifier1Selector), REMOVED_VERIFIER);
     }
 
     function test_RevertUpdateVerifier_WhenNotOwner() public {
-        bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VKEY_HASH());
+        bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
         address notOwner = makeAddr("notOwner");
         vm.expectRevert(
             abi.encodeWithSelector(Ownable.OwnableUnauthorizedAccount.selector, notOwner)
@@ -110,14 +109,14 @@ contract SP1VerifierGatewayTest is Test {
 
     function test_VerifyProof() public {
         // Add verifier 1
-        bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VKEY_HASH());
+        bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
         vm.expectEmit(true, true, true, true);
         emit VerifierUpdated(verifier1Selector, verifier1);
         vm.prank(owner);
         SP1VerifierGateway(gateway).updateVerifier(verifier1Selector, verifier1);
 
         // Add verifier 2
-        bytes4 verifier2Selector = bytes4(SP1VerifierV2(verifier2).VKEY_HASH());
+        bytes4 verifier2Selector = bytes4(SP1VerifierV2(verifier2).VERIFIER_HASH());
         vm.expectEmit(true, true, true, true);
         emit VerifierUpdated(verifier2Selector, verifier2);
         vm.prank(owner);
@@ -135,7 +134,7 @@ contract SP1VerifierGatewayTest is Test {
 
     function test_RevertVerifyProof_WhenRemovedVerifier() public {
         // Add verifier 1
-        bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VKEY_HASH());
+        bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
         vm.expectEmit(true, true, true, true);
         emit VerifierUpdated(verifier1Selector, verifier1);
         vm.prank(owner);
@@ -148,9 +147,9 @@ contract SP1VerifierGatewayTest is Test {
 
         // Remove verifier 1
         vm.expectEmit(true, true, true, true);
-        emit VerifierUpdated(verifier1Selector, REMOVED_VERIFIER);
+        emit VerifierUpdated(verifier1Selector, address(0));
         vm.prank(owner);
-        SP1VerifierGateway(gateway).updateVerifier(verifier1Selector, REMOVED_VERIFIER);
+        SP1VerifierGateway(gateway).updateVerifier(verifier1Selector, address(0));
 
         assertEq(SP1VerifierGateway(gateway).verifiers(verifier1Selector), REMOVED_VERIFIER);
 
@@ -163,7 +162,7 @@ contract SP1VerifierGatewayTest is Test {
 
     function test_RevertVerifyProof_WhenNotFoundVerifier() public {
         // Send a proof to verifier 1 which was never added
-        bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VKEY_HASH());
+        bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
         vm.expectRevert(
             abi.encodeWithSelector(SP1VerifierGateway.VerifierNotFound.selector, verifier1Selector)
         );

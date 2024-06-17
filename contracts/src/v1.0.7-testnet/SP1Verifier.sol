@@ -14,7 +14,7 @@ contract SP1Verifier is PlonkVerifier, ISP1Verifier {
         return "v1.0.7-testnet";
     }
 
-    function VKEY_HASH() public pure returns (bytes32) {
+    function VERIFIER_HASH() public pure returns (bytes32) {
         return 0x8c5bc5e47d8cb77f864aee881f8b66cc2457d46bd0b81b315bf82ccfadf78c50;
     }
 
@@ -31,9 +31,9 @@ contract SP1Verifier is PlonkVerifier, ISP1Verifier {
         bytes calldata proofBytes
     ) public view {
         // To ensure the proof corresponds to this verifier, we check that the first 4 bytes of
-        // proofBytes match the first 4 bytes of VKEY_HASH.
+        // proofBytes match the first 4 bytes of VERIFIER_HASH.
         bytes4 proofBytesPrefix = bytes4(proofBytes[:4]);
-        if (proofBytesPrefix != bytes4(VKEY_HASH())) {
+        if (proofBytesPrefix != bytes4(VERIFIER_HASH())) {
             revert WrongVersionProof();
         }
 
