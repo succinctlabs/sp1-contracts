@@ -25,10 +25,11 @@ contract SP1Verifier is PlonkVerifier, ISP1Verifier {
     }
 
     /// @inheritdoc ISP1Verifier
-    function verifyProof(bytes32 vkey, bytes calldata publicValues, bytes calldata proofBytes)
-        public
-        view
-    {
+    function verifyProof(
+        bytes32 programVkey,
+        bytes calldata publicValues,
+        bytes calldata proofBytes
+    ) public view {
         // To ensure the proof corresponds to this verifier, we check that the first 4 bytes of
         // proofBytes match the first 4 bytes of VKEY_HASH.
         bytes4 proofBytesPrefix = bytes4(proofBytes[:4]);
@@ -38,7 +39,7 @@ contract SP1Verifier is PlonkVerifier, ISP1Verifier {
 
         bytes32 publicValuesDigest = hashPublicValues(publicValues);
         uint256[] memory inputs = new uint256[](2);
-        inputs[0] = uint256(vkey);
+        inputs[0] = uint256(programVkey);
         inputs[1] = uint256(publicValuesDigest);
         this.Verify(proofBytes[4:], inputs);
     }

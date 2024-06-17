@@ -6,9 +6,8 @@ import {Ownable} from "lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 
 /// @title SP1 Verifier Gateway
 /// @author Succinct Labs
-/// @notice The verifier gateway which maps SP1 proofs to their respective verifiers. This contract
-/// acts as a router that can be used to ensure that the appropriate proof is verified by the
-/// correct verifier.
+/// @notice This contract acts as a router that can be used to ensure that an SP1 proof is verified
+/// by the correct verifier.
 contract SP1VerifierGateway is ISP1Verifier, Ownable {
     /// @dev An address that indicates that a verifier was removed from the verifiers mapping.
     address internal constant REMOVED_VERIFIER = address(1);
@@ -39,12 +38,11 @@ contract SP1VerifierGateway is ISP1Verifier, Ownable {
     }
 
     /// @inheritdoc ISP1Verifier
-    function verifyProof(bytes32 vkey, bytes calldata publicValues, bytes calldata proofBytes)
-        external
-        view
-    {
-        // Get the selector (first 4 bytes) from the proof and dispatch to corresponding verifier.
-        // bytes4 selector = bytes4(proofBytes[:4]);
+    function verifyProof(
+        bytes32 programVkey,
+        bytes calldata publicValues,
+        bytes calldata proofBytes
+    ) external view {
         bytes4 selector = getVerifierSelector(proofBytes);
         address verifier = verifiers[selector];
         if (verifier == address(0)) {
@@ -53,7 +51,7 @@ contract SP1VerifierGateway is ISP1Verifier, Ownable {
             revert VerifierRemoved(selector);
         }
 
-        ISP1Verifier(verifier).verifyProof(vkey, publicValues, proofBytes);
+        ISP1Verifier(verifier).verifyProof(programVkey, publicValues, proofBytes);
     }
 
     /// @notice Updates the verifier mapping.
