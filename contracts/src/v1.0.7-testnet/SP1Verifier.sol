@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import {ISP1Verifier} from "../ISP1Verifier.sol";
 import {PlonkVerifier} from "./PlonkVerifier.sol";
@@ -8,7 +8,7 @@ import {PlonkVerifier} from "./PlonkVerifier.sol";
 /// @author Succinct Labs
 /// @notice This contracts implements a solidity verifier for SP1.
 contract SP1Verifier is PlonkVerifier, ISP1Verifier {
-    error WrongVersionProof();
+    error WrongVersionProof(); // TODO: given, actual
 
     function VERSION() external pure returns (string memory) {
         return "v1.0.7-testnet";
@@ -25,7 +25,10 @@ contract SP1Verifier is PlonkVerifier, ISP1Verifier {
     }
 
     /// @inheritdoc ISP1Verifier
-    function verifyProof(bytes32 vkey, bytes calldata publicValues, bytes calldata proofBytes) public view {
+    function verifyProof(bytes32 vkey, bytes calldata publicValues, bytes calldata proofBytes)
+        public
+        view
+    {
         // To ensure the proof corresponds to this verifier, we check that the first 4 bytes of
         // proofBytes match the first 4 bytes of VKEY_HASH.
         bytes4 proofBytesPrefix = bytes4(proofBytes[:4]);
