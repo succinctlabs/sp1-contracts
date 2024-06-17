@@ -2,12 +2,12 @@
 pragma solidity ^0.8.13;
 
 import {Test, console} from "forge-std/Test.sol";
-import {SP1Verifier} from "../src/SP1Verifier.sol";
+import {SP1VerifierGateway} from "../src/SP1VerifierGateway.sol";
 
 contract SP1VerifierTest is Test {
-    SP1Verifier public verifier;
+    SP1VerifierGateway public verifier;
 
     function setUp() public {
-        verifier = new SP1Verifier();
+        verifier = new SP1VerifierGateway();
     }
 }

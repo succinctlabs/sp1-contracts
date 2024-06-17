@@ -7,7 +7,7 @@ import {PlonkVerifier} from "./PlonkVerifier.sol";
 /// @title SP1 Verifier
 /// @author Succinct Labs
 /// @notice This contracts implements a solidity verifier for SP1.
-contract SP1Verifier is PlonkVerifier {
+contract SP1Verifier is PlonkVerifier, ISP1Verifier {
     error WrongVersionProof();
 
     function VERSION() external pure returns (string memory) {
@@ -24,10 +24,7 @@ contract SP1Verifier is PlonkVerifier {
         return sha256(publicValues) & bytes32(uint256((1 << 253) - 1));
     }
 
-    /// @notice Verifies a proof with given public values and vkey.
-    /// @param vkey The verification key for the RISC-V program.
-    /// @param publicValues The public values encoded as bytes.
-    /// @param proofBytes The proof of the program execution the SP1 zkVM encoded as bytes.
+    /// @inheritdoc ISP1Verifier
     function verifyProof(bytes32 vkey, bytes calldata publicValues, bytes calldata proofBytes) public view {
         // To ensure the proof corresponds to this verifier, we check that the first 4 bytes of
         // proofBytes match the first 4 bytes of VKEY_HASH.

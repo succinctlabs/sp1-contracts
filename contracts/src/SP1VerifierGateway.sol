@@ -2,43 +2,47 @@
 pragma solidity ^0.8.19;
 
 import {ISP1Verifier} from "./ISP1Verifier.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 /// @title SP1 Verifier Gateway
 /// @author Succinct Labs
-/// @notice This contracts acts a proxy for the SP1 Verifier.
-contract SP1VerifierGateway is ISP1Verifier {
-    error WrongVersionProof();
+/// @notice Verifier gateway which is owned and can have its verifier mapping updated.
+contract SP1VerifierGateway is ISP1Verifier, Ownable {
+    error NoVerifierForSelector();
+    error VerifierRemoved();
 
-    function VERSION() external pure returns (string memory) {
-        return "v1.0.7-testnet";
+    address constant REMOVED_VERIFIER = address(1);
+
+    mapping(bytes4 => address) public verifiers;
+
+    constructor() Ownable(msg.sender) {}
+
+    /// @notice Updates the verifier mapping.
+    /// @param selector The 4-byte selector of the verifier.
+    /// @param verifierAddress The address of the verifier contract to use. If the address is 0, the verifier is removed.
+    function updateVerifier(bytes4 selector, address verifierAddress) external onlyOwner {
+        if (verifierAddress == address(0)) {
+            if (verifiers[selector] != address(0)) {
+                verifiers[selector] = REMOVED_VERIFIER;
+            } else {
+                revert NoVerifierForSelector();
+            }
+        } else {
+            verifiers[selector] = verifierAddress;
+        }
     }
 
-    function VKEY_HASH() public pure returns (bytes32) {
-        return 0x8c5bc5e47d8cb77f864aee881f8b66cc2457d46bd0b81b315bf82ccfadf78c50;
-    }
-
-    /// @notice Hashes the public values to a field elements inside Bn254.
-    /// @param publicValues The public values.
-    function hashPublicValues(bytes calldata publicValues) public pure returns (bytes32) {
-        return sha256(publicValues) & bytes32(uint256((1 << 253) - 1));
-    }
-
-    /// @notice Verifies a proof with given public values and vkey.
-    /// @param vkey The verification key for the RISC-V program.
-    /// @param publicValues The public values encoded as bytes.
-    /// @param proofBytes The proof of the program execution the SP1 zkVM encoded as bytes.
+    /// @inheritdoc ISP1Verifier
     function verifyProof(bytes32 vkey, bytes calldata publicValues, bytes calldata proofBytes) public view {
-        // To ensure the proof corresponds to this verifier, we check that the first 4 bytes of
-        // proofBytes match the first 4 bytes of VKEY_HASH.
-        bytes4 proofBytesPrefix = bytes4(proofBytes[:4]);
-        if (proofBytesPrefix != bytes4(VKEY_HASH())) {
-            revert WrongVersionProof();
+        // Get the selector (first 4 bytes) of the proof and dispatch to corresponding verifier.
+        bytes4 selector = bytes4(proofBytes[:4]);
+        address verifier = verifiers[selector];
+        if (verifier == address(0)) {
+            revert NoVerifierForSelector();
+        } else if (verifier == REMOVED_VERIFIER) {
+            revert VerifierRemoved();
         }
 
-        bytes32 publicValuesDigest = hashPublicValues(publicValues);
-        uint256[] memory inputs = new uint256[](2);
-        inputs[0] = uint256(vkey);
-        inputs[1] = uint256(publicValuesDigest);
-        this.Verify(proofBytes[4:], inputs);
+        ISP1Verifier(verifier).verifyProof(vkey, publicValues, proofBytes);
     }
 }
