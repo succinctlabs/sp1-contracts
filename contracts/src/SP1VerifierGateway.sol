@@ -8,7 +8,7 @@ import {Ownable} from "lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 /// @author Succinct Labs
 /// @notice This contract acts as a router that can be used to ensure that an SP1 proof is verified
 /// by the correct verifier. This is possible because an SP1 proof has it's first 4 bytes equal to
-/// VKEY_HASH of the verifier.
+/// first 4 bytes of VKEY_HASH of the verifier.
 contract SP1VerifierGateway is ISP1Verifier, Ownable {
     /// @dev An address that indicates that a verifier was removed from the verifiers mapping.
     address internal constant REMOVED_VERIFIER = address(1);
@@ -21,8 +21,7 @@ contract SP1VerifierGateway is ISP1Verifier, Ownable {
     /// @param verifier The address of the new verifier contract.
     event VerifierUpdated(bytes4 selector, address verifier);
 
-    /// @notice Thrown when a proof has a verifier selector that does not correspond to a
-    /// verifier.
+    /// @notice Thrown when a proof has a verifier selector that does not correspond to a verifier.
     /// @param selector The verifier selector that was retrieved from the proof.
     error VerifierNotFound(bytes4 selector);
     /// @notice Thrown when a proof has a verifier selector that corresponds to a removed verifier.
@@ -33,7 +32,7 @@ contract SP1VerifierGateway is ISP1Verifier, Ownable {
 
     /// @notice Get the verifier selector from the proof bytes.
     /// @param proofBytes The proof of the program execution the SP1 zkVM encoded as bytes.
-    /// @return selector The verifier selector (first 4 bytes of the proof).
+    /// @return selector The verifier selector (first 4 bytes of the VKEY_HASH).
     function getVerifierSelector(bytes calldata proofBytes) public pure returns (bytes4) {
         return bytes4(proofBytes[:4]);
     }
@@ -56,7 +55,7 @@ contract SP1VerifierGateway is ISP1Verifier, Ownable {
     }
 
     /// @notice Updates the verifier mapping.
-    /// @param selector The verifier selector (first 4 bytes of the proof).
+    /// @param selector The verifier selector (first 4 bytes of the VKEY_HASH).
     /// @param verifierAddress The address of the verifier contract to use. If the address is 0,
     /// the verifier is removed.
     function updateVerifier(bytes4 selector, address verifierAddress) external onlyOwner {
