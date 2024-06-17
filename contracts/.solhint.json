@@ -7,7 +7,7 @@
 		],
 		"compiler-version": [
 			"error",
-			">=0.5.0"
+			">=0.8.20"
 		],
 		"max-line-length": [
 			"off",
@@ -16,9 +16,6 @@
 		"no-console": "off",
 		"var-name-mixedcase": "off",
 		"func-name-mixedcase": "off",
-		"avoid-low-level-calls": "off",
-		"no-inline-assembly": "off",
-		"no-global-import": "off",
-		"no-empty-blocks": "off"
+		"avoid-low-level-calls": "off"
 	}
 }
