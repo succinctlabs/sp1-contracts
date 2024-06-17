@@ -8,7 +8,7 @@ import {PlonkVerifier} from "./PlonkVerifier.sol";
 /// @author Succinct Labs
 /// @notice This contracts implements a solidity verifier for SP1.
 contract SP1Verifier is PlonkVerifier, ISP1Verifier {
-    error WrongVersionProof(); // TODO: given, actual
+    error WrongVersionProof();
 
     function VERSION() external pure returns (string memory) {
         return "v1.0.7-testnet";

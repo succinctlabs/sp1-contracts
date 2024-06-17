@@ -7,7 +7,8 @@ import {Ownable} from "lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 /// @title SP1 Verifier Gateway
 /// @author Succinct Labs
 /// @notice This contract acts as a router that can be used to ensure that an SP1 proof is verified
-/// by the correct verifier.
+/// by the correct verifier. This is possible because an SP1 proof has it's first 4 bytes equal to
+/// VKEY_HASH of the verifier.
 contract SP1VerifierGateway is ISP1Verifier, Ownable {
     /// @dev An address that indicates that a verifier was removed from the verifiers mapping.
     address internal constant REMOVED_VERIFIER = address(1);
