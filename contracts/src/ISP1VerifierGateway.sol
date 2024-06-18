@@ -57,13 +57,16 @@ interface ISP1VerifierGateway is
     function routes(bytes4 selector) external view returns (address verifier, bool frozen);
 
     /// @notice Adds a verifier route. This enable proofs to be routed to this verifier.
-    /// @dev Once a route to a verifier is added, it cannot be removed.
+    /// @dev Only callable by the owner. The owner is responsible for ensuring that the specified
+    /// verifier is correct with a valid VERIFIER_HASH. Once a route to a verifier is added, it
+    /// cannot be removed.
     /// @param verifier The address of the verifier contract. This verifier MUST implement the
     /// ISP1VerifierWithHash interface.
     function addRoute(address verifier) external;
 
     /// @notice Freezes a verifier route. This prevents proofs from being routed to this verifier.
-    /// @dev Once a router to a verifier is frozen, it cannot be unfrozen.
+    /// @dev Only callable by the owner. Once a route to a verifier is frozen, it cannot be
+    /// unfrozen.
     /// @param selector The verifier selector to freeze.
     function freezeRoute(bytes4 selector) external;
 }

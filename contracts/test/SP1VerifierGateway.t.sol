@@ -59,6 +59,7 @@ contract SP1VerifierGatewayTest is Test, ISP1VerifierGatewayEvents, ISP1Verifier
         gateway = address(new SP1VerifierGateway(owner));
     }
 
+    /// @notice Should confirm that the test environment is set up correctly.
     function test_SetUp() public view {
         assertEq(SP1VerifierGateway(gateway).owner(), owner);
 
@@ -75,6 +76,7 @@ contract SP1VerifierGatewayTest is Test, ISP1VerifierGatewayEvents, ISP1Verifier
         assertEq(frozen, false);
     }
 
+    /// @notice Should succeed when the owner adds a verifier route.
     function test_AddRoute() public {
         // Add verifier route 1
         bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
@@ -88,6 +90,7 @@ contract SP1VerifierGatewayTest is Test, ISP1VerifierGatewayEvents, ISP1Verifier
         assertEq(frozen, false);
     }
 
+    /// @notice Should revert when an account other than the owner tries to add a verifier route.
     function test_RevertAddRoute_WhenNotOwner() public {
         vm.expectRevert(
             abi.encodeWithSelector(
@@ -98,12 +101,14 @@ contract SP1VerifierGatewayTest is Test, ISP1VerifierGatewayEvents, ISP1Verifier
         SP1VerifierGateway(gateway).addRoute(verifier1);
     }
 
+    /// @notice Should revert when a verifier does not implement the ISP1VerifierWithHash interface.
     function test_RevertAddRoute_WhenNotSP1Verifier() public {
         vm.expectRevert();
         vm.prank(owner);
         SP1VerifierGateway(gateway).addRoute(makeAddr("notSP1Verifier"));
     }
 
+    /// @notice Should revert when a verifier already exists that was added with the same selector.
     function test_RevertAddRoute_WhenAlreadyExists() public {
         bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
         vm.expectEmit(true, true, true, true);
@@ -116,6 +121,7 @@ contract SP1VerifierGatewayTest is Test, ISP1VerifierGatewayEvents, ISP1Verifier
         SP1VerifierGateway(gateway).addRoute(verifier1);
     }
 
+    /// @notice Should succeed when the owner freezes an existing verifier route.
     function test_FreezeRoute() public {
         // Add verifier route 1
         bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
@@ -138,6 +144,7 @@ contract SP1VerifierGatewayTest is Test, ISP1VerifierGatewayEvents, ISP1Verifier
         assertEq(frozen, true);
     }
 
+    /// @notice Should revert when an account other than the owner tries to freeze a verifier route.
     function test_RevertFreezeRoute_WhenNotOwner() public {
         bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
         vm.expectRevert(
@@ -149,6 +156,7 @@ contract SP1VerifierGatewayTest is Test, ISP1VerifierGatewayEvents, ISP1Verifier
         SP1VerifierGateway(gateway).freezeRoute(verifier1Selector);
     }
 
+    /// @notice Should revert when a verifier route does not exist.
     function test_RevertFreezeRoute_WhenNoRoute() public {
         bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
         vm.expectRevert(abi.encodeWithSelector(RouteNotFound.selector, verifier1Selector));
@@ -156,6 +164,7 @@ contract SP1VerifierGatewayTest is Test, ISP1VerifierGatewayEvents, ISP1Verifier
         SP1VerifierGateway(gateway).freezeRoute(verifier1Selector);
     }
 
+    /// @notice Should revert when a verifier route is already frozen.
     function test_RevertFreezeRoute_WhenRouteIsFrozen() public {
         bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
         vm.prank(owner);
@@ -168,6 +177,8 @@ contract SP1VerifierGatewayTest is Test, ISP1VerifierGatewayEvents, ISP1Verifier
         SP1VerifierGateway(gateway).freezeRoute(verifier1Selector);
     }
 
+    /// @notice Should succeed when a proof that has the verifier selector is sent to the
+    /// the verifier gateway which has those verifiers added.
     function test_VerifyProof() public {
         // Add verifier 1
         vm.prank(owner);
@@ -184,12 +195,16 @@ contract SP1VerifierGatewayTest is Test, ISP1VerifierGatewayEvents, ISP1Verifier
         SP1VerifierGateway(gateway).verifyProof(PROGRAM_VKEY, PUBLIC_VALUES, PROOF_2);
     }
 
+    /// @notice Should revert when a proof is sent to the verifier gateway which has no verifier
+    /// route for the proof's verifier selector.
     function test_RevertVerifyProof_WhenNoRoute() public {
         bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
         vm.expectRevert(abi.encodeWithSelector(RouteNotFound.selector, verifier1Selector));
         SP1VerifierGateway(gateway).verifyProof(PROGRAM_VKEY, PUBLIC_VALUES, PROOF_1);
     }
 
+    /// @notice Should revert when a proof is sent to the verifier gateway which has a verifier
+    /// route that is frozen for the proof's verifier selector.
     function test_RevertVerifyProof_WhenRouteIsFrozen() public {
         bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
         vm.prank(owner);

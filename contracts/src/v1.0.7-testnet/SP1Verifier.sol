@@ -8,7 +8,9 @@ import {PlonkVerifier} from "./PlonkVerifier.sol";
 /// @author Succinct Labs
 /// @notice This contracts implements a solidity verifier for SP1.
 contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
-    error WrongVersionProof();
+    /// @notice Thrown when the verifier selector from the first 4 byte of the proof does not
+    /// match the verifier selector for this verifier.
+    error WrongVerifierSelector(bytes4 received, bytes4 expected);
 
     function VERSION() external pure returns (string memory) {
         return "v1.0.7-testnet";
@@ -31,11 +33,10 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
         bytes calldata publicValues,
         bytes calldata proofBytes
     ) public view {
-        // To ensure the proof corresponds to this verifier, we check that the first 4 bytes of
-        // proofBytes match the first 4 bytes of VERIFIER_HASH.
-        bytes4 proofBytesPrefix = bytes4(proofBytes[:4]);
-        if (proofBytesPrefix != bytes4(VERIFIER_HASH())) {
-            revert WrongVersionProof();
+        bytes4 recievedSelector = bytes4(proofBytes[:4]);
+        bytes4 expectedSelector = bytes4(VERIFIER_HASH());
+        if (expectedSelector != recievedSelector) {
+            revert WrongVerifierSelector(recievedSelector, expectedSelector);
         }
 
         bytes32 publicValuesDigest = hashPublicValues(publicValues);

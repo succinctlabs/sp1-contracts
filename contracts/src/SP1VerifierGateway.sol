@@ -30,7 +30,7 @@ contract SP1VerifierGateway is ISP1VerifierGateway, Ownable {
             revert RouteIsFrozen(selector);
         }
 
-        ISP1VerifierWithHash(route.verifier).verifyProof(programVKey, publicValues, proofBytes);
+        ISP1Verifier(route.verifier).verifyProof(programVKey, publicValues, proofBytes);
     }
 
     /// @inheritdoc ISP1VerifierGateway
