@@ -31,13 +31,13 @@ interface ISP1VerifierGatewayErrors {
     /// @param selector The verifier selector that was specified.
     error RouteIsFrozen(bytes4 selector);
 
-    /// @notice Thrown when adding a verifier route and the selector returned by the verifier is
-    /// zero.
-    error SelectorCannotBeZero();
-
     /// @notice Thrown when adding a verifier route and the selector already contains a route.
     /// @param verifier The address of the verifier contract in the existing route.
     error RouteAlreadyExists(address verifier);
+
+    /// @notice Thrown when adding a verifier route and the selector returned by the verifier is
+    /// zero.
+    error SelectorCannotBeZero();
 }
 
 /// @title SP1 Verifier Gateway Interface
