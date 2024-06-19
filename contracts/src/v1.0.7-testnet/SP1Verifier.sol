@@ -34,7 +34,7 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
         bytes32 programVKey,
         bytes calldata publicValues,
         bytes calldata proofBytes
-    ) public view {
+    ) external view {
         bytes4 recievedSelector = bytes4(proofBytes[:4]);
         bytes4 expectedSelector = bytes4(VERIFIER_HASH());
         if (recievedSelector != expectedSelector) {

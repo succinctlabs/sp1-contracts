@@ -9,7 +9,7 @@ import {ISP1Verifier} from "./ISP1Verifier.sol";
 contract SP1MockVerifier is ISP1Verifier {
     /// @notice Verifies a mock proof with given public values and vkey.
     /// @param proofBytes The proof of the program execution the SP1 zkVM encoded as bytes.
-    function verifyProof(bytes32, bytes memory, bytes memory proofBytes) external pure {
+    function verifyProof(bytes32, bytes calldata, bytes calldata proofBytes) external pure {
         assert(proofBytes.length == 0);
     }
 }
