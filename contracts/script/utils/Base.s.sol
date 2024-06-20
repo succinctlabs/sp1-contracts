@@ -3,11 +3,13 @@ pragma solidity ^0.8.20;
 
 import "forge-std/Vm.sol";
 import "forge-std/console.sol";
+import {stdJson} from "forge-std/StdJson.sol";
 import {Script} from "forge-std/Script.sol";
-import {Strings} from "lib/openzeppelin-contracts/contracts/utils/Strings.sol";
 
 /// @notice Script to inherit from to get access to helper functions
 abstract contract BaseScript is Script {
+    using stdJson for string;
+
     /// @notice Run the command with the `--broadcast` flag to send the transaction to the chain,
     /// otherwise just simulate the transaction execution.
     modifier broadcaster() {
@@ -34,49 +36,61 @@ abstract contract BaseScript is Script {
         }
     }
 
-    function deployments() public view returns (string memory) {
-        return vm.readFile(string.concat("./deployments/", vm.toString(block.chainid), ".json"));
+    function directory() internal view returns (string memory) {
+        return string.concat(vm.projectRoot(), "/deployments/");
     }
 
-    function readAddress(string memory name) internal view returns (address) {
-        return vm.parseJsonAddress(deployments(), name);
+    function file() internal view returns (string memory) {
+        return string.concat(vm.toString(block.chainid), ".json");
     }
 
-    function readBytes32(string memory name) internal view returns (bytes32) {
-        return vm.parseJsonBytes32(deployments(), name);
+    function path() internal view returns (string memory) {
+        return string.concat(directory(), file());
     }
 
-    // function writeAddress(string memory name) internal view returns (address) {
-    //     return vm.writeJson(deployments(), name, vm.envAddress(name));
-    // }
+    function deployments() internal view returns (string memory) {
+        return vm.readFile(path());
+    }
 
-    function writeAddress(string memory name, address value) internal {
-        string memory directory = string.concat(vm.projectRoot(), deployments());
-        if (!vm.exists(directory)) {
-            vm.createDir(directory, true);
+    function ensureExists() internal {
+        if (!vm.exists(directory())) {
+            vm.createDir(directory(), true);
         }
 
-        string memory file =
-            string.concat(vm.projectRoot(), deployments(), vm.toString(block.chainid), ".json");
-        bool exists = vm.exists(file);
-        if (!exists) {
-            vm.writeFile(file, "{}");
+        if (!vm.exists(path())) {
+            vm.writeFile(path(), "{}");
         }
+    }
 
-        string memory json = vm.readFile(file);
-        if (vm.keyExists(json, string.concat(".", name))) {
-            vm.writeJson(Strings.toHexString(value), file, string.concat(".", name));
+    function readAddress(string memory key) internal view returns (address) {
+        return deployments().readAddress(string.concat(".", key));
+    }
+
+    function readBytes32(string memory key) internal view returns (bytes32) {
+        return deployments().readBytes32(string.concat(".", key));
+    }
+
+    function writeAddress(string memory key, address value) internal {
+        ensureExists();
+
+        if (vm.keyExists(deployments(), string.concat(".", key))) {
+            vm.writeJson(vm.toString(value), path(), string.concat(".", key));
         } else {
             string memory root = "root";
-            vm.serializeJson(root, json);
-            vm.writeJson(vm.serializeAddress(root, name, value), file);
+            vm.serializeJson(root, deployments());
+            vm.writeJson(vm.serializeAddress(root, key, value), path());
         }
     }
 
-    function writeEnvAddress(string memory file, string memory name, address value) internal {
-        string memory addrVar = string.concat(name, "_", vm.toString(block.chainid));
-        vm.setEnv(addrVar, Strings.toHexString(value));
-        vm.writeLine(file, string.concat(string.concat(addrVar, "="), Strings.toHexString(value)));
-        console.log(string.concat(string.concat(addrVar, "="), Strings.toHexString(value)));
+    function writeBytes32(string memory key, bytes32 value) internal {
+        ensureExists();
+
+        if (vm.keyExists(deployments(), string.concat(".", key))) {
+            vm.writeJson(vm.toString(value), path(), string.concat(".", key));
+        } else {
+            string memory root = "root";
+            vm.serializeJson(root, deployments());
+            vm.writeJson(vm.serializeBytes32(root, key, value), path());
+        }
     }
 }
