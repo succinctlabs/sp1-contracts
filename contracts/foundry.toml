@@ -18,15 +18,28 @@ ignore = ["lib/**"]
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
 
+[rpc_endpoints]
+1 = "${RPC_1}"
+11155111 = "${RPC_11155111}"
+17000 = "${RPC_17000}"
+100 = "${RPC_100}"
+137 = "${RPC_137}"
+42161 = "${RPC_42161}"
+421614 = "${RPC_421614}"
+8453 = "${RPC_8453}"
+84532 = "${RPC_84532}"
+534352 = "${RPC_534352}"
+534351 = "${RPC_534351}"
+
 [etherscan]
-ethereum = { key = "${ETHERSCAN_API_KEY_1}", url = "${ETHERSCAN_API_URL_1}" }
-sepolia = { key = "${ETHERSCAN_API_KEY_11155111}", url = "${ETHERSCAN_API_URL_11155111}" }
-holesky = { key = "${ETHERSCAN_API_KEY_17000}", url = "${ETHERSCAN_API_URL_17000}" }
-gnosis = { key = "${ETHERSCAN_API_KEY_100}", url = "${ETHERSCAN_API_URL_100}" }
-polygon = { key = "${ETHERSCAN_API_KEY_137}", url = "${ETHERSCAN_API_URL_137}" }
-arbitrum = { key = "${ETHERSCAN_API_KEY_42161}", url = "${ETHERSCAN_API_URL_42161}" }
-arbitrum-sepolia = { key = "${ETHERSCAN_API_KEY_421614}", url = "${ETHERSCAN_API_URL_421614}" }
-base = { key = "${ETHERSCAN_API_KEY_8453}", url = "${ETHERSCAN_API_URL_8453}" }
-base-sepolia = { key = "${ETHERSCAN_API_KEY_84532}", url = "${ETHERSCAN_API_URL_84532}" }
-scroll = { key = "${ETHERSCAN_API_KEY_534352}", url = "${ETHERSCAN_API_URL_534352}" }
-scroll-sepolia = { key = "${ETHERSCAN_API_KEY_534351}", url = "${ETHERSCAN_API_URL_534351}" }
+1 = { key = "${ETHERSCAN_API_KEY_1}", url = "${ETHERSCAN_API_URL_1}" }
+11155111 = { key = "${ETHERSCAN_API_KEY_11155111}", url = "${ETHERSCAN_API_URL_11155111}" }
+17000 = { key = "${ETHERSCAN_API_KEY_17000}", url = "${ETHERSCAN_API_URL_17000}" }
+100 = { key = "${ETHERSCAN_API_KEY_100}", url = "${ETHERSCAN_API_URL_100}" }
+137 = { key = "${ETHERSCAN_API_KEY_137}", url = "${ETHERSCAN_API_URL_137}" }
+42161 = { key = "${ETHERSCAN_API_KEY_42161}", url = "${ETHERSCAN_API_URL_42161}" }
+421614 = { key = "${ETHERSCAN_API_KEY_421614}", url = "${ETHERSCAN_API_URL_421614}" }
+8453 = { key = "${ETHERSCAN_API_KEY_8453}", url = "${ETHERSCAN_API_URL_8453}" }
+84532 = { key = "${ETHERSCAN_API_KEY_84532}", url = "${ETHERSCAN_API_URL_84532}" }
+534352 = { key = "${ETHERSCAN_API_KEY_534352}", url = "${ETHERSCAN_API_URL_534352}" }
+534351 = { key = "${ETHERSCAN_API_KEY_534351}", url = "${ETHERSCAN_API_URL_534351}" }

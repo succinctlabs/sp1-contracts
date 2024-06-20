@@ -4,8 +4,7 @@ This repository contains the smart contracts for verifying [SP1](https://github.
 
 ## Installation
 
-> [!WARNING]
-> [Foundry](https://github.com/foundry-rs/foundry) installs the latest release version initially, but subsequent `forge update` commands will use the `main` branch. This branch is the development branch and should be avoided in favor of tagged releases. The release process matches a specific SP1 version.
+> [!WARNING] > [Foundry](https://github.com/foundry-rs/foundry) installs the latest release version initially, but subsequent `forge update` commands will use the `main` branch. This branch is the development branch and should be avoided in favor of tagged releases. The release process matches a specific SP1 version.
 
 To install the latest release version:
 
@@ -14,6 +13,7 @@ forge install succinctlabs/sp1-contracts
 ```
 
 To install a specific version:
+
 ```bash
 forge install succinctlabs/sp1-contracts@<version>
 ```
@@ -32,6 +32,16 @@ import {SP1Verifier} from "@sp1-contracts/SP1Verifier.sol";
 contract MyContract is SP1Verifier {
 }
 ```
+
+### Deployments
+
+To deploy the contracts, you can use the `forge script` command and specify the specific contract you want to deploy. For example, to deploy the SP1 Verifier Gateway:
+
+```bash
+forge script SP1VerifierGatewayScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+```
+
+To re-verify already existing deployments, remove the `--broadcast` flag.
 
 ## For Developers: Integrate SP1 Contracts
 
