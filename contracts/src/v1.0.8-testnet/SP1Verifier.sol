@@ -28,14 +28,15 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
         return sha256(publicValues) & bytes32(uint256((1 << 253) - 1));
     }
 
-    /// @notice Verifies a proof with given public values and vkey.
-    /// @param vkey The verification key for the RISC-V program.
+    /// @notice Verifies a proof with given public values and programVKey.
+    /// @param programVKey The verification key for the RISC-V program.
     /// @param publicValues The public values encoded as bytes.
     /// @param proofBytes The proof of the program execution the SP1 zkVM encoded as bytes.
-    function verifyProof(bytes32 vkey, bytes calldata publicValues, bytes calldata proofBytes)
-        public
-        view
-    {
+    function verifyProof(
+        bytes32 programVKey,
+        bytes calldata publicValues,
+        bytes calldata proofBytes
+    ) public view {
         bytes4 receivedSelector = bytes4(proofBytes[:4]);
         bytes4 expectedSelector = bytes4(VERIFIER_HASH());
         if (receivedSelector != expectedSelector) {
@@ -44,7 +45,7 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
 
         bytes32 publicValuesDigest = hashPublicValues(publicValues);
         uint256[] memory inputs = new uint256[](2);
-        inputs[0] = uint256(vkey);
+        inputs[0] = uint256(programVKey);
         inputs[1] = uint256(publicValuesDigest);
         this.Verify(proofBytes[4:], inputs);
     }
