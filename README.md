@@ -42,7 +42,7 @@ To deploy the contracts, ensure your [.env](./contracts/.env.example) file is co
 Then you can use the `forge script` command and specify the specific contract you want to deploy. For example, to deploy the SP1 Verifier Gateway you can run:
 
 ```bash
-forge script SP1VerifierGatewayScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+FOUNDRY_PROFILE=deploy forge script SP1VerifierGatewayScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
 ```
 
 To re-verify already existing deployments, remove the `--broadcast` flag.
@@ -52,6 +52,8 @@ To re-verify already existing deployments, remove the `--broadcast` flag.
 This repository contains the EVM contracts for verifying SP1 PLONK EVM proofs.
 
 You can find more details on the contracts in the [`contracts`](./contracts/README.md) directory.
+
+Note: you should ensure that all the contracts are on Solidity version `0.8.20`.
 
 ## For Contributors
 
