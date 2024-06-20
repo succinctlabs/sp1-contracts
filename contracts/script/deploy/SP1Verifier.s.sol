@@ -5,15 +5,14 @@ import {console} from "forge-std/console.sol";
 import {BaseScript} from "../utils/Base.s.sol";
 import {SP1Verifier} from "../../src/v1.0.7-testnet/SP1Verifier.sol";
 import {SP1VerifierGateway} from "../../src/SP1VerifierGateway.sol";
-import {Strings} from "lib/openzeppelin-contracts/contracts/utils/Strings.sol";
 
 contract SP1VerifierScript is BaseScript {
     function run() external multichain broadcaster {
-        console.log("Deploying SP1_VERIFIER on chain %s", Strings.toString(block.chainid));
+        console.log("Deploying SP1_VERIFIER on chain %s", vm.toString(block.chainid));
 
         // Read env variables
-        bytes32 CREATE2_SALT = envBytes32("CREATE2_SALT");
-        address SP1_VERIFIER_GATEWAY = envAddress("SP1_VERIFIER_GATEWAY", block.chainid);
+        bytes32 CREATE2_SALT = readBytes32("CREATE2_SALT");
+        address SP1_VERIFIER_GATEWAY = readAddress("SP1_VERIFIER_GATEWAY");
 
         // Deploy contract
         address verifier = address(new SP1Verifier{salt: CREATE2_SALT}());
@@ -23,6 +22,6 @@ contract SP1VerifierScript is BaseScript {
         gateway.addRoute(verifier);
 
         // Write address
-        writeEnvAddress(DEPLOYMENT_FILE, "SP1_VERIFIER", verifier);
+        writeAddress("SP1_VERIFIER", verifier);
     }
 }

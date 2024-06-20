@@ -8,8 +8,6 @@ import {Strings} from "lib/openzeppelin-contracts/contracts/utils/Strings.sol";
 
 /// @notice Script to inherit from to get access to helper functions
 abstract contract BaseScript is Script {
-    string internal constant DEPLOYMENT_FILE = ".env.deployments";
-
     /// @notice Run the command with the `--broadcast` flag to send the transaction to the chain,
     /// otherwise just simulate the transaction execution.
     modifier broadcaster() {
@@ -26,112 +24,57 @@ abstract contract BaseScript is Script {
             uint256 chainId = chainIds[i];
 
             // Switch to the chain using the RPC
-            string memory rpc = vm.envString(string.concat("RPC_", Strings.toString(chainId)));
+            string memory rpc = vm.envString(string.concat("RPC_", vm.toString(chainId)));
             vm.createSelectFork(rpc);
+
+            // or try vm.createSelectFork(vm.rpcUrl(chainName));
+            // https://github.com/ourzora/zora-protocol/blob/87fd4a0f06cbabe9bb081eb01babc7222bd1db91/packages/frames/script/MultichainScript.sol#L35
 
             _;
         }
     }
 
-    function envUint256(string memory name) internal view returns (uint256) {
-        uint256 value = vm.envUint(name);
-        if (value == 0) {
-            console.log("%s is not set", name);
-            revert();
-        }
-        console.log("%s=%s", name, value);
-        return value;
+    function deployments() public view returns (string memory) {
+        return vm.readFile(string.concat("./deployments/", vm.toString(block.chainid), ".json"));
     }
 
-    function envBool(string memory name) internal view returns (bool) {
-        bool value = vm.envBool(name);
-        if (!value) {
-            console.log("%s is not set", name);
-            revert();
-        }
-        console.log("%s=%s", name, value);
-        return value;
+    function readAddress(string memory name) internal view returns (address) {
+        return vm.parseJsonAddress(deployments(), name);
     }
 
-    function envUint32(string memory name) internal view returns (uint32) {
-        uint32 value = uint32(vm.envUint(name));
-        if (value == 0) {
-            console.log("%s is not set", name);
-            revert();
-        }
-        console.log("%s=%s", name, value);
-        return value;
+    function readBytes32(string memory name) internal view returns (bytes32) {
+        return vm.parseJsonBytes32(deployments(), name);
     }
 
-    function envUint32s(string memory name, string memory delimiter)
-        internal
-        view
-        returns (uint32[] memory)
-    {
-        uint256[] memory values = new uint256[](0);
-        values = vm.envOr(name, delimiter, values);
-        if (values.length == 0) {
-            console.log("%s is not set", name);
-            revert();
-        }
-        console.log("%s:", name);
-        for (uint256 i = 0; i < values.length; i++) {
-            console.log("  %s", values[i]);
-        }
-        uint32[] memory converted = new uint32[](values.length);
-        for (uint256 i = 0; i < values.length; i++) {
-            converted[i] = uint32(values[i]);
-        }
-        return converted;
-    }
+    // function writeAddress(string memory name) internal view returns (address) {
+    //     return vm.writeJson(deployments(), name, vm.envAddress(name));
+    // }
 
-    function envUint64(string memory name) internal view returns (uint64) {
-        uint64 value = uint64(vm.envUint(name));
-        if (value == 0) {
-            console.log("%s is not set", name);
-            revert();
+    function writeAddress(string memory name, address value) internal {
+        string memory directory = string.concat(vm.projectRoot(), deployments());
+        if (!vm.exists(directory)) {
+            vm.createDir(directory, true);
         }
-        console.log("%s=%s", name, value);
-        return value;
-    }
 
-    function envBytes32(string memory name) internal view returns (bytes32) {
-        bytes32 value = vm.envBytes32(name);
-        if (value == bytes32(0)) {
-            console.log("%s is not set", name);
-            revert();
+        string memory file =
+            string.concat(vm.projectRoot(), deployments(), vm.toString(block.chainid), ".json");
+        bool exists = vm.exists(file);
+        if (!exists) {
+            vm.writeFile(file, "{}");
         }
-        console.log("%s=%s", name, Strings.toHexString(uint256(value)));
-        return value;
-    }
 
-    function envAddress(string memory name) internal view returns (address) {
-        address addr = vm.envAddress(name);
-        if (addr == address(0)) {
-            console.log("%s is not set", name);
-            revert();
+        string memory json = vm.readFile(file);
+        if (vm.keyExists(json, string.concat(".", name))) {
+            vm.writeJson(Strings.toHexString(value), file, string.concat(".", name));
+        } else {
+            string memory root = "root";
+            vm.serializeJson(root, json);
+            vm.writeJson(vm.serializeAddress(root, name, value), file);
         }
-        console.log("%s=%s", name, addr);
-        return addr;
-    }
-
-    function envAddress(string memory name, uint256 chainId) internal view returns (address) {
-        string memory envName = string.concat(name, "_", Strings.toString(chainId));
-        address addr = vm.envOr(envName, address(0));
-        if (addr == address(0)) {
-            //try without chainId
-            addr = vm.envOr(name, address(0));
-            if (addr == address(0)) {
-                console.log("%s/%s is not set", envName, name);
-                revert();
-            }
-        }
-        console.log("%s=%s", envName, addr);
-        return addr;
     }
 
     function writeEnvAddress(string memory file, string memory name, address value) internal {
-        string memory addrVar = string.concat(name, "_", Strings.toString(block.chainid));
+        string memory addrVar = string.concat(name, "_", vm.toString(block.chainid));
         vm.setEnv(addrVar, Strings.toHexString(value));
         vm.writeLine(file, string.concat(string.concat(addrVar, "="), Strings.toHexString(value)));
         console.log(string.concat(string.concat(addrVar, "="), Strings.toHexString(value)));
