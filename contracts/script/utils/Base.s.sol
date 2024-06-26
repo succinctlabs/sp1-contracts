@@ -18,17 +18,17 @@ abstract contract BaseScript is Script {
         vm.stopBroadcast();
     }
 
-    /// @notice When used, runs the script on the chains specified in the `CHAIN_IDS` env variable.
-    /// Must have a `RPC_${CHAIN_ID}` env variable set for each chain.
+    /// @notice When used, runs the script on the chains specified in the `CHAINS` env variable.
+    /// Must have a `RPC_${CHAIN}` env variable set for each chain (e.g. RPC_MAINNET).
     modifier multichain(string memory KEY) {
-        uint256[] memory chainIds = vm.envUint("CHAIN_IDS", ",");
-        for (uint256 i = 0; i < chainIds.length; i++) {
-            uint256 chainId = chainIds[i];
+        string[] memory chains = vm.envString("CHAINS", ",");
+        for (uint256 i = 0; i < chains.length; i++) {
+            string memory chain = chains[i];
 
             // Switch to the chain using the RPC
-            vm.createSelectFork(vm.toString(chainId));
+            vm.createSelectFork(chain);
 
-            console.log("Deploying %s to chain %s", KEY, vm.toString(block.chainid));
+            console.log("Deploying %s to %s", KEY, chain);
 
             _;
         }
