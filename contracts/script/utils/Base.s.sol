@@ -65,13 +65,29 @@ abstract contract BaseScript is Script {
         }
     }
 
-    /// @notice Reads an address from the deployments file for the current chain.
+    /// @notice Tries to read an address from the env.
+    function envAddress(string memory key) internal view returns (address) {
+        return vm.envOr(key, address(0));
+    }
+
+    /// @notice Tries to read a bytes32 from the env.
+    function envBytes32(string memory key) internal view returns (bytes32) {
+        return vm.envOr(key, bytes32(0));
+    }
+
+    /// @notice Tries to read an address from the env first, then from the deployments file for the current chain.
     function readAddress(string memory key) internal view returns (address) {
+        if (envAddress(key) != address(0)) {
+            return envAddress(key);
+        }
         return deployments().readAddress(string.concat(".", key));
     }
 
-    /// @notice Reads a bytes32 from the deployments file for the current chain.
+    /// @notice Tries to read a bytes32 from the env first, then from the deployments file for the current chain.
     function readBytes32(string memory key) internal view returns (bytes32) {
+        if (envBytes32(key) != bytes32(0)) {
+            return envBytes32(key);
+        }
         return deployments().readBytes32(string.concat(".", key));
     }
 

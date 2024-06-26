@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {console} from "forge-std/console.sol";
 import {BaseScript} from "../utils/Base.s.sol";
 import {SP1VerifierGateway} from "../../src/SP1VerifierGateway.sol";
 

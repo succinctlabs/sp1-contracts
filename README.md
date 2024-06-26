@@ -42,8 +42,16 @@ To deploy the contracts, ensure your [.env](./contracts/.env.example) file is co
 Then you can use the `forge script` command and specify the specific contract you want to deploy. For example, to deploy the SP1 Verifier Gateway you can run:
 
 ```bash
-FOUNDRY_PROFILE=deploy forge script SP1VerifierGatewayScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+FOUNDRY_PROFILE=deploy forge script ./script/deploy/SP1VerifierGateway.s.sol:SP1VerifierGatewayScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
 ```
+
+To deploy a specific SP1 Verifier version and add it to the gateway, run:
+
+```bash
+FOUNDRY_PROFILE=deploy forge script ./script/deploy/v1.0.8-testnet/SP1Verifier.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+```
+
+Change `v1.0.8-testnet` to the desired version to add.
 
 To re-verify already existing deployments, remove the `--broadcast` flag.
 
