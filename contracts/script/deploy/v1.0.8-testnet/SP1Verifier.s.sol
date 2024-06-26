@@ -2,12 +2,12 @@
 pragma solidity ^0.8.20;
 
 import {console} from "forge-std/console.sol";
-import {BaseScript} from "../utils/Base.s.sol";
-import {SP1Verifier} from "../../src/v1.0.8-testnet/SP1Verifier.sol";
-import {SP1VerifierGateway} from "../../src/SP1VerifierGateway.sol";
+import {BaseScript} from "../../utils/Base.s.sol";
+import {SP1Verifier} from "../../../src/v1.0.8-testnet/SP1Verifier.sol";
+import {SP1VerifierGateway} from "../../../src/SP1VerifierGateway.sol";
 
 contract SP1VerifierScript is BaseScript {
-    string internal constant KEY = "SP1_VERIFIER";
+    string internal constant KEY = "V1_0_8_TESTNET_SP1_VERIFIER";
 
     function run() external multichain(KEY) broadcaster {
         // Read config
