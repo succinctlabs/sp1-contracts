@@ -18,12 +18,11 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
     error InvalidProof();
 
     function VERSION() external pure returns (string memory) {
-        return "v1.0.7-testnet";
+        return "v1.0.8-testnet";
     }
 
-    /// @inheritdoc ISP1VerifierWithHash
     function VERIFIER_HASH() public pure returns (bytes32) {
-        return 0x8c5bc5e47d8cb77f864aee881f8b66cc2457d46bd0b81b315bf82ccfadf78c50;
+        return 0x801c66ac11bd6d92da378535721468656e5272a6d1923a65ee3b997611d69cc5;
     }
 
     /// @notice Hashes the public values to a field elements inside Bn254.
@@ -32,12 +31,15 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
         return sha256(publicValues) & bytes32(uint256((1 << 253) - 1));
     }
 
-    /// @inheritdoc ISP1Verifier
+    /// @notice Verifies a proof with given public values and programVKey.
+    /// @param programVKey The verification key for the RISC-V program.
+    /// @param publicValues The public values encoded as bytes.
+    /// @param proofBytes The proof of the program execution the SP1 zkVM encoded as bytes.
     function verifyProof(
         bytes32 programVKey,
         bytes calldata publicValues,
         bytes calldata proofBytes
-    ) external view {
+    ) public view {
         bytes4 receivedSelector = bytes4(proofBytes[:4]);
         bytes4 expectedSelector = bytes4(VERIFIER_HASH());
         if (receivedSelector != expectedSelector) {
