@@ -14,12 +14,6 @@ To install the latest release version:
 forge install succinctlabs/sp1-contracts
 ```
 
-To install a specific version:
-
-```bash
-forge install succinctlabs/sp1-contracts@<version>
-```
-
 Add `@sp1-contracts/=lib/sp1-contracts/contracts/src/` in `remappings.txt.`
 
 ### Usage
