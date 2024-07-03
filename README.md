@@ -4,10 +4,6 @@ This repository contains the smart contracts for verifying [SP1](https://github.
 
 ## Installation
 
-> [!WARNING]
->
-> [Foundry](https://github.com/foundry-rs/foundry) installs the latest release version initially, but subsequent `forge update` commands will use the `main` branch. This branch is the development branch and should be avoided in favor of tagged releases. The release process matches a specific SP1 version.
-
 To install the latest release version:
 
 ```bash
@@ -18,15 +14,32 @@ Add `@sp1-contracts/=lib/sp1-contracts/contracts/src/` in `remappings.txt.`
 
 ### Usage
 
-Once installed, you can use the contracts in the library by importing them:
+Once installed, you can import the `ISP1Verifier` interface and use it in your contract:
 
 ```solidity
-pragma solidity ^0.8.25;
+pragma solidity ^0.8.20;
 
-import {SP1Verifier} from "@sp1-contracts/SP1Verifier.sol";
+import {ISP1Verifier} from "@sp1-contracts/ISP1Verifier.sol";
 
-contract MyContract is SP1Verifier {
+contract MyContract {
+	address public constant SP1_VERIFIER = 0x3B6041173B80E77f038f3F2C0f9744f04837185e;
+
+	bytes32 public constant PROGRAM_VKEY = ...;
+
+	function myFunction(..., bytes calldata publicValues, bytes calldata proofBytes) external {
+		ISP1Verifier(SP1_VERIFIER).verifyProof(PROGRAM_VKEY, publicValues, proofBytes);
+	}
 }
+```
+
+You can obtain the correct `SP1_VERIFIER` address for your chain by looking in the [deployments](./contracts/deployments) directory, it's recommended to use the `SP1_VERIFIER_GATEWAY` address which will automatically route proofs to the correct verifier based on their version.
+
+You can obtain the correct `PROGRAM_VKEY` for your program calling the `setup` function for your ELF:
+
+```rs
+    let client = ProverClient::new();
+    let (_, vk) = client.setup(ELF);
+    println!("PROGRAM_VKEY = {}", vk.bytes32());
 ```
 
 ### Deployments
