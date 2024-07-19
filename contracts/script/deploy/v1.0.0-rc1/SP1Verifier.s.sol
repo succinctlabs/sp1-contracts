@@ -6,7 +6,7 @@ import {SP1Verifier} from "../../../src/v1.0.9-testnet.rc2/SP1Verifier.sol";
 import {SP1VerifierGateway} from "../../../src/SP1VerifierGateway.sol";
 
 contract SP1VerifierScript is BaseScript {
-    string internal constant KEY = "V1_0_9_rc2_TESTNET_SP1_VERIFIER";
+    string internal constant KEY = "V1_0_0_rc1_SP1_VERIFIER";
 
     function run() external multichain(KEY) broadcaster {
         // Read config
