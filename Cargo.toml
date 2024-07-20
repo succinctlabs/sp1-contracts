@@ -11,4 +11,4 @@ path = "src/bin/artifacts.rs"
 anyhow = "1.0.86"
 dotenv = "0.15.0"
 log = "0.4.21"
-sp1-sdk = { git = "https://github.com/succinctlabs/sp1", tag = "v1.0.8-testnet" }
+sp1-sdk = "1.0.0-rc.1"

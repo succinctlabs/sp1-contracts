@@ -1,6 +1,6 @@
 use anyhow::Result;
 use log::info;
-use sp1_sdk::artifacts::try_install_plonk_bn254_artifacts;
+use sp1_sdk::install::try_install_plonk_bn254_artifacts;
 use sp1_sdk::utils::setup_logger;
 
 fn main() -> Result<()> {
