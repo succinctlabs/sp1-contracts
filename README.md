@@ -52,6 +52,8 @@ Then you can use the `forge script` command and specify the specific contract yo
 FOUNDRY_PROFILE=deploy forge script ./script/deploy/SP1VerifierGateway.s.sol:SP1VerifierGatewayScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
 ```
 
+### Adding Verifiers
+
 To deploy a specific SP1 Verifier version and add it to the gateway, run:
 
 ```bash
@@ -59,6 +61,18 @@ FOUNDRY_PROFILE=deploy forge script ./script/deploy/v1.0.8-testnet/SP1Verifier.s
 ```
 
 Change `v1.0.8-testnet` to the desired version to add.
+
+### Freezing Verifiers
+
+> **BE CAREFUL** When a freezing a verifier. Once it is frozen, it cannot be unfrozen, and it can no longer be able to be routed to.
+
+To freeze a verifier on the gateway, run:
+
+```bash
+FOUNDRY_PROFILE=deploy forge script ./script/deploy/v1.0.8-testnet/SP1Verifier.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast --sig "freeze()"
+```
+
+Change `v1.0.8-testnet` to the desired version to freeze.
 
 To re-verify already existing deployments, remove the `--broadcast` flag.
 
@@ -73,3 +87,7 @@ Note: you should ensure that all the contracts are on Solidity version `0.8.20`.
 ## For Contributors
 
 To update the SP1 contracts, please refer to the [`update`](./UPDATE_CONTRACTS.md) file.
+
+## Security
+
+SP1 Contracts has undergone an audit from [Veridise](https://www.veridise.com/). The audit report is available [here](./audits).

@@ -28,7 +28,7 @@ abstract contract BaseScript is Script {
             // Switch to the chain using the RPC
             vm.createSelectFork(chain);
 
-            console.log("Deploying %s to %s", KEY, chain);
+            console.log("Running %s script on %s", KEY, chain);
 
             _;
         }
