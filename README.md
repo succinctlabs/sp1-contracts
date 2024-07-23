@@ -64,7 +64,7 @@ Change `v1.0.8-testnet` to the desired version to add.
 
 ### Freezing Verifiers
 
-> **BE CAREFUL** When a freezing a verifier. Once it is frozen, it cannot be unfrozen, and it can no longer be able to be routed to.
+> **BE CAREFUL** When a freezing a verifier. Once it is frozen, it cannot be unfrozen, and it can no longer be routed to.
 
 To freeze a verifier on the gateway, run:
 
