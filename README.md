@@ -57,10 +57,10 @@ FOUNDRY_PROFILE=deploy forge script ./script/deploy/SP1VerifierGateway.s.sol:SP1
 To deploy a specific SP1 Verifier version and add it to the gateway, run:
 
 ```bash
-FOUNDRY_PROFILE=deploy forge script ./script/deploy/v1.0.8-testnet/SP1Verifier.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+FOUNDRY_PROFILE=deploy forge script ./script/deploy/v1.0.1/SP1Verifier.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
 ```
 
-Change `v1.0.8-testnet` to the desired version to add.
+Change `v1.0.1` to the desired version to add.
 
 To re-verify already existing deployments, remove the `--broadcast` flag.
 
@@ -71,10 +71,10 @@ To re-verify already existing deployments, remove the `--broadcast` flag.
 To freeze a verifier on the gateway, run:
 
 ```bash
-FOUNDRY_PROFILE=deploy forge script ./script/deploy/v1.0.8-testnet/SP1Verifier.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast --sig "freeze()"
+FOUNDRY_PROFILE=deploy forge script ./script/deploy/v1.0.1/SP1Verifier.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast --sig "freeze()"
 ```
 
-Change `v1.0.8-testnet` to the desired version to freeze.
+Change `v1.0.1` to the desired version to freeze.
 
 ## For Developers: Integrate SP1 Contracts
 
