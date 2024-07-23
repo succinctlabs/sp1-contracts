@@ -62,6 +62,8 @@ FOUNDRY_PROFILE=deploy forge script ./script/deploy/v1.0.8-testnet/SP1Verifier.s
 
 Change `v1.0.8-testnet` to the desired version to add.
 
+To re-verify already existing deployments, remove the `--broadcast` flag.
+
 ### Freezing Verifiers
 
 > **BE CAREFUL** When a freezing a verifier. Once it is frozen, it cannot be unfrozen, and it can no longer be routed to.
@@ -73,8 +75,6 @@ FOUNDRY_PROFILE=deploy forge script ./script/deploy/v1.0.8-testnet/SP1Verifier.s
 ```
 
 Change `v1.0.8-testnet` to the desired version to freeze.
-
-To re-verify already existing deployments, remove the `--broadcast` flag.
 
 ## For Developers: Integrate SP1 Contracts
 
