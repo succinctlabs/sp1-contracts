@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.15;
 
 import {BaseScript} from "../../utils/Base.s.sol";
 import {SP1Verifier} from "../../../src/v1.0.7-testnet/SP1Verifier.sol";

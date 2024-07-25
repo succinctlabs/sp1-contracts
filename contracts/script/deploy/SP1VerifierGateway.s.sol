@@ -13,7 +13,8 @@ contract SP1VerifierGatewayScript is BaseScript {
         address OWNER = readAddress("OWNER");
 
         // Deploy contract
-        address gateway = address(new SP1VerifierGateway{salt: CREATE2_SALT}(OWNER));
+        address gateway = address(new SP1VerifierGateway{salt: CREATE2_SALT}());
+        SP1VerifierGateway(gateway).transferOwnership(OWNER);
 
         // Write address
         writeAddress(KEY, gateway);

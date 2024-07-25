@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.15;
 
 import {ISP1Verifier, ISP1VerifierWithHash} from "./ISP1Verifier.sol";
 import {ISP1VerifierGateway, VerifierRoute} from "./ISP1VerifierGateway.sol";
@@ -13,8 +13,6 @@ import {Ownable} from "lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 contract SP1VerifierGateway is ISP1VerifierGateway, Ownable {
     /// @inheritdoc ISP1VerifierGateway
     mapping(bytes4 => VerifierRoute) public routes;
-
-    constructor(address initialOwner) Ownable(initialOwner) {}
 
     /// @inheritdoc ISP1Verifier
     function verifyProof(
