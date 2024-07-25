@@ -56,7 +56,8 @@ contract SP1VerifierGatewayTest is Test, ISP1VerifierGatewayEvents, ISP1Verifier
         verifier1 = address(new SP1VerifierV1());
         verifier2 = address(new SP1VerifierV2());
         owner = makeAddr("owner");
-        gateway = address(new SP1VerifierGateway(owner));
+        gateway = address(new SP1VerifierGateway());
+        SP1VerifierGateway(gateway).transferOwnership(owner);
     }
 
     /// @notice Should confirm that the test environment is set up correctly.
@@ -92,11 +93,7 @@ contract SP1VerifierGatewayTest is Test, ISP1VerifierGatewayEvents, ISP1Verifier
 
     /// @notice Should revert when an account other than the owner tries to add a verifier route.
     function test_RevertAddRoute_WhenNotOwner() public {
-        vm.expectRevert(
-            abi.encodeWithSelector(
-                Ownable.OwnableUnauthorizedAccount.selector, makeAddr("notOwner")
-            )
-        );
+        vm.expectRevert("Ownable: caller is not the owner");
         vm.prank(makeAddr("notOwner"));
         SP1VerifierGateway(gateway).addRoute(verifier1);
     }
@@ -147,11 +144,7 @@ contract SP1VerifierGatewayTest is Test, ISP1VerifierGatewayEvents, ISP1Verifier
     /// @notice Should revert when an account other than the owner tries to freeze a verifier route.
     function test_RevertFreezeRoute_WhenNotOwner() public {
         bytes4 verifier1Selector = bytes4(SP1VerifierV1(verifier1).VERIFIER_HASH());
-        vm.expectRevert(
-            abi.encodeWithSelector(
-                Ownable.OwnableUnauthorizedAccount.selector, makeAddr("notOwner")
-            )
-        );
+        vm.expectRevert("Ownable: caller is not the owner");
         vm.prank(makeAddr("notOwner"));
         SP1VerifierGateway(gateway).freezeRoute(verifier1Selector);
     }

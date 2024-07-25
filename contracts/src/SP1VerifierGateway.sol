@@ -14,8 +14,6 @@ contract SP1VerifierGateway is ISP1VerifierGateway, Ownable {
     /// @inheritdoc ISP1VerifierGateway
     mapping(bytes4 => VerifierRoute) public routes;
 
-    constructor(address initialOwner) Ownable(initialOwner) {}
-
     /// @inheritdoc ISP1Verifier
     function verifyProof(
         bytes32 programVKey,
