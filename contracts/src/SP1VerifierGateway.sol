@@ -3,7 +3,7 @@ pragma solidity ^0.8.15;
 
 import {ISP1Verifier, ISP1VerifierWithHash} from "./ISP1Verifier.sol";
 import {ISP1VerifierGateway, VerifierRoute} from "./ISP1VerifierGateway.sol";
-import {Ownable} from "lib/openzeppelin-contracts/contracts/access/Ownable.sol";
+import {Ownable} from "../lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 
 /// @title SP1 Verifier Gateway
 /// @author Succinct Labs
