@@ -38,6 +38,6 @@ holesky = { key = "${ETHERSCAN_API_KEY_HOLESKY}", url = "${ETHERSCAN_API_URL_HOL
 arbitrum = { key = "${ETHERSCAN_API_KEY_ARBITRUM}", url = "${ETHERSCAN_API_URL_ARBITRUM}" }
 arbitrum_sepolia = { key = "${ETHERSCAN_API_KEY_ARBITRUM_SEPOLIA}", url = "${ETHERSCAN_API_URL_ARBITRUM_SEPOLIA}" }
 base = { key = "${ETHERSCAN_API_KEY_BASE}", url = "${ETHERSCAN_API_URL_BASE}" }
-base_sepolia = { key = "${ETHERSCAN_API_KEY_BASE_SEPOLIA}", url = "${ETHERSCAN_API_URL_BASE_SEPOLIA}" }    
+base_sepolia = { key = "${ETHERSCAN_API_KEY_BASE_SEPOLIA}", url = "${ETHERSCAN_API_URL_BASE_SEPOLIA}" }
 scroll = { key = "${ETHERSCAN_API_KEY_SCROLL}", url = "${ETHERSCAN_API_URL_SCROLL}" }
 scroll_sepolia = { key = "${ETHERSCAN_API_KEY_SCROLL_SEPOLIA}", url = "${ETHERSCAN_API_URL_SCROLL_SEPOLIA}" }
