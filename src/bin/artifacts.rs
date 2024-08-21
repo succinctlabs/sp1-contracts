@@ -1,6 +1,6 @@
 use anyhow::Result;
 use log::info;
-use sp1_sdk::install::try_install_plonk_bn254_artifacts;
+use sp1_sdk::install::try_install_circuit_artifacts;
 use sp1_sdk::utils::setup_logger;
 
 fn main() -> Result<()> {
@@ -8,7 +8,7 @@ fn main() -> Result<()> {
 
     setup_logger();
 
-    let artifacts_dir = try_install_plonk_bn254_artifacts();
+    let artifacts_dir = try_install_circuit_artifacts();
 
     info!("Artifacts installed to: {:?}", artifacts_dir);
 
