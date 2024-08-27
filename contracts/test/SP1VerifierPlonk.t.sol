@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import {Test, console} from "forge-std/Test.sol";
+import {SP1Verifier} from "../src/v1.2.0-rc/SP1VerifierPlonk.sol";
+
+contract SP1VerifierPlonkTest is Test {
+    bytes32 internal constant PROGRAM_VKEY =
+        bytes32(0x00cb87a72d222d61929c4d5e0dbfeb9e9902b3b88a1e19d3da3940ace511aff9);
+    bytes internal constant PUBLIC_VALUES =
+        hex"00000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000001a6d0000000000000000000000000000000000000000000000000000000000002ac2";
+    bytes internal constant PROOF_VALID =
+        hex"616a42052a7f097c361d30a4da812af749557ec39d7e046753a2ea5d5d544b8a6c8d7abe080baffb4fcc27fd623528247240ece54c7b732c94b4002b41015b181cf1440a14d41fee910881edb2c50d65d3c3e90fc7d3d67931867dee9f7afd29ae40f8d10afa76a99e713ddd09b131c917e55e12c7a00df42531114230058ee0df169eeb04e12d63f8f169cb77d84dea5a47f69770aca5966473db8ec160ba6a6c725fb107fcb4fb1b41213a3d91c7aa35608a70f367d5d42e54548447627901695779592686d8f41cd5bc4048fed29a3c63e639c2bfb25252d41dc0a592dba40f3c76aa098519dbb5f3b077ba2b0d2504317db80fe71ace1717f939639f6e675ac302082f045de54233367dbdaff8c1a2a6547f2803633611b6e2df79e499c6dac2aa7009e9aa92696c008a6da3a85b735c40d34ffcc111dbb2479ca36b1f50a5e37aa5022c957ed74c315d686de5bc246c2517a0afc70ab8c01b53256c559fdd91ab8f0f76f9ff187f415fc393fded46223d4d55e9fac886bb8418476e7307bd95ef2d0a6ba8ab6bd0e44afb2645d10729c56851bd049aee3d3b783635c3bb22578ff52879c36771db550fefd7b0afff73e22dfff7cef44113749d6bc164c39e2a629f2e909ce0af2a3699ebb4730be7a5accb9d362427dfc26ff239ce25d447b7c93304f324e512590ac3eb88e831440d2683c895500dc973c784be8c36e81d1c5f5a15ddda55b454e6442a4aab24e68682e5d8fafae006cda99f0ddfd2d1b30759500f63d9b0c832a7f90f38d3c05985db4327158e198a117a7bdaf1eed4c3479bc81dbbfd45c6770ba559bf531b995cf7bcde5a5eda80fc575030dff3cfcd19d16127c4dbb8a508f629e4d23cfd4b4b20da7754776d2a658f3fdabfbafe83fcb2f0204836162360c29cb2cb6a71a38e8ede0696dbbe6f6f17c60245b042c7341b6d1ac2ce8b4d42d946b347c0ab9695c33ed8b26d88dcc3a4772ec191ed015195f10004e0a260e6867474479af60e98e3b4bfe7617c4bab42cc6600229590711a150720922f46ccd3fff5fb1572e2b4e95b497f8239827452f36bc54a38a64226e31ddfab5fcd19f4955a00bd341115b62e43d98723d8e30056fe106aabd7440c5c060a1a8de904d0927e339f7ee3950b3fc9e33874a2d0d59428054f8bb4f29fc90dc4d6bc4ae701af47ef78df4f99159c7d25ee6d4c1bd04dbdd0711b703793de";
+    bytes internal constant PROOF_INVALID = hex"616a42052115dd50acf8e57f10c32ca72a6940";
+
+    address internal verifier;
+
+    function setUp() public virtual {
+        verifier = address(new SP1Verifier());
+    }
+
+    /// @notice Should succeed when the proof is valid.
+    function test_VerifyProof_WhenPlonk() public view {
+        SP1Verifier(verifier).verifyProof(PROGRAM_VKEY, PUBLIC_VALUES, PROOF_VALID);
+    }
+
+    /// @notice Should revert when the proof is invalid.
+    function test_RevertVerifyProof_WhenPlonk() public view {
+        SP1Verifier(verifier).verifyProof(PROGRAM_VKEY, PUBLIC_VALUES, PROOF_VALID);
+    }
+}
