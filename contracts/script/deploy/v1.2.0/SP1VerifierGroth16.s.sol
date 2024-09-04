@@ -2,12 +2,12 @@
 pragma solidity ^0.8.20;
 
 import {BaseScript} from "../../utils/Base.s.sol";
-import {SP1Verifier} from "../../../src/v1.2.0-rc/SP1VerifierPlonk.sol";
+import {SP1Verifier} from "../../../src/v1.2.0/SP1VerifierGroth16.sol";
 import {SP1VerifierGateway} from "../../../src/SP1VerifierGateway.sol";
 import {ISP1VerifierWithHash} from "../../../src/ISP1Verifier.sol";
 
 contract SP1VerifierScript is BaseScript {
-    string internal constant KEY = "V1_2_0_RC1_SP1_VERIFIER_PLONK";
+    string internal constant KEY = "V1_2_0_SP1_VERIFIER_GROTH16";
 
     function run() external multichain(KEY) broadcaster {
         // Read config

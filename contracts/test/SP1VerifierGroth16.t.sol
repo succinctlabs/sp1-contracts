@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import {Test, console} from "forge-std/Test.sol";
-import {SP1Verifier} from "../src/v1.2.0-rc/SP1VerifierGroth16.sol";
+import {SP1Verifier} from "../src/v1.2.0/SP1VerifierGroth16.sol";
 
 contract SP1VerifierGroth16Test is Test {
     bytes32 internal constant PROGRAM_VKEY =

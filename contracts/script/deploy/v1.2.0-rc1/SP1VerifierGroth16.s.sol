@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import {BaseScript} from "../../utils/Base.s.sol";
-import {SP1Verifier} from "../../../src/v1.2.0-rc/SP1VerifierGroth16.sol";
+import {SP1Verifier} from "../../../src/v1.2.0-rc1/SP1VerifierGroth16.sol";
 import {SP1VerifierGateway} from "../../../src/SP1VerifierGateway.sol";
 import {ISP1VerifierWithHash} from "../../../src/ISP1Verifier.sol";
 
