@@ -57,7 +57,7 @@ FOUNDRY_PROFILE=deploy forge script ./script/deploy/SP1VerifierGateway.s.sol:SP1
 To deploy a specific SP1 Verifier version and add it to the gateway, run:
 
 ```bash
-FOUNDRY_PROFILE=deploy forge script ./script/deploy/v1.2.0/SP1VerifierGroth16.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+FOUNDRY_PROFILE=deploy forge script ./script/deploy/v1.2.0/SP1VerifierPlonk.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
 ```
 
 Change `v1.2.0` to the desired version to add.
@@ -71,7 +71,7 @@ To re-verify already existing deployments, remove the `--broadcast` flag.
 To freeze a verifier on the gateway, run:
 
 ```bash
-FOUNDRY_PROFILE=deploy forge script ./script/deploy/v1.2.0/SP1VerifierGroth16.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast --sig "freeze()"
+FOUNDRY_PROFILE=deploy forge script ./script/deploy/v1.2.0/SP1VerifierPlonk.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast --sig "freeze()"
 ```
 
 Change `v1.2.0` to the desired version to freeze.
