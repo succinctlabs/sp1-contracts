@@ -18,7 +18,7 @@ contract SP1Verifier is Groth16Verifier, ISP1VerifierWithHash {
     error InvalidProof();
 
     function VERSION() external pure returns (string memory) {
-        return "v3.0.0-rc3";
+        return "v3.0.0-rc4";
     }
 
     /// @inheritdoc ISP1VerifierWithHash
