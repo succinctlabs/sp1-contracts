@@ -1,7 +1,7 @@
 use anyhow::Result;
-use log::info;
 use sp1_sdk::install::try_install_circuit_artifacts;
 use sp1_sdk::utils::setup_logger;
+use sp1_sdk::SP1_CIRCUIT_VERSION;
 use std::fs::{create_dir_all, read, read_dir, write};
 use std::path::PathBuf;
 
@@ -15,15 +15,11 @@ fn main() -> Result<()> {
 
     for &artifact_type in &artifact_types {
         let artifacts_dir = try_install_circuit_artifacts(artifact_type);
-        info!(
-            "{} artifacts installed to: {:?}",
-            artifact_type, artifacts_dir
-        );
         artifact_dirs.push(artifacts_dir);
     }
 
     // Read all Solidity files from the artifacts directories.
-    let contracts_src_dir = PathBuf::from("contracts/src");
+    let contracts_src_dir = PathBuf::from(format!("contracts/src/{}", SP1_CIRCUIT_VERSION));
     create_dir_all(&contracts_src_dir)?;
 
     for artifacts_dir in artifact_dirs {
@@ -42,6 +38,11 @@ fn main() -> Result<()> {
             )?;
         }
     }
+
+    println!(
+        "Added the new verifier contracts to {}",
+        contracts_src_dir.display()
+    );
 
     Ok(())
 }
