@@ -44,5 +44,53 @@ fn main() -> Result<()> {
         contracts_src_dir.display()
     );
 
+    // Copy deployment scripts from v2.0.0 to {SP1_CIRCUIT_VERSION}
+    let source_deploy_dir = PathBuf::from("contracts/script/deploy/v2.0.0");
+    let target_deploy_dir = PathBuf::from(format!("contracts/script/deploy/{}", SP1_CIRCUIT_VERSION));
+    create_dir_all(&target_deploy_dir)?;
+
+    for entry in read_dir(source_deploy_dir)? {
+        let entry = entry?;
+        let source_path = entry.path();
+        if source_path.is_file() {
+            let file_name = source_path.file_name().unwrap();
+            let target_path = target_deploy_dir.join(file_name);
+            std::fs::copy(&source_path, &target_path)?;
+
+            // Modify SP1VerifierGroth16.s.sol
+            if file_name == "SP1VerifierGroth16.s.sol" {
+                let mut content = String::from_utf8(read(&target_path)?)?;
+                content = content.replace(
+                    "import {SP1Verifier} from \"../../../src/v2.0.0/SP1VerifierGroth16.sol\";",
+                    &format!("import {{SP1Verifier}} from \"../../../src/{}/SP1VerifierGroth16.sol\";", SP1_CIRCUIT_VERSION)
+                );
+                content = content.replace(
+                    "string internal constant KEY = \"V2_0_0_SP1_VERIFIER_GROTH16\";",
+                    &format!("string internal constant KEY = \"{}_SP1_VERIFIER_GROTH16\";", SP1_CIRCUIT_VERSION.replace(".", "_").replace("-", "_").to_uppercase())
+                );
+                write(&target_path, content)?;
+            }
+
+            // Modify SP1VerifierPlonk.s.sol
+            if file_name == "SP1VerifierPlonk.s.sol" {
+                let mut content = String::from_utf8(read(&target_path)?)?;
+                content = content.replace(
+                    "import {SP1Verifier} from \"../../../src/v2.0.0/SP1VerifierPlonk.sol\";",
+                    &format!("import {{SP1Verifier}} from \"../../../src/{}/SP1VerifierPlonk.sol\";", SP1_CIRCUIT_VERSION)
+                );
+                content = content.replace(
+                    "string internal constant KEY = \"V2_0_0_SP1_VERIFIER_PLONK\";",
+                    &format!("string internal constant KEY = \"{}_SP1_VERIFIER_PLONK\";", SP1_CIRCUIT_VERSION.replace(".", "_").replace("-", "_").to_uppercase())
+                );
+                write(&target_path, content)?;
+            }
+        }
+    }
+
+    println!(
+        "Copied and updated deployment scripts to {}",
+        target_deploy_dir.display()
+    );
+
     Ok(())
 }
