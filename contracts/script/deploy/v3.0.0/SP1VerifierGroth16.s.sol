@@ -10,29 +10,23 @@ contract SP1VerifierScript is BaseScript {
     string internal constant KEY = "V3_0_0_SP1_VERIFIER_GROTH16";
 
     function run() external multichain(KEY) broadcaster {
-        // Read config
-        bytes32 CREATE2_SALT = readBytes32("CREATE2_SALT");
-        address SP1_VERIFIER_GATEWAY = readAddress("SP1_VERIFIER_GATEWAY");
-
-        // Deploy contract
-        address verifier = address(new SP1Verifier{salt: CREATE2_SALT}());
+        // Deploy contract with salt from config
+        address verifier = address(new SP1Verifier{salt: readBytes32("CREATE2_SALT")}());
 
         // Add the verifier to the gateway
-        SP1VerifierGateway gateway = SP1VerifierGateway(SP1_VERIFIER_GATEWAY);
-        gateway.addRoute(verifier);
+        SP1VerifierGateway(readAddress("SP1_VERIFIER_GATEWAY")).addRoute(verifier);
 
-        // Write address
+        // Write the verifier address
         writeAddress(KEY, verifier);
     }
 
     function freeze() external multichain(KEY) broadcaster {
-        // Read config
-        address SP1_VERIFIER_GATEWAY = readAddress("SP1_VERIFIER_GATEWAY");
-        address SP1_VERIFIER = readAddress(KEY);
+        // Get addresses from config
+        SP1VerifierGateway gateway = SP1VerifierGateway(readAddress("SP1_VERIFIER_GATEWAY"));
+        bytes4 selector = ISP1VerifierWithHash(readAddress(KEY)).VERIFIER_HASH();
 
-        // Freeze the verifier on the gateway
-        SP1VerifierGateway gateway = SP1VerifierGateway(SP1_VERIFIER_GATEWAY);
-        bytes4 selector = bytes4(ISP1VerifierWithHash(SP1_VERIFIER).VERIFIER_HASH());
+        // Freeze the verifier route on the gateway
         gateway.freezeRoute(selector);
     }
 }
+
