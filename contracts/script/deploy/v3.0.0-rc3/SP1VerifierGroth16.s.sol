@@ -12,7 +12,7 @@ contract SP1VerifierScript is BaseScript {
     function run() external multichain(KEY) broadcaster {
         // Read config
         bytes32 CREATE2_SALT = readBytes32("CREATE2_SALT");
-        address SP1_VERIFIER_GATEWAY = readAddress("SP1_VERIFIER_GATEWAY_GROTH16");
+        address SP1_VERIFIER_GATEWAY = readAddress("SP1_VERIFIER_GATEWAY_PLONK");
 
         // Deploy contract
         address verifier = address(new SP1Verifier{salt: CREATE2_SALT}());
@@ -27,7 +27,7 @@ contract SP1VerifierScript is BaseScript {
 
     function freeze() external multichain(KEY) broadcaster {
         // Read config
-        address SP1_VERIFIER_GATEWAY = readAddress("SP1_VERIFIER_GATEWAY");
+        address SP1_VERIFIER_GATEWAY = readAddress("SP1_VERIFIER_GATEWAY_GROTH16");
         address SP1_VERIFIER = readAddress(KEY);
 
         // Freeze the verifier on the gateway
