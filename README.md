@@ -22,13 +22,13 @@ pragma solidity ^0.8.20;
 import {ISP1Verifier} from "@sp1-contracts/ISP1Verifier.sol";
 
 contract MyContract {
-	address public constant SP1_VERIFIER = 0x3B6041173B80E77f038f3F2C0f9744f04837185e;
+    address public constant SP1_VERIFIER = 0x3B6041173B80E77f038f3F2C0f9744f04837185e;
 
-	bytes32 public constant PROGRAM_VKEY = ...;
+    bytes32 public constant PROGRAM_VKEY = ...;
 
-	function myFunction(..., bytes calldata publicValues, bytes calldata proofBytes) external {
-		ISP1Verifier(SP1_VERIFIER).verifyProof(PROGRAM_VKEY, publicValues, proofBytes);
-	}
+    function myFunction(..., bytes calldata publicValues, bytes calldata proofBytes) external {
+        ISP1Verifier(SP1_VERIFIER).verifyProof(PROGRAM_VKEY, publicValues, proofBytes);
+    }
 }
 ```
 
@@ -49,26 +49,30 @@ To deploy the contracts, ensure your [.env](./contracts/.env.example) file is co
 Then you can use the `forge script` command and specify the specific contract you want to deploy. For example, to deploy the SP1 Verifier Gateway for PLONK you can run:
 
 ```bash
-FOUNDRY_PROFILE=deploy forge script ./script/deploy/SP1VerifierGatewayPlonk.s.sol:SP1VerifierGatewayPlonkScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+FOUNDRY_PROFILE=deploy forge script ./script/deploy/SP1VerifierGatewayPlonk.s.sol:SP1VerifierGatewayScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
 ```
 
 or to deploy the SP1 Verifier Gateway for Groth16 you can run:
 
 ```bash
-FOUNDRY_PROFILE=deploy forge script ./script/deploy/SP1VerifierGatewayGroth16.s.sol:SP1VerifierGatewayGroth16Script --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+FOUNDRY_PROFILE=deploy forge script ./script/deploy/SP1VerifierGatewayGroth16.s.sol:SP1VerifierGatewayScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
 ```
 
 ### Adding Verifiers
 
-To deploy a specific SP1 Verifier version and add it to the gateway, run:
+You can use the `forge script` command to specify which verifier you want to deploy and add to the gateway. For example to deploy the PLONK verifier and add it to the PLONK gateway you can run:
 
 ```bash
 FOUNDRY_PROFILE=deploy forge script ./script/deploy/v3.0.0/SP1VerifierPlonk.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
 ```
 
-Change `v3.0.0` to the desired version to add.
+or to deploy the Groth16 verifier and add it to the Groth16 gateway you can run:
 
-To re-verify already existing deployments, remove the `--broadcast` flag.
+```bash
+FOUNDRY_PROFILE=deploy forge script ./script/deploy/v3.0.0/SP1VerifierGroth16.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+```
+
+Change `v3.0.0` to the desired version to add.
 
 ### Freezing Verifiers
 
