@@ -7,7 +7,7 @@ import {SP1VerifierGateway} from "../../../src/SP1VerifierGateway.sol";
 import {ISP1VerifierWithHash} from "../../../src/ISP1Verifier.sol";
 
 contract SP1VerifierScript is BaseScript {
-    string internal constant KEY = "V2_0_0_SP1_VERIFIER_GROTH16";
+    string internal constant KEY = "V2_0_0_SP1_VERIFIER_PLONK";
 
     function run() external multichain(KEY) broadcaster {
         // Read config
@@ -27,7 +27,7 @@ contract SP1VerifierScript is BaseScript {
 
     function freeze() external multichain(KEY) broadcaster {
         // Read config
-        address SP1_VERIFIER_GATEWAY = readAddress("SP1_VERIFIER_GATEWAY_GROTH16");
+        address SP1_VERIFIER_GATEWAY = readAddress("SP1_VERIFIER_GATEWAY_PLONK");
         address SP1_VERIFIER = readAddress(KEY);
 
         // Freeze the verifier on the gateway
