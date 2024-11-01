@@ -46,10 +46,16 @@ You can obtain the correct `PROGRAM_VKEY` for your program calling the `setup` f
 
 To deploy the contracts, ensure your [.env](./contracts/.env.example) file is configured with all the chains you want to deploy to.
 
-Then you can use the `forge script` command and specify the specific contract you want to deploy. For example, to deploy the SP1 Verifier Gateway you can run:
+Then you can use the `forge script` command and specify the specific contract you want to deploy. For example, to deploy the SP1 Verifier Gateway for PLONK you can run:
 
 ```bash
-FOUNDRY_PROFILE=deploy forge script ./script/deploy/SP1VerifierGateway.s.sol:SP1VerifierGatewayScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+FOUNDRY_PROFILE=deploy forge script ./script/deploy/SP1VerifierGatewayPlonk.s.sol:SP1VerifierGatewayPlonkScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+```
+
+or to deploy the SP1 Verifier Gateway for Groth16 you can run:
+
+```bash
+FOUNDRY_PROFILE=deploy forge script ./script/deploy/SP1VerifierGatewayGroth16.s.sol:SP1VerifierGatewayGroth16Script --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
 ```
 
 ### Adding Verifiers
@@ -66,6 +72,7 @@ To re-verify already existing deployments, remove the `--broadcast` flag.
 
 ### Freezing Verifiers
 
+> [!WARNING]  
 > **BE CAREFUL** When a freezing a verifier. Once it is frozen, it cannot be unfrozen, and it can no longer be routed to.
 
 To freeze a verifier on the gateway, run:

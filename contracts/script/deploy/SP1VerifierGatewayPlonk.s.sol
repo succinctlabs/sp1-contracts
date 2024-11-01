@@ -4,8 +4,8 @@ pragma solidity ^0.8.20;
 import {BaseScript} from "../utils/Base.s.sol";
 import {SP1VerifierGateway} from "../../src/SP1VerifierGateway.sol";
 
-contract SP1VerifierGatewayScript is BaseScript {
-    string internal constant KEY = "SP1_VERIFIER_GATEWAY";
+contract SP1VerifierGatewayPlonkScript is BaseScript {
+    string internal constant KEY = "SP1_VERIFIER_GATEWAY_PLONK";
 
     function run() external multichain(KEY) broadcaster {
         // Read config
