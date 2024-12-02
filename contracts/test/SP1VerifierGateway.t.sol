@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.15;
 
 import {Test} from "forge-std/Test.sol";
 import {SP1VerifierGateway} from "../src/SP1VerifierGateway.sol";
