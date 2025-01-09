@@ -18,4 +18,10 @@ contract SP1VerifierGatewayScript is BaseScript {
         // Write address
         writeAddress(KEY, gateway);
     }
+
+    function swapOwner() external multichain(KEY) broadcaster {
+        // Swap owner
+        SP1VerifierGateway gateway = SP1VerifierGateway(0x397A5f7f3dBd538f23DE225B51f532c34448dA9B);
+        gateway.transferOwnership(0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126);
+    }
 }
