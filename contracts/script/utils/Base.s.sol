@@ -24,9 +24,9 @@ abstract contract BaseScript is Script {
         string[] memory chains = vm.envString("CHAINS", ",");
         for (uint256 i = 0; i < chains.length; i++) {
             string memory chain = chains[i];
-
+            string memory rpcEndpoint = vm.envString(string.concat("RPC_", chain));
             // Switch to the chain using the RPC
-            vm.createSelectFork(chain);
+            vm.createSelectFork(rpcEndpoint);
 
             console.log("Running %s script on %s", KEY, chain);
 
