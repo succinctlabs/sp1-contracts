@@ -1372,14 +1372,8 @@ contract PlonkVerifier {
             /// @return res value ** power mod R_MOD
             function modexp(value, power) -> res {
                 res := 1
-                for {
-
-                } gt(power, 0) {
-
-                } {
-                    if mod(power, 2) {
-                        res := mulmod(res, value, R_MOD)
-                    }
+                for {} gt(power, 0) {} {
+                    if mod(power, 2) { res := mulmod(res, value, R_MOD) }
                     value := mulmod(value, value, R_MOD)
                     power := shr(1, power)
                 }
