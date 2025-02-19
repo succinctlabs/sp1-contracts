@@ -1361,18 +1361,28 @@ contract PlonkVerifier {
 
             /// @param x element to exponentiate
             /// @param e exponent
-            /// @param mPtr free memory
+            /// @param mPtr free memory (unused)
             /// @return res x ** e mod r
             function pow(x, e, mPtr) -> res {
-                mstore(mPtr, 0x20)
-                mstore(add(mPtr, 0x20), 0x20)
-                mstore(add(mPtr, 0x40), 0x20)
-                mstore(add(mPtr, 0x60), x)
-                mstore(add(mPtr, 0x80), e)
-                mstore(add(mPtr, 0xa0), R_MOD)
-                let check_staticcall := staticcall(gas(), MOD_EXP, mPtr, 0xc0, mPtr, 0x20)
-                if eq(check_staticcall, 0) { error_mod_exp() }
-                res := mload(mPtr)
+                res := modexp(x, e)
+            }
+
+            /// @param value element to exponentiate
+            /// @param power exponent
+            /// @return res value ** power mod R_MOD
+            function modexp(value, power) -> res {
+                res := 1
+                for {
+
+                } gt(power, 0) {
+
+                } {
+                    if mod(power, 2) {
+                        res := mulmod(res, value, R_MOD)
+                    }
+                    value := mulmod(value, value, R_MOD)
+                    power := shr(1, power)
+                }
             }
         }
     }
