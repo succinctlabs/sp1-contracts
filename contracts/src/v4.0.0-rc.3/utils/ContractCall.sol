@@ -5,7 +5,6 @@ pragma solidity ^0.8.20;
 /// @author Succinct Labs
 /// @notice This library is an helper to verify contract calls.
 library ContractCall {
-
     address internal constant BEACON_ROOTS_ADDRESS = 0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02;
 
     /// @notice The inputs used to verify a contract call.
@@ -19,7 +18,10 @@ library ContractCall {
         bytes contractOutput;
     }
 
-    enum AnchorType { BlockHash, BeaconRoot }
+    enum AnchorType {
+        BlockHash,
+        BeaconRoot
+    }
 
     /// @notice The anchor is too old and can no longer be validated.
     error ExpiredAnchor();
@@ -32,10 +34,12 @@ library ContractCall {
 
     /// @notice Verify contract call public values.
     function verifyCall(ContractPublicValues memory publicValues) public view {
-        if (publicValues.anchorType == AnchorType.BlockHash)
+        if (publicValues.anchorType == AnchorType.BlockHash) {
             return verifyBlockAnchor(publicValues.id, publicValues.anchorHash);
-        if (publicValues.anchorType == AnchorType.BeaconRoot)
+        }
+        if (publicValues.anchorType == AnchorType.BeaconRoot) {
             return verifyBeaconAnchor(publicValues.id, publicValues.anchorHash);
+        }
 
         revert AnchorTypeNotSupported(publicValues.anchorType);
     }
@@ -62,8 +66,7 @@ library ContractCall {
             if (blockRoot != abi.decode(result, (bytes32))) {
                 revert AnchorMismatch();
             }
-        }
-        else {
+        } else {
             revert AnchorMismatch();
         }
     }
