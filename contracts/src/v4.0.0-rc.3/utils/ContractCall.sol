@@ -1,39 +1,38 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+/// @notice The inputs used to verify a contract call.
+struct ContractPublicValues {
+    uint256 id;
+    bytes32 anchorHash;
+    AnchorType anchorType;
+    address callerAddress;
+    address contractAddress;
+    bytes contractCalldata;
+    bytes contractOutput;
+}
+
+/// @notice The type of the anchor.
+enum AnchorType { BlockHash, BeaconRoot }
+
+/// @notice The anchor is too old and can no longer be validated.
+error ExpiredAnchor();
+
+ /// @notice The anchor doesn't match the witness.
+error AnchorMismatch();
+
+/// @notice The anchor type is not supported.
+error AnchorTypeNotSupported(AnchorType);
+
+
 /// @title SP1 ContractCall
 /// @author Succinct Labs
 /// @notice This library is an helper to verify contract calls.
 library ContractCall {
     address internal constant BEACON_ROOTS_ADDRESS = 0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02;
 
-    /// @notice The inputs used to verify a contract call.
-    struct ContractPublicValues {
-        uint256 id;
-        bytes32 anchorHash;
-        AnchorType anchorType;
-        address callerAddress;
-        address contractAddress;
-        bytes contractCalldata;
-        bytes contractOutput;
-    }
-
-    enum AnchorType {
-        BlockHash,
-        BeaconRoot
-    }
-
-    /// @notice The anchor is too old and can no longer be validated.
-    error ExpiredAnchor();
-
-    /// @notice The anchor doesn't match the witness.
-    error AnchorMismatch();
-
-    /// @notice The anchor type is not supported.
-    error AnchorTypeNotSupported(AnchorType);
-
     /// @notice Verify contract call public values.
-    function verifyCall(ContractPublicValues memory publicValues) public view {
+    function verify(ContractPublicValues memory publicValues) internal view {
         if (publicValues.anchorType == AnchorType.BlockHash) {
             return verifyBlockAnchor(publicValues.id, publicValues.anchorHash);
         }
