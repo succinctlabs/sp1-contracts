@@ -13,17 +13,19 @@ struct ContractPublicValues {
 }
 
 /// @notice The type of the anchor.
-enum AnchorType { BlockHash, BeaconRoot }
+enum AnchorType {
+    BlockHash,
+    BeaconRoot
+}
 
 /// @notice The anchor is too old and can no longer be validated.
 error ExpiredAnchor();
 
- /// @notice The anchor doesn't match the witness.
+/// @notice The anchor doesn't match the witness.
 error AnchorMismatch();
 
 /// @notice The anchor type is not supported.
 error AnchorTypeNotSupported(AnchorType);
-
 
 /// @title SP1 ContractCall
 /// @author Succinct Labs
