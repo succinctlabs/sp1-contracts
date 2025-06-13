@@ -6,6 +6,7 @@ struct ContractPublicValues {
     uint256 id;
     bytes32 anchorHash;
     AnchorType anchorType;
+    bytes32 genesisHash;
     address callerAddress;
     address contractAddress;
     bytes contractCalldata;
