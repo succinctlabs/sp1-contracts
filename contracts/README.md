@@ -3,7 +3,17 @@
 This repository contains the smart contracts for verifying [SP1](https://github.com/succinctlabs/sp1) EVM proofs. 
 
 ## Overview
-- [`SP1Verifier`](./src/SP1Verifier.sol): The main contract for verifying SP1 EVM proofs.
-- [`SP1MockVerifier`](./src/SP1MockVerifier.sol): A mock contract for testing SP1 EVM proofs.
-- [`ISP1Verifier`](./src/ISP1Verifier.sol): Interface for SP1Verifier.
-- [`PlonkVerifier`](./src/PlonkVerifier.sol): Core logic for verifying Plonk EVM proofs.
+The repository supports both PLONK and Groth16 proof systems:
+
+### Core Contracts
+- [`ISP1Verifier`](./src/ISP1Verifier.sol): Interface for SP1 verifiers
+- [`ISP1VerifierGateway`](./src/ISP1VerifierGateway.sol): Interface for the verifier gateway
+- [`SP1VerifierGateway`](./src/SP1VerifierGateway.sol): Gateway contract that routes to appropriate verifier versions
+- [`SP1MockVerifier`](./src/SP1MockVerifier.sol): Mock contract for testing
+
+### Verifier Implementations by Version
+Each version directory (e.g., `v5.0.0/`) contains:
+- `SP1VerifierPlonk.sol`: PLONK proof verifier
+- `SP1VerifierGroth16.sol`: Groth16 proof verifier
+- `PlonkVerifier.sol`: Core PLONK verification logic
+- `Groth16Verifier.sol`: Core Groth16 verification logic
