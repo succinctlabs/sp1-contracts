@@ -33,6 +33,7 @@ optimism = "${RPC_OPTIMISM}"
 optimism_sepolia = "${RPC_OPTIMISM_SEPOLIA}"
 scroll = "${RPC_SCROLL}"
 scroll_sepolia = "${RPC_SCROLL_SEPOLIA}"
+hyperevm = "${RPC_HYPEREVM}"
 
 [etherscan]
 mainnet = { key = "${ETHERSCAN_API_KEY_MAINNET}", url = "${ETHERSCAN_API_URL_MAINNET}" }
@@ -47,3 +48,4 @@ optimism = { key = "${ETHERSCAN_API_KEY_OPTIMISM}", url = "${ETHERSCAN_API_URL_O
 optimism_sepolia = { key = "${ETHERSCAN_API_KEY_OPTIMISM_SEPOLIA}", url = "${ETHERSCAN_API_URL_OPTIMISM_SEPOLIA}" }
 scroll = { key = "${ETHERSCAN_API_KEY_SCROLL}", url = "${ETHERSCAN_API_URL_SCROLL}" }
 scroll_sepolia = { key = "${ETHERSCAN_API_KEY_SCROLL_SEPOLIA}", url = "${ETHERSCAN_API_URL_SCROLL_SEPOLIA}" }
+hyperevm = { key = "${ETHERSCAN_API_KEY_HYPEREVM}", url = "${ETHERSCAN_API_URL_HYPEREVM}" }
