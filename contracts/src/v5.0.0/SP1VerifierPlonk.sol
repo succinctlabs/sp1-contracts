@@ -49,11 +49,18 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
             revert WrongVerifierSelector(receivedSelector, expectedSelector);
         }
 
+        bytes32 exit_code = bytes32(proofBytes[4:4+32]);
+        bytes32 vkey_root = bytes32(proofBytes[36:36+32]);
+
         bytes32 publicValuesDigest = hashPublicValues(publicValues);
-        uint256[] memory inputs = new uint256[](2);
+        
+        uint256[] memory inputs = new uint256[](4);
         inputs[0] = uint256(programVKey);
         inputs[1] = uint256(publicValuesDigest);
-        bool success = this.Verify(proofBytes[4:], inputs);
+        inputs[2] = uint256(exit_code);
+        inputs[3] = uint256(vkey_root);
+
+        bool success = this.Verify(proofBytes[68:], inputs);
         if (!success) {
             revert InvalidProof();
         }
