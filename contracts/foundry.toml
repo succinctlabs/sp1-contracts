@@ -24,6 +24,7 @@ ignore = ["lib/**"]
 mainnet = "${RPC_MAINNET}"
 sepolia = "${RPC_SEPOLIA}"
 holesky = "${RPC_HOLESKY}"
+hoodi = "${RPC_HOODI}"
 arbitrum = "${RPC_ARBITRUM}"
 arbitrum_sepolia = "${RPC_ARBITRUM_SEPOLIA}"
 base = "${RPC_BASE}"
@@ -37,6 +38,7 @@ scroll_sepolia = "${RPC_SCROLL_SEPOLIA}"
 mainnet = { key = "${ETHERSCAN_API_KEY_MAINNET}", url = "${ETHERSCAN_API_URL_MAINNET}" }
 sepolia = { key = "${ETHERSCAN_API_KEY_SEPOLIA}", url = "${ETHERSCAN_API_URL_SEPOLIA}" }
 holesky = { key = "${ETHERSCAN_API_KEY_HOLESKY}", url = "${ETHERSCAN_API_URL_HOLESKY}" }
+hoodi = { key = "${ETHERSCAN_API_KEY_HOODI}", url = "${ETHERSCAN_API_URL_HOODI}" }
 arbitrum = { key = "${ETHERSCAN_API_KEY_ARBITRUM}", url = "${ETHERSCAN_API_URL_ARBITRUM}" }
 arbitrum_sepolia = { key = "${ETHERSCAN_API_KEY_ARBITRUM_SEPOLIA}", url = "${ETHERSCAN_API_URL_ARBITRUM_SEPOLIA}" }
 base = { key = "${ETHERSCAN_API_KEY_BASE}", url = "${ETHERSCAN_API_URL_BASE}" }
