@@ -28,9 +28,7 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
 
     /// @notice Hashes the public values to a field elements inside Bn254.
     /// @param publicValues The public values.
-    function hashPublicValues(
-        bytes calldata publicValues
-    ) public pure returns (bytes32) {
+    function hashPublicValues(bytes calldata publicValues) public pure returns (bytes32) {
         return sha256(publicValues) & bytes32(uint256((1 << 253) - 1));
     }
 
@@ -49,11 +47,11 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
             revert WrongVerifierSelector(receivedSelector, expectedSelector);
         }
 
-        bytes32 exit_code = bytes32(proofBytes[4:4+32]);
-        bytes32 vkey_root = bytes32(proofBytes[36:36+32]);
+        bytes32 exit_code = bytes32(proofBytes[4:4 + 32]);
+        bytes32 vkey_root = bytes32(proofBytes[36:36 + 32]);
 
         bytes32 publicValuesDigest = hashPublicValues(publicValues);
-        
+
         uint256[] memory inputs = new uint256[](4);
         inputs[0] = uint256(programVKey);
         inputs[1] = uint256(publicValuesDigest);
