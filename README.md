@@ -89,7 +89,7 @@ Change `v3.0.0` to the desired version to freeze.
 
 ## For Developers: Integrate SP1 Contracts
 
-This repository contains the EVM contracts for verifying SP1 PLONK EVM proofs.
+This repository contains the EVM contracts for verifying SP1 proofs, supporting both PLONK and Groth16 proof systems.
 
 You can find more details on the contracts in the [`contracts`](./contracts/README.md) directory.
 
