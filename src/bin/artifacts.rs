@@ -5,7 +5,8 @@ use sp1_sdk::SP1_CIRCUIT_VERSION;
 use std::fs::{create_dir_all, read, read_dir, write};
 use std::path::PathBuf;
 
-fn main() -> Result<()> {
+#[tokio::main]
+async fn main() -> Result<()> {
     dotenv::dotenv().ok();
 
     setup_logger();
@@ -14,10 +15,14 @@ fn main() -> Result<()> {
     let mut artifact_dirs = Vec::new();
 
     for &artifact_type in &artifact_types {
-        let artifacts_dir = try_install_circuit_artifacts(artifact_type);
+        let artifacts_dir = try_install_circuit_artifacts(artifact_type).await;
         artifact_dirs.push(artifacts_dir);
     }
 
+    log::info!(
+        "installed artifacts, circuit version: {}",
+        SP1_CIRCUIT_VERSION
+    );
     // Read all Solidity files from the artifacts directories.
     let contracts_src_dir = PathBuf::from(format!("contracts/src/{}", SP1_CIRCUIT_VERSION));
     create_dir_all(&contracts_src_dir)?;
@@ -39,14 +44,15 @@ fn main() -> Result<()> {
         }
     }
 
-    println!(
+    log::info!(
         "Added the new verifier contracts to {}",
         contracts_src_dir.display()
     );
 
     // Copy deployment scripts from v2.0.0 to {SP1_CIRCUIT_VERSION}
     let source_deploy_dir = PathBuf::from("contracts/script/deploy/v2.0.0");
-    let target_deploy_dir = PathBuf::from(format!("contracts/script/deploy/{}", SP1_CIRCUIT_VERSION));
+    let target_deploy_dir =
+        PathBuf::from(format!("contracts/script/deploy/{}", SP1_CIRCUIT_VERSION));
     create_dir_all(&target_deploy_dir)?;
 
     for entry in read_dir(source_deploy_dir)? {
@@ -62,11 +68,20 @@ fn main() -> Result<()> {
                 let mut content = String::from_utf8(read(&target_path)?)?;
                 content = content.replace(
                     "import {SP1Verifier} from \"../../../src/v2.0.0/SP1VerifierGroth16.sol\";",
-                    &format!("import {{SP1Verifier}} from \"../../../src/{}/SP1VerifierGroth16.sol\";", SP1_CIRCUIT_VERSION)
+                    &format!(
+                        "import {{SP1Verifier}} from \"../../../src/{}/SP1VerifierGroth16.sol\";",
+                        SP1_CIRCUIT_VERSION
+                    ),
                 );
                 content = content.replace(
                     "string internal constant KEY = \"V2_0_0_SP1_VERIFIER_GROTH16\";",
-                    &format!("string internal constant KEY = \"{}_SP1_VERIFIER_GROTH16\";", SP1_CIRCUIT_VERSION.replace(".", "_").replace("-", "_").to_uppercase())
+                    &format!(
+                        "string internal constant KEY = \"{}_SP1_VERIFIER_GROTH16\";",
+                        SP1_CIRCUIT_VERSION
+                            .replace(".", "_")
+                            .replace("-", "_")
+                            .to_uppercase()
+                    ),
                 );
                 write(&target_path, content)?;
             }
@@ -76,11 +91,20 @@ fn main() -> Result<()> {
                 let mut content = String::from_utf8(read(&target_path)?)?;
                 content = content.replace(
                     "import {SP1Verifier} from \"../../../src/v2.0.0/SP1VerifierPlonk.sol\";",
-                    &format!("import {{SP1Verifier}} from \"../../../src/{}/SP1VerifierPlonk.sol\";", SP1_CIRCUIT_VERSION)
+                    &format!(
+                        "import {{SP1Verifier}} from \"../../../src/{}/SP1VerifierPlonk.sol\";",
+                        SP1_CIRCUIT_VERSION
+                    ),
                 );
                 content = content.replace(
                     "string internal constant KEY = \"V2_0_0_SP1_VERIFIER_PLONK\";",
-                    &format!("string internal constant KEY = \"{}_SP1_VERIFIER_PLONK\";", SP1_CIRCUIT_VERSION.replace(".", "_").replace("-", "_").to_uppercase())
+                    &format!(
+                        "string internal constant KEY = \"{}_SP1_VERIFIER_PLONK\";",
+                        SP1_CIRCUIT_VERSION
+                            .replace(".", "_")
+                            .replace("-", "_")
+                            .to_uppercase()
+                    ),
                 );
                 write(&target_path, content)?;
             }
