@@ -57,9 +57,9 @@ checksum = "683d7910e743518b0e34f1186f92494becacb047c7b6bf616c96772180fef923"
 
 [[package]]
 name = "alloy-consensus"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "12870ab65b131f609257436935047eec3cfabee8809732f6bf5a69fe2a18cf2e"
+checksum = "5c3a590d13de3944675987394715f37537b50b856e3b23a0e66e97d963edbf38"
 dependencies = [
  "alloy-eips",
  "alloy-primitives",
@@ -84,9 +84,9 @@ dependencies = [
 
 [[package]]
 name = "alloy-consensus-any"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "47c66b14d2187de0c4efe4ef678aaa57a6a34cccdbea3a0773627fac9bd128f4"
+checksum = "0f28f769d5ea999f0d8a105e434f483456a15b4e1fcb08edbbbe1650a497ff6d"
 dependencies = [
  "alloy-consensus",
  "alloy-eips",
@@ -136,9 +136,9 @@ dependencies = [
 
 [[package]]
 name = "alloy-eips"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f076d25ddfcd2f1cbcc234e072baf97567d1df0e3fccdc1f8af8cc8b18dc6299"
+checksum = "09535cbc646b0e0c6fcc12b7597eaed12cf86dff4c4fba9507a61e71b94f30eb"
 dependencies = [
  "alloy-eip2124",
  "alloy-eip2930",
@@ -171,9 +171,9 @@ dependencies = [
 
 [[package]]
 name = "alloy-json-rpc"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "250dbd8496f04eabe997e6e4c5186a0630b8bc3dbe7552e1fd917d491ef811e9"
+checksum = "72b626409c98ba43aaaa558361bca21440c88fd30df7542c7484b9c7a1489cdb"
 dependencies = [
  "alloy-primitives",
  "alloy-sol-types",
@@ -186,9 +186,9 @@ dependencies = [
 
 [[package]]
 name = "alloy-network"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fd45cdac957d1fa1d0c18f54f262350eb72f1adc38dd1f8b15f33f0747c6a60c"
+checksum = "89924fdcfeee0e0fa42b1f10af42f92802b5d16be614a70897382565663bf7cf"
 dependencies = [
  "alloy-consensus",
  "alloy-consensus-any",
@@ -212,9 +212,9 @@ dependencies = [
 
 [[package]]
 name = "alloy-network-primitives"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fba5c43e055effb5bd33dbc74b1ab7fe0f367d8801a25af9e7c716b3ef5e440b"
+checksum = "0f0dbe56ff50065713ff8635d8712a0895db3ad7f209db9793ad8fcb6b1734aa"
 dependencies = [
  "alloy-consensus",
  "alloy-eips",
@@ -275,9 +275,9 @@ dependencies = [
 
 [[package]]
 name = "alloy-rpc-types-any"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8faa6f22068857f58579271b15e042f4725ad35cdce2ed4778ba32ffd3102b92"
+checksum = "212ca1c1dab27f531d3858f8b1a2d6bfb2da664be0c1083971078eb7b71abe4b"
 dependencies = [
  "alloy-consensus-any",
  "alloy-rpc-types-eth",
@@ -286,9 +286,9 @@ dependencies = [
 
 [[package]]
 name = "alloy-rpc-types-eth"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1ec734cce11f7fe889950b36b51589397528b26beb6f890834a2131ee9f174d7"
+checksum = "5715d0bf7efbd360873518bd9f6595762136b5327a9b759a8c42ccd9b5e44945"
 dependencies = [
  "alloy-consensus",
  "alloy-consensus-any",
@@ -307,9 +307,9 @@ dependencies = [
 
 [[package]]
 name = "alloy-serde"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "27f076bfd74fccc63d50546e1765359736357a953de2eb778b7b6191571735e6"
+checksum = "5ed8531cae8d21ee1c6571d0995f8c9f0652a6ef6452fde369283edea6ab7138"
 dependencies = [
  "alloy-primitives",
  "serde",
@@ -318,9 +318,9 @@ dependencies = [
 
 [[package]]
 name = "alloy-signer"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d80748c209a68421ab6f737828ce6ede7543569a5cad099c1ec16fc1baa05620"
+checksum = "fb10ccd49d0248df51063fce6b716f68a315dd912d55b32178c883fd48b4021d"
 dependencies = [
  "alloy-primitives",
  "async-trait",
@@ -333,9 +333,9 @@ dependencies = [
 
 [[package]]
 name = "alloy-signer-aws"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a2a0b80a0e21c1b8d7321d0a88bd115ad1182c293ca7e3dd0217c156f98b5b1e"
+checksum = "e4e8f1e3be115a00199cd6613f36cac93b5be965e65d57b125f22008bcfad6f2"
 dependencies = [
  "alloy-consensus",
  "alloy-network",
@@ -352,9 +352,9 @@ dependencies = [
 
 [[package]]
 name = "alloy-signer-local"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "17eb1eb39351b4bf20bb0710d8d3a91eb7918d3f3de2f3835f556842e33865cb"
+checksum = "f4d992d44e6c414ece580294abbadb50e74cfd4eaa69787350a4dfd4b20eaa1b"
 dependencies = [
  "alloy-consensus",
  "alloy-network",
@@ -454,9 +454,9 @@ dependencies = [
 
 [[package]]
 name = "alloy-tx-macros"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bb0d567f4830dea921868c7680004ae0c7f221b05e6477db6c077c7953698f56"
+checksum = "b2289a842d02fe63f8c466db964168bb2c7a9fdfb7b24816dbb17d45520575fb"
 dependencies = [
  "darling",
  "proc-macro2",
@@ -862,9 +862,9 @@ dependencies = [
 
 [[package]]
 name = "aws-lc-rs"
-version = "1.15.2"
+version = "1.15.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6a88aab2464f1f25453baa7a07c84c5b7684e274054ba06817f382357f77a288"
+checksum = "e84ce723ab67259cfeb9877c6a639ee9eb7a27b28123abd71db7f0d5d0cc9d86"
 dependencies = [
  "aws-lc-sys",
  "zeroize",
@@ -872,9 +872,9 @@ dependencies = [
 
 [[package]]
 name = "aws-lc-sys"
-version = "0.35.0"
+version = "0.36.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b45afffdee1e7c9126814751f88dddc747f41d91da16c9551a0f1e8a11e788a1"
+checksum = "43a442ece363113bd4bd4c8b18977a7798dd4d3c3383f34fb61936960e8f4ad8"
 dependencies = [
  "cc",
  "cmake",
@@ -1618,9 +1618,9 @@ checksum = "613afe47fcd5fac7ccf1db93babcb082c5994d996f20b8b159f2ad1658eb5724"
 
 [[package]]
 name = "chrono"
-version = "0.4.42"
+version = "0.4.43"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "145052bdd345b87320e369255277e3fb5152762ad123a901ef5c262dd38fe8d2"
+checksum = "fac4744fb15ae8337dc853fee7fb3f4e48c0fbaa23d0afe49c447b4fab126118"
 dependencies = [
  "iana-time-zone",
  "num-traits",
@@ -5489,7 +5489,7 @@ checksum = "7a2ae44ef20feb57a68b23d846850f861394c2e02dc425a50098ae8c90267589"
 [[package]]
 name = "slop-air"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "p3-air",
 ]
@@ -5497,7 +5497,7 @@ dependencies = [
 [[package]]
 name = "slop-algebra"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "itertools 0.13.0",
  "p3-field 0.1.0",
@@ -5507,7 +5507,7 @@ dependencies = [
 [[package]]
 name = "slop-alloc"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "serde",
  "slop-algebra",
@@ -5517,7 +5517,7 @@ dependencies = [
 [[package]]
 name = "slop-baby-bear"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "lazy_static",
  "p3-baby-bear 0.1.0",
@@ -5531,7 +5531,7 @@ dependencies = [
 [[package]]
 name = "slop-basefold"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "derive-where",
  "itertools 0.13.0",
@@ -5553,7 +5553,7 @@ dependencies = [
 [[package]]
 name = "slop-basefold-prover"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "derive-where",
  "itertools 0.13.0",
@@ -5580,7 +5580,7 @@ dependencies = [
 [[package]]
 name = "slop-bn254"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "ff 0.13.1",
  "p3-bn254-fr",
@@ -5595,7 +5595,7 @@ dependencies = [
 [[package]]
 name = "slop-challenger"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "futures",
  "p3-challenger",
@@ -5607,7 +5607,7 @@ dependencies = [
 [[package]]
 name = "slop-commit"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "p3-commit",
  "serde",
@@ -5617,7 +5617,7 @@ dependencies = [
 [[package]]
 name = "slop-dft"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "p3-dft 0.1.0",
  "serde",
@@ -5630,7 +5630,7 @@ dependencies = [
 [[package]]
 name = "slop-fri"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "p3-fri",
 ]
@@ -5638,7 +5638,7 @@ dependencies = [
 [[package]]
 name = "slop-futures"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "crossbeam",
  "futures",
@@ -5652,7 +5652,7 @@ dependencies = [
 [[package]]
 name = "slop-jagged"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "derive-where",
  "futures",
@@ -5686,7 +5686,7 @@ dependencies = [
 [[package]]
 name = "slop-keccak-air"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "p3-keccak-air",
 ]
@@ -5694,7 +5694,7 @@ dependencies = [
 [[package]]
 name = "slop-koala-bear"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "lazy_static",
  "p3-koala-bear",
@@ -5708,7 +5708,7 @@ dependencies = [
 [[package]]
 name = "slop-matrix"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "p3-matrix 0.1.0",
 ]
@@ -5716,7 +5716,7 @@ dependencies = [
 [[package]]
 name = "slop-maybe-rayon"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "p3-maybe-rayon 0.1.0",
 ]
@@ -5724,7 +5724,7 @@ dependencies = [
 [[package]]
 name = "slop-merkle-tree"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "derive-where",
  "ff 0.13.1",
@@ -5751,7 +5751,7 @@ dependencies = [
 [[package]]
 name = "slop-multilinear"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "derive-where",
  "futures",
@@ -5772,7 +5772,7 @@ dependencies = [
 [[package]]
 name = "slop-poseidon2"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "p3-poseidon2 0.1.0",
 ]
@@ -5780,7 +5780,7 @@ dependencies = [
 [[package]]
 name = "slop-primitives"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "slop-algebra",
 ]
@@ -5788,7 +5788,7 @@ dependencies = [
 [[package]]
 name = "slop-stacked"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "derive-where",
  "futures",
@@ -5811,7 +5811,7 @@ dependencies = [
 [[package]]
 name = "slop-sumcheck"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "futures",
  "itertools 0.13.0",
@@ -5828,7 +5828,7 @@ dependencies = [
 [[package]]
 name = "slop-symmetric"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "p3-symmetric 0.1.0",
 ]
@@ -5836,7 +5836,7 @@ dependencies = [
 [[package]]
 name = "slop-tensor"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "arrayvec",
  "derive-where",
@@ -5856,7 +5856,7 @@ dependencies = [
 [[package]]
 name = "slop-uni-stark"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "p3-uni-stark",
 ]
@@ -5864,7 +5864,7 @@ dependencies = [
 [[package]]
 name = "slop-utils"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "p3-util 0.1.0",
  "tracing-forest",
@@ -5874,7 +5874,7 @@ dependencies = [
 [[package]]
 name = "slop-whir"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "derive-where",
  "futures",
@@ -5942,7 +5942,7 @@ dependencies = [
 [[package]]
 name = "sp1-build"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "anyhow",
  "cargo_metadata",
@@ -5966,7 +5966,7 @@ dependencies = [
 [[package]]
 name = "sp1-core-executor"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "bincode",
  "bytemuck",
@@ -6005,7 +6005,7 @@ dependencies = [
 [[package]]
 name = "sp1-core-machine"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "bincode",
  "cfg-if",
@@ -6051,7 +6051,7 @@ dependencies = [
 [[package]]
 name = "sp1-cuda"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "bincode",
  "bytes",
@@ -6072,7 +6072,7 @@ dependencies = [
 [[package]]
 name = "sp1-curves"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "cfg-if",
  "dashu",
@@ -6092,7 +6092,7 @@ dependencies = [
 [[package]]
 name = "sp1-derive"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -6102,7 +6102,7 @@ dependencies = [
 [[package]]
 name = "sp1-hypercube"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "arrayref",
  "deepsize2",
@@ -6149,7 +6149,7 @@ dependencies = [
 [[package]]
 name = "sp1-jit"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "dynasmrt",
  "hashbrown 0.14.5",
@@ -6195,7 +6195,7 @@ dependencies = [
 [[package]]
 name = "sp1-primitives"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "bincode",
  "blake3",
@@ -6218,7 +6218,7 @@ dependencies = [
 [[package]]
 name = "sp1-prover"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "anyhow",
  "bincode",
@@ -6281,7 +6281,7 @@ dependencies = [
 [[package]]
 name = "sp1-prover-types"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "anyhow",
  "async-scoped",
@@ -6301,7 +6301,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-circuit"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "bincode",
  "itertools 0.13.0",
@@ -6340,7 +6340,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-compiler"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "backtrace",
  "cfg-if",
@@ -6360,7 +6360,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-executor"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "backtrace",
  "cfg-if",
@@ -6383,7 +6383,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-gnark-ffi"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "anyhow",
  "bincode",
@@ -6407,7 +6407,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-machine"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "itertools 0.13.0",
  "rand 0.8.5",
@@ -6429,7 +6429,7 @@ dependencies = [
 [[package]]
 name = "sp1-sdk"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "alloy-primitives",
  "alloy-signer",
@@ -6490,7 +6490,7 @@ dependencies = [
 [[package]]
 name = "sp1-verifier"
 version = "6.0.0"
-source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=yuwen%2Fartifacts#86590dbac66286975b2f33782795ab9c97d5419d"
+source = "git+https://github.com/succinctlabs/sp1-wip.git?branch=multilinear_v6#d6f62c2d626b22247f296eaecf524d71c5fb6eb6"
 dependencies = [
  "bincode",
  "blake3",

@@ -15,5 +15,5 @@ sp1-sdk = { git = "https://github.com/succinctlabs/sp1-wip.git", features = [
     "blocking",
     "native-gnark",
     "network",
-], branch = "yuwen/artifacts" }
+], branch = "multilinear_v6" }
 tokio = { version = "*" }
