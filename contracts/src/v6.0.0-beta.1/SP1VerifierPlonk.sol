@@ -23,6 +23,7 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
     /// @notice Thrown when the vkRoot is invalid.
     error InvalidVkRoot();
 
+    /// @notice The version of the circuit.
     function VERSION() external pure returns (string memory) {
         return "v6.0.0-beta.1";
     }
@@ -32,13 +33,16 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
         return 0x433cef0e1aaeaa7aacc52ba14efb620fa2fc92c946aeef3919c0f360943b6c2a;
     }
 
+    /// @notice The recursion vk root.
     function VK_ROOT() public pure returns (bytes32) {
         return 0x00410a5637e8b7b8c4b895991b4892efd0ff4da2b5e277d701f2f5c1f23d0c7b;
     }
 
     /// @notice Hashes the public values to a field elements inside Bn254.
     /// @param publicValues The public values.
-    function hashPublicValues(bytes calldata publicValues) public pure returns (bytes32) {
+    function hashPublicValues(
+        bytes calldata publicValues
+    ) public pure returns (bytes32) {
         return sha256(publicValues) & bytes32(uint256((1 << 253) - 1));
     }
 

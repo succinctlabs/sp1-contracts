@@ -19,7 +19,7 @@ contract SP1VerifierPlonkV6Test is Test {
         verifier = address(new SP1Verifier());
     }
 
-    /// @notice Test proof verification with v6 verifier (expected to fail).
+    /// @notice Test proof verification with v6 verifier.
     /// @dev The v6 verifier has a slightly updated format for the proof nonce and the proof size.
     function test_VerifyProof_V6() public view {
         SP1Verifier(verifier).verifyProof(PROGRAM_VKEY, PUBLIC_VALUES, PROOF_BYTES);

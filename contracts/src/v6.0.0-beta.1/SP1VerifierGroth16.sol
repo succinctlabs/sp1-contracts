@@ -30,7 +30,7 @@ contract SP1Verifier is Groth16Verifier, ISP1VerifierWithHash {
 
     /// @inheritdoc ISP1VerifierWithHash
     function VERIFIER_HASH() public pure returns (bytes32) {
-        return 0x8e9362dafeaff2fd60b459061235eed002e6e4953a8c10ef524320a18d13fa37;
+        return 0x58b7a3c37d9f7b9310b07a730c4d914e0a28d1f8ef296b0aca2bac7765ce976f;
     }
 
     /// @notice The recursion vk root.
@@ -40,7 +40,9 @@ contract SP1Verifier is Groth16Verifier, ISP1VerifierWithHash {
 
     /// @notice Hashes the public values to a field elements inside Bn254.
     /// @param publicValues The public values.
-    function hashPublicValues(bytes calldata publicValues) public pure returns (bytes32) {
+    function hashPublicValues(
+        bytes calldata publicValues
+    ) public pure returns (bytes32) {
         return sha256(publicValues) & bytes32(uint256((1 << 253) - 1));
     }
 
@@ -61,8 +63,7 @@ contract SP1Verifier is Groth16Verifier, ISP1VerifierWithHash {
         uint256 expectedVkRoot = uint256(VK_ROOT());
 
         bytes32 publicValuesDigest = hashPublicValues(publicValues);
-        (uint256 exitCode, uint256 vkRoot, uint256 nonce, uint256[8] memory proof) =
-            abi.decode(proofBytes[4:], (uint256, uint256, uint256, uint256[8]));
+        (uint256 exitCode, uint256 vkRoot, uint256 nonce, uint256[8] memory proof) = abi.decode(proofBytes[4:], (uint256, uint256, uint256, uint256[8]));
 
         uint256[5] memory inputs;
         inputs[0] = uint256(programVKey);
