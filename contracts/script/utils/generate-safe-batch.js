@@ -2,7 +2,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const CHAINS = { 1: 'Ethereum', 10: 'Optimism', 42161: 'Arbitrum', 8453: 'Base', 534352: 'Scroll' };
+const DEPLOY_DIR = path.join(__dirname, '../../deployments');
+const MAINNET_CHAINS = [1, 10, 42161, 8453, 534352]; // for --chain=all
+const CHAIN_NAMES = { 1: 'Ethereum', 10: 'Optimism', 42161: 'Arbitrum', 8453: 'Base', 534352: 'Scroll' };
 const ADD_ROUTE_SELECTOR = '0x8c95ff1e'; // keccak256("addRoute(address)")[:4]
 
 function versionToKey(v) { return v.toUpperCase().replace(/[.-]/g, '_'); }
@@ -23,7 +25,7 @@ function createTransaction(gateway, verifier) {
 }
 
 function generateBatch(chainId, version) {
-  const file = path.join(__dirname, '../../deployments', `${chainId}.json`);
+  const file = path.join(DEPLOY_DIR, `${chainId}.json`);
   if (!fs.existsSync(file)) { console.error(`  No deployment file`); return null; }
 
   let d;
@@ -54,16 +56,18 @@ function generateBatch(chainId, version) {
     version: '1.0',
     chainId: String(chainId),
     createdAt: Date.now(),
-    meta: { name: `Add SP1 ${version} Routes`, description: `Add ${version} verifiers on ${CHAINS[chainId] || chainId}` },
+    meta: { name: `Add SP1 ${version} Routes`, description: `Add ${version} verifiers on ${CHAIN_NAMES[chainId] || chainId}` },
     transactions: txs
   };
 }
 
 function printUsage() {
+  const available = fs.readdirSync(DEPLOY_DIR).filter(f => f.endsWith('.json')).map(f => f.slice(0, -5));
   console.log(`
 Usage: node generate-safe-batch.js [--chain=<id|all>] [--version=<v>]
 
-Chains: ${Object.entries(CHAINS).map(([id, name]) => `${id}=${name}`).join(', ')}
+--chain=all uses mainnet chains: ${MAINNET_CHAINS.join(', ')}
+Available: ${available.join(', ')}
 Defaults: --chain=all --version=v6.0.0-beta.1
 `);
 }
@@ -78,7 +82,7 @@ for (const a of process.argv.slice(2)) {
 
 // Validate chain
 const chains = args.chain === 'all'
-  ? Object.keys(CHAINS).map(Number)
+  ? MAINNET_CHAINS
   : [parseInt(args.chain) || (console.error(`Bad chain: ${args.chain}`), process.exit(1))];
 
 console.log(`\nGenerating batches for ${args.version} on ${args.chain === 'all' ? 'all chains' : args.chain}\n`);
@@ -88,7 +92,7 @@ fs.mkdirSync(outDir, { recursive: true });
 
 let ok = 0;
 for (const id of chains) {
-  console.log(`${CHAINS[id] || id} (${id})...`);
+  console.log(`${CHAIN_NAMES[id] || id} (${id})...`);
   const batch = generateBatch(id, args.version);
   if (batch) {
     const out = path.join(outDir, `${id}_${versionToKey(args.version).toLowerCase()}.json`);
