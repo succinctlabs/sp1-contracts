@@ -2,16 +2,9 @@
 /**
  * Generates Safe Transaction Builder JSON for adding verifier routes
  *
- * This script creates JSON files that can be uploaded directly to Safe UI's
- * Transaction Builder, eliminating manual copy/paste errors when registering
- * new verifiers with the gateway multisig.
- *
  * Usage:
  *   node generate-safe-batch.js --chain=1 --version=v6.0.0-beta.1
  *   node generate-safe-batch.js --chain=all --version=v6.0.0-beta.1
- *
- * Output:
- *   Creates JSON files in contracts/safe-batches/ directory
  */
 
 const fs = require('fs');
@@ -29,109 +22,74 @@ const CHAINS = {
 // addRoute(address) function selector = keccak256("addRoute(address)")[:4]
 const ADD_ROUTE_SELECTOR = '0x8c95ff1e';
 
-/**
- * Encodes the addRoute(address) calldata
- * @param {string} verifierAddress - The verifier contract address (with 0x prefix)
- * @returns {string} - The encoded calldata
- */
+// Encodes addRoute(address) calldata: selector + padded address
 function encodeAddRoute(verifierAddress) {
-  // Remove 0x prefix, lowercase, and pad to 32 bytes (64 hex chars)
-  const paddedAddress = verifierAddress.slice(2).toLowerCase().padStart(64, '0');
-  return ADD_ROUTE_SELECTOR + paddedAddress;
+  return ADD_ROUTE_SELECTOR + verifierAddress.slice(2).toLowerCase().padStart(64, '0');
 }
 
-/**
- * Converts version string to deployment key format
- * Examples:
- *   v6.0.0-beta.1 -> V6_0_0_BETA_1
- *   v4.0.0-rc.3   -> V4_0_0_RC_3
- *   v5.0.0        -> V5_0_0
- * @param {string} version - Version string (e.g., "v6.0.0-beta.1")
- * @returns {string} - Deployment key format (e.g., "V6_0_0_BETA_1")
- */
+// Converts version string to key format: v6.0.0-beta.1 -> V6_0_0_BETA_1
 function versionToKey(version) {
-  return version
-    .toUpperCase()
-    .replace(/\./g, '_')
-    .replace(/-/g, '_');
+  return version.toUpperCase().replace(/[.-]/g, '_');
 }
 
-/**
- * Creates a Safe Transaction Builder transaction object
- * @param {string} gatewayAddress - The gateway contract address
- * @param {string} verifierAddress - The verifier contract address
- * @returns {object} - Transaction object for Safe Transaction Builder
- */
+// Creates a Safe Transaction Builder transaction object
 function createTransaction(gatewayAddress, verifierAddress) {
   return {
     to: gatewayAddress,
     value: '0',
     data: encodeAddRoute(verifierAddress),
-    operation: 0, // Call (not delegatecall)
+    operation: 0,
     contractMethod: {
-      inputs: [
-        {
-          internalType: 'address',
-          name: 'verifier',
-          type: 'address'
-        }
-      ],
+      inputs: [{ internalType: 'address', name: 'verifier', type: 'address' }],
       name: 'addRoute',
       payable: false
     },
-    contractInputsValues: {
-      verifier: verifierAddress
-    }
+    contractInputsValues: { verifier: verifierAddress }
   };
 }
 
-/**
- * Generates a Safe Transaction Builder batch for a specific chain
- * @param {number} chainId - The chain ID
- * @param {string} version - The version string (e.g., "v6.0.0-beta.1")
- * @returns {object|null} - The batch object or null if no verifiers found
- */
+// Generates a Safe Transaction Builder batch for a specific chain
 function generateBatch(chainId, version) {
   const deploymentPath = path.join(__dirname, '../../deployments', `${chainId}.json`);
 
   if (!fs.existsSync(deploymentPath)) {
-    console.error(`No deployment file for chain ${chainId}`);
+    console.error(`  No deployment file found`);
     return null;
   }
 
-  const deployments = JSON.parse(fs.readFileSync(deploymentPath, 'utf8'));
+  let deployments;
+  try {
+    deployments = JSON.parse(fs.readFileSync(deploymentPath, 'utf8'));
+  } catch (e) {
+    console.error(`  Failed to parse deployment file: ${e.message}`);
+    return null;
+  }
 
-  // Read gateway addresses from deployment file
   const groth16Gateway = deployments['SP1_VERIFIER_GATEWAY_GROTH16'];
   const plonkGateway = deployments['SP1_VERIFIER_GATEWAY_PLONK'];
 
   if (!groth16Gateway || !plonkGateway) {
-    console.error(`Missing gateway addresses in deployment file for chain ${chainId}`);
+    console.error(`  Missing gateway addresses in deployment file`);
     return null;
   }
 
-  // Build verifier keys based on version
   const versionKey = versionToKey(version);
-  const groth16Key = `${versionKey}_SP1_VERIFIER_GROTH16`;
-  const plonkKey = `${versionKey}_SP1_VERIFIER_PLONK`;
+  const verifiers = [
+    { type: 'Groth16', gateway: groth16Gateway, key: `${versionKey}_SP1_VERIFIER_GROTH16` },
+    { type: 'Plonk', gateway: plonkGateway, key: `${versionKey}_SP1_VERIFIER_PLONK` }
+  ];
 
   const transactions = [];
-
-  // Add Groth16 route if verifier exists
-  if (deployments[groth16Key]) {
-    transactions.push(createTransaction(groth16Gateway, deployments[groth16Key]));
-    console.log(`  Groth16: ${deployments[groth16Key]} -> ${groth16Gateway}`);
-  }
-
-  // Add Plonk route if verifier exists
-  if (deployments[plonkKey]) {
-    transactions.push(createTransaction(plonkGateway, deployments[plonkKey]));
-    console.log(`  Plonk:   ${deployments[plonkKey]} -> ${plonkGateway}`);
+  for (const { type, gateway, key } of verifiers) {
+    if (deployments[key]) {
+      transactions.push(createTransaction(gateway, deployments[key]));
+      console.log(`  ${type}: ${deployments[key]} -> ${gateway}`);
+    }
   }
 
   if (transactions.length === 0) {
-    console.error(`No verifiers found for ${version} on chain ${chainId}`);
-    console.error(`  Looking for keys: ${groth16Key}, ${plonkKey}`);
+    console.error(`  No verifiers found for ${version}`);
+    console.error(`  Expected keys: ${verifiers.map(v => v.key).join(', ')}`);
     return null;
   }
 
@@ -147,63 +105,41 @@ function generateBatch(chainId, version) {
   };
 }
 
-/**
- * Parses command line arguments
- * @returns {object} - Parsed arguments
- */
+// Parses command line arguments
 function parseArgs() {
   const args = process.argv.slice(2);
-  const result = {
-    chain: 'all',
-    version: 'v6.0.0-beta.1',
-    help: false
-  };
+  const result = { chain: 'all', version: 'v6.0.0-beta.1', help: false };
 
   for (const arg of args) {
-    if (arg === '--help' || arg === '-h') {
-      result.help = true;
-    } else if (arg.startsWith('--chain=')) {
-      result.chain = arg.split('=')[1];
-    } else if (arg.startsWith('--version=')) {
-      result.version = arg.split('=')[1];
-    }
+    if (arg === '--help' || arg === '-h') result.help = true;
+    else if (arg.startsWith('--chain=')) result.chain = arg.split('=')[1];
+    else if (arg.startsWith('--version=')) result.version = arg.split('=')[1];
   }
 
   return result;
 }
 
-/**
- * Prints usage information
- */
 function printUsage() {
+  const chainList = Object.entries(CHAINS).map(([id, name]) => `  ${id}: ${name}`).join('\n');
   console.log(`
 Safe Transaction Builder JSON Generator
-=======================================
 
-Generates JSON files for Safe UI Transaction Builder to add verifier routes.
-
-Usage:
-  node generate-safe-batch.js [options]
+Usage: node generate-safe-batch.js [options]
 
 Options:
-  --chain=<id|all>     Chain ID or 'all' for all supported chains (default: all)
-  --version=<version>  Version string, e.g., v6.0.0-beta.1 (default: v6.0.0-beta.1)
+  --chain=<id|all>     Chain ID or 'all' (default: all)
+  --version=<version>  Version string (default: v6.0.0-beta.1)
   --help, -h           Show this help message
 
 Supported Chains:
-${Object.entries(CHAINS).map(([id, name]) => `  ${id}: ${name}`).join('\n')}
+${chainList}
 
 Examples:
   node generate-safe-batch.js --chain=1 --version=v6.0.0-beta.1
   node generate-safe-batch.js --chain=all --version=v5.0.0
-
-Output:
-  Files are written to contracts/safe-batches/<chainId>_<version>.json
-  Upload these files to Safe UI -> Apps -> Transaction Builder -> Load
 `);
 }
 
-// Main execution
 function main() {
   const args = parseArgs();
 
@@ -212,23 +148,28 @@ function main() {
     process.exit(0);
   }
 
+  // Validate chain argument
+  let chainsToProcess;
+  if (args.chain === 'all') {
+    chainsToProcess = Object.keys(CHAINS).map(Number);
+  } else {
+    const chainId = parseInt(args.chain);
+    if (isNaN(chainId)) {
+      console.error(`Invalid chain ID: ${args.chain}`);
+      process.exit(1);
+    }
+    chainsToProcess = [chainId];
+  }
+
   console.log(`\nGenerating Safe Transaction Builder batches`);
   console.log(`  Version: ${args.version}`);
   console.log(`  Chains:  ${args.chain === 'all' ? 'all supported chains' : args.chain}\n`);
 
-  // Create output directory
   const outputDir = path.join(__dirname, '../../safe-batches');
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
-  }
+  fs.mkdirSync(outputDir, { recursive: true });
 
-  // Determine which chains to process
-  const chainsToProcess = args.chain === 'all'
-    ? Object.keys(CHAINS).map(Number)
-    : [parseInt(args.chain)];
-
+  const versionKey = versionToKey(args.version).toLowerCase();
   let successCount = 0;
-  let failCount = 0;
 
   for (const chainId of chainsToProcess) {
     const chainName = CHAINS[chainId] || `Chain ${chainId}`;
@@ -237,27 +178,22 @@ function main() {
     const batch = generateBatch(chainId, args.version);
 
     if (batch) {
-      // Generate filename: 1_v6_0_0_beta_1.json
-      const versionFilename = args.version.replace(/\./g, '_').replace(/-/g, '_');
-      const outputPath = path.join(outputDir, `${chainId}_${versionFilename}.json`);
-
+      const outputPath = path.join(outputDir, `${chainId}_${versionKey}.json`);
       fs.writeFileSync(outputPath, JSON.stringify(batch, null, 2));
       console.log(`  -> ${outputPath}\n`);
       successCount++;
     } else {
-      failCount++;
       console.log('');
     }
   }
 
-  console.log(`\nSummary: ${successCount} generated, ${failCount} skipped`);
+  console.log(`Summary: ${successCount}/${chainsToProcess.length} generated`);
 
   if (successCount > 0) {
     console.log(`\nNext steps:`);
-    console.log(`  1. Open Safe UI for each chain`);
-    console.log(`  2. Go to Apps -> Transaction Builder`);
-    console.log(`  3. Click "Upload JSON" and select the generated file`);
-    console.log(`  4. Review transactions and execute the batch`);
+    console.log(`  1. Open Safe UI -> Apps -> Transaction Builder`);
+    console.log(`  2. Upload the generated JSON file`);
+    console.log(`  3. Review and execute the batch`);
   }
 }
 
