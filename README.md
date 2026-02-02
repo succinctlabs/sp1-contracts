@@ -10,7 +10,7 @@ To install the latest release version:
 forge install succinctlabs/sp1-contracts
 ```
 
-Add `@sp1-contracts/=lib/sp1-contracts/contracts/src/` in `remappings.txt.`
+Add `@sp1-contracts/=lib/sp1-contracts/contracts/src/` in `remappings.txt`.
 
 ### Usage
 
@@ -22,7 +22,8 @@ pragma solidity ^0.8.20;
 import {ISP1Verifier} from "@sp1-contracts/ISP1Verifier.sol";
 
 contract MyContract {
-    address public constant SP1_VERIFIER = 0x3B6041173B80E77f038f3F2C0f9744f04837185e;
+    /// @dev Use the gateway address for your chain from the deployments/ folder
+    address public SP1_VERIFIER;
 
     bytes32 public constant PROGRAM_VKEY = ...;
 
@@ -32,9 +33,9 @@ contract MyContract {
 }
 ```
 
-You can obtain the correct `SP1_VERIFIER` address for your chain by looking in the [deployments](./contracts/deployments) directory, it's recommended to use the `SP1_VERIFIER_GATEWAY` address which will automatically route proofs to the correct verifier based on their version.
+You can obtain the correct `SP1_VERIFIER` address for your chain by looking in the [deployments](./contracts/deployments) directory. Use the `SP1_VERIFIER_GATEWAY` address which automatically routes proofs to the correct verifier based on their version.
 
-You can obtain the correct `PROGRAM_VKEY` for your program calling the `setup` function for your ELF:
+You can obtain the correct `PROGRAM_VKEY` for your program by calling the `setup` function for your ELF:
 
 ```rs
     let client = ProverClient::new();
@@ -44,48 +45,76 @@ You can obtain the correct `PROGRAM_VKEY` for your program calling the `setup` f
 
 ### Deployments
 
-To deploy the contracts, ensure your [.env](./contracts/.env.example) file is configured with all the chains you want to deploy to.
-
-Then you can use the `forge script` command and specify the specific contract you want to deploy. For example, to deploy the SP1 Verifier Gateway for PLONK you can run:
+To deploy contracts, configure your [.env](./contracts/.env.example) file:
 
 ```bash
-FOUNDRY_PROFILE=deploy forge script ./script/deploy/SP1VerifierGatewayPlonk.s.sol:SP1VerifierGatewayScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+cd sp1-contracts/contracts
+
+# Create .env with your values
+PRIVATE_KEY=0x...
+RPC_MAINNET=https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY  # Use Alchemy/Infura, not public RPCs
+ETHERSCAN_API_KEY=...
 ```
 
-or to deploy the SP1 Verifier Gateway for Groth16 you can run:
+> **Important**:
+> - Run `source .env` before any forge commands (the scripts read env vars directly)
+> - The `--rpc-url` CLI flag is ignored; scripts read `RPC_<CHAIN>` from environment
+> - Specify target chain with `CHAINS=` env var (e.g., `CHAINS=MAINNET`)
+
+Deploy the SP1 Verifier Gateway:
 
 ```bash
-FOUNDRY_PROFILE=deploy forge script ./script/deploy/SP1VerifierGatewayGroth16.s.sol:SP1VerifierGatewayScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+# Groth16 gateway
+CHAINS=MAINNET FOUNDRY_PROFILE=deploy forge script \
+  ./script/deploy/SP1VerifierGatewayGroth16.s.sol:SP1VerifierGatewayScript \
+  --private-key $PRIVATE_KEY --verify --verifier etherscan --broadcast
+
+# Plonk gateway (use different CREATE2_SALT to avoid collision)
+CHAINS=MAINNET FOUNDRY_PROFILE=deploy forge script \
+  ./script/deploy/SP1VerifierGatewayPlonk.s.sol:SP1VerifierGatewayScript \
+  --private-key $PRIVATE_KEY --verify --verifier etherscan --broadcast
 ```
 
 ### Adding Verifiers
 
-You can use the `forge script` command to specify which verifier you want to deploy and add to the gateway. For example to deploy the PLONK verifier and add it to the PLONK gateway you can run:
+Deploy verifiers and optionally register them with the gateway:
 
 ```bash
-FOUNDRY_PROFILE=deploy forge script ./script/deploy/v3.0.0/SP1VerifierPlonk.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+# Deploy Groth16 verifier
+CHAINS=MAINNET FOUNDRY_PROFILE=deploy forge script \
+  ./script/deploy/v6.0.0-beta.1/SP1VerifierGroth16.s.sol:SP1VerifierScript \
+  --private-key $PRIVATE_KEY --verify --verifier etherscan --broadcast
+
+# Deploy Plonk verifier
+CHAINS=MAINNET FOUNDRY_PROFILE=deploy forge script \
+  ./script/deploy/v6.0.0-beta.1/SP1VerifierPlonk.s.sol:SP1VerifierScript \
+  --private-key $PRIVATE_KEY --verify --verifier etherscan --broadcast
 ```
 
-or to deploy the Groth16 verifier and add it to the Groth16 gateway you can run:
+By default, `REGISTER_ROUTE=false` so verifiers are deployed without registering routes. This is intended for multisig-owned gateways where route registration requires a separate multisig transaction.
+
+To deploy AND register routes in one step (only works if deployer owns the gateway):
 
 ```bash
-FOUNDRY_PROFILE=deploy forge script ./script/deploy/v3.0.0/SP1VerifierGroth16.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast
+REGISTER_ROUTE=true CHAINS=MAINNET FOUNDRY_PROFILE=deploy forge script ...
 ```
 
-Change `v3.0.0` to the desired version to add.
+For multisig gateways, use the Safe Transaction Builder JSON generator after deploying:
+
+```bash
+node script/utils/generate-safe-batch.js --chain=1 --version=v6.0.0-beta.1
+```
 
 ### Freezing Verifiers
 
-> [!WARNING]  
-> **BE CAREFUL** When a freezing a verifier. Once it is frozen, it cannot be unfrozen, and it can no longer be routed to.
-
-To freeze a verifier on the gateway, run:
+> [!WARNING]
+> Once frozen, a verifier cannot be unfrozen and can no longer be routed to.
 
 ```bash
-FOUNDRY_PROFILE=deploy forge script ./script/deploy/v3.0.0/SP1VerifierPlonk.s.sol:SP1VerifierScript --private-key $PRIVATE_KEY --verify --verifier etherscan --multi --broadcast --sig "freeze()"
+CHAINS=MAINNET FOUNDRY_PROFILE=deploy forge script \
+  ./script/deploy/v6.0.0-beta.1/SP1VerifierPlonk.s.sol:SP1VerifierScript \
+  --private-key $PRIVATE_KEY --broadcast --sig "freeze()"
 ```
-
-Change `v3.0.0` to the desired version to freeze.
 
 ## For Developers: Integrate SP1 Contracts
 
