@@ -10,3 +10,6 @@ docs/
 
 # Dotenv file
 .env
+
+# Safe Transaction Builder generated files
+safe-batches/*.json
