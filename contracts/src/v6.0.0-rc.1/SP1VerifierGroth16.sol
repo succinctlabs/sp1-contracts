@@ -35,7 +35,7 @@ contract SP1Verifier is Groth16Verifier, ISP1VerifierWithHash {
 
     /// @notice The recursion vk root.
     function VK_ROOT() public pure returns (bytes32) {
-        return 0x00008cd56e10c2fe24795cff1e1d1f40d3a324528d315674da45d26afb376e8670;
+        return 0x008cd56e10c2fe24795cff1e1d1f40d3a324528d315674da45d26afb376e8670;
     }
 
     /// @notice Hashes the public values to a field elements inside Bn254.
