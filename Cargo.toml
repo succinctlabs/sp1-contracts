@@ -11,9 +11,9 @@ path = "src/bin/artifacts.rs"
 anyhow = "1.0.86"
 dotenv = "0.15.0"
 log = "0.4.21"
-sp1-sdk = { git = "https://github.com/succinctlabs/sp1-wip.git", features = [
+sp1-sdk = { git = "https://github.com/succinctlabs/sp1.git", features = [
     "blocking",
     "native-gnark",
     "network",
-], branch = "multilinear_v6" }
+], tag = "v6.0.0-rc.1" }
 tokio = { version = "*" }
