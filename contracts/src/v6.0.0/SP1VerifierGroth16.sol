@@ -40,9 +40,7 @@ contract SP1Verifier is Groth16Verifier, ISP1VerifierWithHash {
 
     /// @notice Hashes the public values to a field elements inside Bn254.
     /// @param publicValues The public values.
-    function hashPublicValues(
-        bytes calldata publicValues
-    ) public pure returns (bytes32) {
+    function hashPublicValues(bytes calldata publicValues) public pure returns (bytes32) {
         return sha256(publicValues) & bytes32(uint256((1 << 253) - 1));
     }
 
@@ -63,7 +61,8 @@ contract SP1Verifier is Groth16Verifier, ISP1VerifierWithHash {
         uint256 expectedVkRoot = uint256(VK_ROOT());
 
         bytes32 publicValuesDigest = hashPublicValues(publicValues);
-        (uint256 exitCode, uint256 vkRoot, uint256 nonce, uint256[8] memory proof) = abi.decode(proofBytes[4:], (uint256, uint256, uint256, uint256[8]));
+        (uint256 exitCode, uint256 vkRoot, uint256 nonce, uint256[8] memory proof) =
+            abi.decode(proofBytes[4:], (uint256, uint256, uint256, uint256[8]));
 
         uint256[5] memory inputs;
         inputs[0] = uint256(programVKey);
