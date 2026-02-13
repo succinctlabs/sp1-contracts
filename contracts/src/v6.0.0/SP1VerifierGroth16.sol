@@ -2,28 +2,40 @@
 pragma solidity ^0.8.20;
 
 import {ISP1Verifier, ISP1VerifierWithHash} from "../ISP1Verifier.sol";
-import {PlonkVerifier} from "./PlonkVerifier.sol";
+import {Groth16Verifier} from "./Groth16Verifier.sol";
 
 /// @title SP1 Verifier
 /// @author Succinct Labs
 /// @notice This contracts implements a solidity verifier for SP1.
-contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
+contract SP1Verifier is Groth16Verifier, ISP1VerifierWithHash {
     /// @notice Thrown when the verifier selector from this proof does not match the one in this
     /// verifier. This indicates that this proof was sent to the wrong verifier.
     /// @param received The verifier selector from the first 4 bytes of the proof.
     /// @param expected The verifier selector from the first 4 bytes of the VERIFIER_HASH().
     error WrongVerifierSelector(bytes4 received, bytes4 expected);
 
+    /// @notice Thrown when the exit code is invalid.
+    error InvalidExitCode();
+
     /// @notice Thrown when the proof is invalid.
     error InvalidProof();
 
+    /// @notice Thrown when the vkRoot is invalid.
+    error InvalidVkRoot();
+
+    /// @notice The version of the circuit.
     function VERSION() external pure returns (string memory) {
-        return "v5.0.0";
+        return "v6.0.0";
     }
 
     /// @inheritdoc ISP1VerifierWithHash
     function VERIFIER_HASH() public pure returns (bytes32) {
-        return 0xd4e8ecd2357dd882209800acd6abb443d231cf287d77ba62b732ce937c8b56e7;
+        return 0xc7f26b1bf195b7e1a9bde70e92d1014a520ba06fe9e27a069d57c8abdad35189;
+    }
+
+    /// @notice The recursion vk root.
+    function VK_ROOT() public pure returns (bytes32) {
+        return 0x008cd56e10c2fe24795cff1e1d1f40d3a324528d315674da45d26afb376e8670;
     }
 
     /// @notice Hashes the public values to a field elements inside Bn254.
@@ -46,14 +58,25 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
         if (receivedSelector != expectedSelector) {
             revert WrongVerifierSelector(receivedSelector, expectedSelector);
         }
+        uint256 expectedVkRoot = uint256(VK_ROOT());
 
         bytes32 publicValuesDigest = hashPublicValues(publicValues);
-        uint256[] memory inputs = new uint256[](2);
+        (uint256 exitCode, uint256 vkRoot, uint256 nonce, uint256[8] memory proof) =
+            abi.decode(proofBytes[4:], (uint256, uint256, uint256, uint256[8]));
+
+        uint256[5] memory inputs;
         inputs[0] = uint256(programVKey);
         inputs[1] = uint256(publicValuesDigest);
-        bool success = this.Verify(proofBytes[4:], inputs);
-        if (!success) {
-            revert InvalidProof();
+        inputs[2] = exitCode;
+        inputs[3] = vkRoot;
+        inputs[4] = nonce;
+
+        if (exitCode != 0) {
+            revert InvalidExitCode();
         }
+        if (vkRoot != expectedVkRoot) {
+            revert InvalidVkRoot();
+        }
+        this.verifyProof(proof, inputs);
     }
 }

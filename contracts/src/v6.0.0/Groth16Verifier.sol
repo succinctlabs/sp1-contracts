@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.20;
+pragma solidity 0.8.20;
 
 /// @title Groth16 verifier template.
 /// @author Remco Bloemen
@@ -57,53 +57,65 @@ contract Groth16Verifier {
 
     // Groth16 alpha point in G1
     uint256 constant ALPHA_X =
-        16824748082761027289403020823817900376175197022851240418647484763478464123198;
+        18193098175943527192735001101109759089299489218029277024981049303509728390714;
     uint256 constant ALPHA_Y =
-        11683994685964714260324343303943939682301299075504304862945838718548302000401;
+        13002098922164504856448878431298858958287263223238113532689647401549143136802;
 
     // Groth16 beta point in G2 in powers of i
     uint256 constant BETA_NEG_X_0 =
-        6012203653756052523353542340150469539265082406293136140411872887864191664305;
+        21435991793309354620208998839048833929408421035752814055468203505370113177907;
     uint256 constant BETA_NEG_X_1 =
-        6291636065550854379100787904950515357219288186946057578788825789245406766953;
+        1153299178682776078763875679774322676284574659382610527726005807059970948421;
     uint256 constant BETA_NEG_Y_0 =
-        8479861103528550966799853659352503798462730898093166661842402674702796622679;
+        14549477341221195645936627541635804922258425228606259869736025448350578736808;
     uint256 constant BETA_NEG_Y_1 =
-        1633523335605438695154599416411390033345510848756189876127962429956098742451;
+        11642222268846896781195289459924484986164757595949162399971767305523112060547;
 
     // Groth16 gamma point in G2 in powers of i
     uint256 constant GAMMA_NEG_X_0 =
-        4142835535619576684322245157901312250554378142114381564290468432742521314704;
+        10857046999023057135944570762232829481370756359578518086990519993285655852781;
     uint256 constant GAMMA_NEG_X_1 =
-        17842020501532861335251277735290851172413446056529606168368465340825902541810;
+        11559732032986387107991004021392285783925812861821192530917403151452391805634;
     uint256 constant GAMMA_NEG_Y_0 =
-        11320632725496471124352232673686498720611893913179832806771034178631284892116;
+        13392588948715843804641432497768002650278120570034223513918757245338268106653;
     uint256 constant GAMMA_NEG_Y_1 =
-        311895667756833756493099755182157054434816599621289498984920445818614464745;
+        17805874995975841540914202342111839520379459829704422454583296818431106115052;
 
     // Groth16 delta point in G2 in powers of i
     uint256 constant DELTA_NEG_X_0 =
-        1401586467118744686649898232509431431936958634904286407525795344840171509724;
+        1307090331524814175704090408842692723818436064448889851578512306950732772855;
     uint256 constant DELTA_NEG_X_1 =
-        20524563347740346853186643374142185321405370469810755613088256350493061219989;
+        137383337791766739140246086388506671891847942071016045052220104013730448401;
     uint256 constant DELTA_NEG_Y_0 =
-        14665335796225261740324266854622393607627804871217389582109229884209518049091;
+        18176516653581763163575152843878714966832153444275466192493637065851642016199;
     uint256 constant DELTA_NEG_Y_1 =
-        4675922494502640538519101370992755143525716960516481658013166874162416756018;
+        19219057324336367439257853584115458794082407148591815287600779150919241441914;
 
     // Constant and public input points
     uint256 constant CONSTANT_X =
-        8310411565601441527035131496852221148476487246063333349863921483414575409313;
+        19076354653072111336552532082014805057498873518518516761323068695350252381540;
     uint256 constant CONSTANT_Y =
-        21343132819492496456805562863075138986248235983567056732949060829719030087739;
+        14722222875656460695102157554156335986355296183699164072914272094029232004506;
     uint256 constant PUB_0_X =
-        9193066544127521442507379487110183725565203847410097866655781919341371314500;
+        15205650220572466259118892361475480343661712697966864528540178421362309949892;
     uint256 constant PUB_0_Y =
-        1229953730407424098511641946145120096161248105904311204671469367759481075237;
+        16870076904710557229902069154949962941355047114880780961340865439247323228457;
     uint256 constant PUB_1_X =
-        9302931036688912050769082570627051329799904248848128887752496390619992168298;
+        16983718256613983916793425440640784309466930024922866755993885618825596154582;
     uint256 constant PUB_1_Y =
-        11368205644090635269179087945262736859378503013874730222437645132828283002424;
+        5082937731183538291488801097598857949092616162025607059421755002399927346065;
+    uint256 constant PUB_2_X =
+        4193949434218093934236927708380304233355510984741594680448881554654604634659;
+    uint256 constant PUB_2_Y =
+        13994205507046466708587811774761710548204773721153594492816404543789273541310;
+    uint256 constant PUB_3_X =
+        18564681243992670607326349759968448650720046559677745125178440392100920501084;
+    uint256 constant PUB_3_Y =
+        9302975514291303895397487318903174778917665548854240519153237070996190682800;
+    uint256 constant PUB_4_X =
+        15504625725316527736371459206321170330760263395535109031414282104301490600214;
+    uint256 constant PUB_4_Y =
+        17721188253172389160253049897039822757501960974163688317614931747181126144820;
 
     /// Negation in Fp.
     /// @notice Returns a number x such that a + x = 0 in Fp.
@@ -173,7 +185,7 @@ contract Groth16Verifier {
     }
 
     /// Square test in Fp.
-    /// @notice Returns wheter a number x exists such that x * x = a in Fp.
+    /// @notice Returns whether a number x exists such that x * x = a in Fp.
     /// @notice Will revert with InvalidProof() if the input is not a square
     /// or not reduced.
     /// @param a the square
@@ -189,7 +201,7 @@ contract Groth16Verifier {
     /// @notice Will revert with InvalidProof() if
     ///   * the input is not a square,
     ///   * the hint is incorrect, or
-    ///   * the input coefficents are not reduced.
+    ///   * the input coefficients are not reduced.
     /// @param a0 The real part of the input.
     /// @param a1 The imaginary part of the input.
     /// @param hint A hint which of two possible signs to pick in the equation.
@@ -392,7 +404,7 @@ contract Groth16Verifier {
     /// @param input The public inputs. These are elements of the scalar field Fr.
     /// @return x The X coordinate of the resulting G1 point.
     /// @return y The Y coordinate of the resulting G1 point.
-    function publicInputMSM(uint256[2] calldata input)
+    function publicInputMSM(uint256[5] calldata input)
         internal
         view
         returns (uint256 x, uint256 y)
@@ -422,6 +434,27 @@ contract Groth16Verifier {
             mstore(g, PUB_1_X)
             mstore(add(g, 0x20), PUB_1_Y)
             s := calldataload(add(input, 32))
+            mstore(add(g, 0x40), s)
+            success := and(success, lt(s, R))
+            success := and(success, staticcall(gas(), PRECOMPILE_MUL, g, 0x60, g, 0x40))
+            success := and(success, staticcall(gas(), PRECOMPILE_ADD, f, 0x80, f, 0x40))
+            mstore(g, PUB_2_X)
+            mstore(add(g, 0x20), PUB_2_Y)
+            s := calldataload(add(input, 64))
+            mstore(add(g, 0x40), s)
+            success := and(success, lt(s, R))
+            success := and(success, staticcall(gas(), PRECOMPILE_MUL, g, 0x60, g, 0x40))
+            success := and(success, staticcall(gas(), PRECOMPILE_ADD, f, 0x80, f, 0x40))
+            mstore(g, PUB_3_X)
+            mstore(add(g, 0x20), PUB_3_Y)
+            s := calldataload(add(input, 96))
+            mstore(add(g, 0x40), s)
+            success := and(success, lt(s, R))
+            success := and(success, staticcall(gas(), PRECOMPILE_MUL, g, 0x60, g, 0x40))
+            success := and(success, staticcall(gas(), PRECOMPILE_ADD, f, 0x80, f, 0x40))
+            mstore(g, PUB_4_X)
+            mstore(add(g, 0x20), PUB_4_Y)
+            s := calldataload(add(input, 128))
             mstore(add(g, 0x40), s)
             success := and(success, lt(s, R))
             success := and(success, staticcall(gas(), PRECOMPILE_MUL, g, 0x60, g, 0x40))
@@ -463,7 +496,7 @@ contract Groth16Verifier {
     /// matching the output of compressProof.
     /// @param input the public input field elements in the scalar field Fr.
     /// Elements must be reduced.
-    function verifyCompressedProof(uint256[4] calldata compressedProof, uint256[2] calldata input)
+    function verifyCompressedProof(uint256[4] calldata compressedProof, uint256[5] calldata input)
         public
         view
     {
@@ -531,7 +564,7 @@ contract Groth16Verifier {
     /// of compressProof.
     /// @param input the public input field elements in the scalar field Fr.
     /// Elements must be reduced.
-    function Verify(uint256[8] calldata proof, uint256[2] calldata input) public view {
+    function verifyProof(uint256[8] calldata proof, uint256[5] calldata input) public view {
         (uint256 x, uint256 y) = publicInputMSM(input);
 
         // Note: The precompile expects the F2 coefficients in big-endian order.

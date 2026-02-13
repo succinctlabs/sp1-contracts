@@ -5,7 +5,8 @@ use sp1_sdk::SP1_CIRCUIT_VERSION;
 use std::fs::{create_dir_all, read, read_dir, write};
 use std::path::PathBuf;
 
-fn main() -> Result<()> {
+#[tokio::main]
+async fn main() -> Result<()> {
     dotenv::dotenv().ok();
 
     setup_logger();
@@ -14,7 +15,7 @@ fn main() -> Result<()> {
     let mut artifact_dirs = Vec::new();
 
     for &artifact_type in &artifact_types {
-        let artifacts_dir = try_install_circuit_artifacts(artifact_type);
+        let artifacts_dir = try_install_circuit_artifacts(artifact_type).await?;
         artifact_dirs.push(artifacts_dir);
     }
 
@@ -39,7 +40,7 @@ fn main() -> Result<()> {
         }
     }
 
-    println!(
+    log::info!(
         "Added the new verifier contracts to {}",
         contracts_src_dir.display()
     );
