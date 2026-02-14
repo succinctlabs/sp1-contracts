@@ -4,11 +4,11 @@ const path = require('path');
 
 const DEPLOY_DIR = path.join(__dirname, '../../deployments');
 const MAINNET_CHAINS = [1, 10, 42161, 8453, 534352];
-const TESTNET_CHAINS = [11155111, 17000, 421614, 84532, 11155420, 534351];
+const TESTNET_CHAINS = [11155111, 421614, 84532, 11155420, 534351];
 const MULTISIG_CHAINS = [...MAINNET_CHAINS, ...TESTNET_CHAINS];
 const CHAIN_NAMES = {
   1: 'Ethereum', 10: 'Optimism', 42161: 'Arbitrum', 8453: 'Base', 534352: 'Scroll',
-  11155111: 'Sepolia', 17000: 'Holesky', 421614: 'Arbitrum Sepolia',
+  11155111: 'Sepolia', 421614: 'Arbitrum Sepolia',
   84532: 'Base Sepolia', 11155420: 'Optimism Sepolia', 534351: 'Scroll Sepolia'
 };
 const ADD_ROUTE_SELECTOR = '0x8c95ff1e'; // keccak256("addRoute(address)")[:4]
