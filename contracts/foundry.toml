@@ -38,6 +38,8 @@ plasma = "${RPC_PLASMA}"
 monad = "${RPC_MONAD}"
 mega = "${RPC_MEGA}"
 xlayer = "${RPC_XLAYER}"
+bsc = "${RPC_BSC}"
+tempo = "${RPC_TEMPO}"
 
 [etherscan]
 mainnet = { key = "${ETHERSCAN_API_KEY_MAINNET}", url = "${ETHERSCAN_API_URL_MAINNET}" }
@@ -57,3 +59,5 @@ plasma = { key = "${ETHERSCAN_API_KEY_PLASMA}", url = "${ETHERSCAN_API_URL_PLASM
 monad = { key = "${ETHERSCAN_API_KEY_MONAD}", url = "${ETHERSCAN_API_URL_MONAD}" }
 mega = { key = "${ETHERSCAN_API_KEY_MEGA}", url = "${ETHERSCAN_API_URL_MEGA}" }
 xlayer = { key = "${ETHERSCAN_API_KEY_XLAYER}", url = "${ETHERSCAN_API_URL_XLAYER}" }
+bsc = { key = "${ETHERSCAN_API_KEY_BSC}", url = "${ETHERSCAN_API_URL_BSC}" }
+tempo = { key = "${ETHERSCAN_API_KEY_TEMPO}", url = "${ETHERSCAN_API_URL_TEMPO}" }
