@@ -28,7 +28,9 @@ contract SP1Verifier is Groth16Verifier, ISP1VerifierWithHash {
 
     /// @notice Hashes the public values to a field elements inside Bn254.
     /// @param publicValues The public values.
-    function hashPublicValues(bytes calldata publicValues) public pure returns (bytes32) {
+    function hashPublicValues(
+        bytes calldata publicValues
+    ) public pure returns (bytes32) {
         return sha256(publicValues) & bytes32(uint256((1 << 253) - 1));
     }
 

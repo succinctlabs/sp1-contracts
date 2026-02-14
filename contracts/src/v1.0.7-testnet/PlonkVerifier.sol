@@ -220,11 +220,8 @@ contract PlonkVerifier {
 
             // compute the challenges
             let prev_challenge_non_reduced
-            prev_challenge_non_reduced := derive_gamma(
-                proof.offset,
-                public_inputs.length,
-                public_inputs.offset
-            )
+            prev_challenge_non_reduced :=
+                derive_gamma(proof.offset, public_inputs.length, public_inputs.offset)
             prev_challenge_non_reduced := derive_beta(prev_challenge_non_reduced)
             prev_challenge_non_reduced := derive_alpha(proof.offset, prev_challenge_non_reduced)
             derive_zeta(proof.offset, prev_challenge_non_reduced)
@@ -355,9 +352,7 @@ contract PlonkVerifier {
             /// @param actual_proof_size size of the proof (not the expected size)
             function check_proof_size(actual_proof_size) {
                 let expected_proof_size := add(0x300, mul(VK_NB_CUSTOM_GATES, 0x60))
-                if iszero(eq(actual_proof_size, expected_proof_size)) {
-                    error_proof_size()
-                }
+                if iszero(eq(actual_proof_size, expected_proof_size)) { error_proof_size() }
             }
 
             /// Checks if the multiple openings of the polynomials are < R_MOD.
@@ -633,12 +628,10 @@ contract PlonkVerifier {
                 let h_fr, ith_lagrange
 
                 h_fr := hash_fr(calldataload(p), calldataload(add(p, 0x20)), mPtr)
-                ith_lagrange := compute_ith_lagrange_at_z(
-                    z,
-                    zpnmo,
-                    add(nb_public_inputs, VK_INDEX_COMMIT_API_0),
-                    mPtr
-                )
+                ith_lagrange :=
+                    compute_ith_lagrange_at_z(
+                        z, zpnmo, add(nb_public_inputs, VK_INDEX_COMMIT_API_0), mPtr
+                    )
                 pi_commit := addmod(pi_commit, mulmod(h_fr, ith_lagrange, R_MOD), R_MOD)
                 p := add(p, 0x40)
             }
@@ -812,25 +805,17 @@ contract PlonkVerifier {
                     calldataload(add(aproof, PROOF_BATCH_OPENING_AT_ZETA_Y))
                 )
                 point_acc_mul_calldata(
-                    folded_quotients,
-                    add(aproof, PROOF_OPENING_AT_ZETA_OMEGA_X),
-                    random,
-                    mPtr
+                    folded_quotients, add(aproof, PROOF_OPENING_AT_ZETA_OMEGA_X), random, mPtr
                 )
 
                 let folded_digests := add(state, STATE_FOLDED_DIGESTS_X)
                 point_acc_mul_calldata(
-                    folded_digests,
-                    add(aproof, PROOF_GRAND_PRODUCT_COMMITMENT_X),
-                    random,
-                    mPtr
+                    folded_digests, add(aproof, PROOF_GRAND_PRODUCT_COMMITMENT_X), random, mPtr
                 )
 
                 let folded_evals := add(state, STATE_FOLDED_CLAIMED_VALUES)
                 fr_acc_mul_calldata(
-                    folded_evals,
-                    add(aproof, PROOF_GRAND_PRODUCT_AT_ZETA_OMEGA),
-                    random
+                    folded_evals, add(aproof, PROOF_GRAND_PRODUCT_AT_ZETA_OMEGA), random
                 )
 
                 let folded_evals_commit := mPtr
@@ -925,41 +910,26 @@ contract PlonkVerifier {
                 )
 
                 point_acc_mul_calldata(
-                    add(state, STATE_FOLDED_DIGESTS_X),
-                    add(aproof, PROOF_L_COM_X),
-                    acc_gamma,
-                    mPtr
+                    add(state, STATE_FOLDED_DIGESTS_X), add(aproof, PROOF_L_COM_X), acc_gamma, mPtr
                 )
                 fr_acc_mul_calldata(
-                    add(state, STATE_FOLDED_CLAIMED_VALUES),
-                    add(aproof, PROOF_L_AT_ZETA),
-                    acc_gamma
+                    add(state, STATE_FOLDED_CLAIMED_VALUES), add(aproof, PROOF_L_AT_ZETA), acc_gamma
                 )
 
                 acc_gamma := mulmod(acc_gamma, l_gamma_kzg, R_MOD)
                 point_acc_mul_calldata(
-                    state_folded_digests,
-                    add(aproof, PROOF_R_COM_X),
-                    acc_gamma,
-                    mPtr
+                    state_folded_digests, add(aproof, PROOF_R_COM_X), acc_gamma, mPtr
                 )
                 fr_acc_mul_calldata(
-                    add(state, STATE_FOLDED_CLAIMED_VALUES),
-                    add(aproof, PROOF_R_AT_ZETA),
-                    acc_gamma
+                    add(state, STATE_FOLDED_CLAIMED_VALUES), add(aproof, PROOF_R_AT_ZETA), acc_gamma
                 )
 
                 acc_gamma := mulmod(acc_gamma, l_gamma_kzg, R_MOD)
                 point_acc_mul_calldata(
-                    state_folded_digests,
-                    add(aproof, PROOF_O_COM_X),
-                    acc_gamma,
-                    mPtr
+                    state_folded_digests, add(aproof, PROOF_O_COM_X), acc_gamma, mPtr
                 )
                 fr_acc_mul_calldata(
-                    add(state, STATE_FOLDED_CLAIMED_VALUES),
-                    add(aproof, PROOF_O_AT_ZETA),
-                    acc_gamma
+                    add(state, STATE_FOLDED_CLAIMED_VALUES), add(aproof, PROOF_O_AT_ZETA), acc_gamma
                 )
 
                 acc_gamma := mulmod(acc_gamma, l_gamma_kzg, R_MOD)
@@ -1025,8 +995,7 @@ contract PlonkVerifier {
                 mstore(add(mPtr, add(offset, 0x20)), VK_QCP_0_Y)
                 offset := add(offset, 0x40)
                 mstore(
-                    add(mPtr, offset),
-                    mload(add(state, STATE_OPENING_LINEARISED_POLYNOMIAL_ZETA))
+                    add(mPtr, offset), mload(add(state, STATE_OPENING_LINEARISED_POLYNOMIAL_ZETA))
                 )
                 mstore(add(mPtr, add(offset, 0x20)), calldataload(add(aproof, PROOF_L_AT_ZETA)))
                 mstore(add(mPtr, add(offset, 0x40)), calldataload(add(aproof, PROOF_R_AT_ZETA)))
@@ -1156,11 +1125,7 @@ contract PlonkVerifier {
                 let l_alpha := mload(add(state, STATE_ALPHA))
 
                 let u :=
-                    mulmod(
-                        calldataload(add(aproof, PROOF_GRAND_PRODUCT_AT_ZETA_OMEGA)),
-                        l_beta,
-                        R_MOD
-                    )
+                    mulmod(calldataload(add(aproof, PROOF_GRAND_PRODUCT_AT_ZETA_OMEGA)), l_beta, R_MOD)
                 let v := mulmod(l_beta, calldataload(add(aproof, PROOF_S1_AT_ZETA)), R_MOD)
                 v := addmod(v, calldataload(add(aproof, PROOF_L_AT_ZETA)), R_MOD)
                 v := addmod(v, l_gamma, R_MOD)
@@ -1250,41 +1215,41 @@ contract PlonkVerifier {
 
                 // (l(ζ)+β*s1(ζ)+γ)
                 let s1
-                s1 := mulmod(
-                    calldataload(add(aproof, PROOF_S1_AT_ZETA)),
-                    mload(add(state, STATE_BETA)),
-                    R_MOD
-                )
+                s1 :=
+                    mulmod(
+                        calldataload(add(aproof, PROOF_S1_AT_ZETA)),
+                        mload(add(state, STATE_BETA)),
+                        R_MOD
+                    )
                 s1 := addmod(s1, mload(add(state, STATE_GAMMA)), R_MOD)
                 s1 := addmod(s1, calldataload(add(aproof, PROOF_L_AT_ZETA)), R_MOD)
 
                 // (r(ζ)+β*s2(ζ)+γ)
                 let s2
-                s2 := mulmod(
-                    calldataload(add(aproof, PROOF_S2_AT_ZETA)),
-                    mload(add(state, STATE_BETA)),
-                    R_MOD
-                )
+                s2 :=
+                    mulmod(
+                        calldataload(add(aproof, PROOF_S2_AT_ZETA)),
+                        mload(add(state, STATE_BETA)),
+                        R_MOD
+                    )
                 s2 := addmod(s2, mload(add(state, STATE_GAMMA)), R_MOD)
                 s2 := addmod(s2, calldataload(add(aproof, PROOF_R_AT_ZETA)), R_MOD)
 
                 // (o(ζ)+γ)
                 let o
-                o := addmod(
-                    calldataload(add(aproof, PROOF_O_AT_ZETA)),
-                    mload(add(state, STATE_GAMMA)),
-                    R_MOD
-                )
+                o :=
+                    addmod(
+                        calldataload(add(aproof, PROOF_O_AT_ZETA)),
+                        mload(add(state, STATE_GAMMA)),
+                        R_MOD
+                    )
 
                 //  α*Z(μζ)*(l(ζ)+β*s1(ζ)+γ)*(r(ζ)+β*s2(ζ)+γ)*(o(ζ)+γ)
                 s1 := mulmod(s1, s2, R_MOD)
                 s1 := mulmod(s1, o, R_MOD)
                 s1 := mulmod(s1, mload(add(state, STATE_ALPHA)), R_MOD)
-                s1 := mulmod(
-                    s1,
-                    calldataload(add(aproof, PROOF_GRAND_PRODUCT_AT_ZETA_OMEGA)),
-                    R_MOD
-                )
+                s1 :=
+                    mulmod(s1, calldataload(add(aproof, PROOF_GRAND_PRODUCT_AT_ZETA_OMEGA)), R_MOD)
 
                 // PI(ζ) - α²*L₁(ζ) + α(l(ζ)+β*s1(ζ)+γ)(r(ζ)+β*s2(ζ)+γ)(o(ζ)+γ)*z(ωζ)
                 s1 := addmod(s1, mload(add(state, STATE_PI)), R_MOD)

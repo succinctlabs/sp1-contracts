@@ -52,8 +52,7 @@ contract Groth16Verifier {
     // Exponents for inversions and square roots mod P
     uint256 constant EXP_INVERSE_FP =
         0x30644E72E131A029B85045B68181585D97816A916871CA8D3C208C16D87CFD45; // P - 2
-    uint256 constant EXP_SQRT_FP =
-        0xC19139CB84C680A6E14116DA060561765E05AA45A1C72A34F082305B61F3F52; // (P + 1) / 4;
+    uint256 constant EXP_SQRT_FP = 0xC19139CB84C680A6E14116DA060561765E05AA45A1C72A34F082305B61F3F52; // (P + 1) / 4;
 
     // Groth16 alpha point in G1
     uint256 constant ALPHA_X =
