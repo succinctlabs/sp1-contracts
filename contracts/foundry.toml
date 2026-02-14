@@ -16,7 +16,7 @@ optimizer_runs = 200
 line_length = 100
 tab_width = 4
 func_attrs_with_params_multiline = true
-ignore = ["lib/**"]
+ignore = ["lib/**", "src/v*/Groth16Verifier.sol", "src/v*/PlonkVerifier.sol", "src/v*/zksync/PlonkVerifier.sol"]
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
 

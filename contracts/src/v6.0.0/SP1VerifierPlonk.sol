@@ -14,16 +14,28 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
     /// @param expected The verifier selector from the first 4 bytes of the VERIFIER_HASH().
     error WrongVerifierSelector(bytes4 received, bytes4 expected);
 
+    /// @notice Thrown when the exit code is invalid.
+    error InvalidExitCode();
+
     /// @notice Thrown when the proof is invalid.
     error InvalidProof();
 
+    /// @notice Thrown when the vkRoot is invalid.
+    error InvalidVkRoot();
+
+    /// @notice The version of the circuit.
     function VERSION() external pure returns (string memory) {
-        return "v5.0.0";
+        return "v6.0.0";
     }
 
     /// @inheritdoc ISP1VerifierWithHash
     function VERIFIER_HASH() public pure returns (bytes32) {
-        return 0xd4e8ecd2357dd882209800acd6abb443d231cf287d77ba62b732ce937c8b56e7;
+        return 0xbb1a6f2930e94bfe8b35e794faf43133214534a17d2ad8e51358cad437b3c317;
+    }
+
+    /// @notice The recursion vk root.
+    function VK_ROOT() public pure returns (bytes32) {
+        return 0x008cd56e10c2fe24795cff1e1d1f40d3a324528d315674da45d26afb376e8670;
     }
 
     /// @notice Hashes the public values to a field elements inside Bn254.
@@ -47,11 +59,28 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
             revert WrongVerifierSelector(receivedSelector, expectedSelector);
         }
 
+        uint256 expectedVkRoot = uint256(VK_ROOT());
+
         bytes32 publicValuesDigest = hashPublicValues(publicValues);
-        uint256[] memory inputs = new uint256[](2);
+        uint256 exitCode = uint256(bytes32(proofBytes[4:36]));
+        uint256 vkRoot = uint256(bytes32(proofBytes[36:68]));
+        uint256 nonce = uint256(bytes32(proofBytes[68:100]));
+
+        if (exitCode != 0) {
+            revert InvalidExitCode();
+        }
+        if (vkRoot != expectedVkRoot) {
+            revert InvalidVkRoot();
+        }
+
+        uint256[] memory inputs = new uint256[](5);
         inputs[0] = uint256(programVKey);
         inputs[1] = uint256(publicValuesDigest);
-        bool success = this.Verify(proofBytes[4:], inputs);
+        inputs[2] = exitCode;
+        inputs[3] = vkRoot;
+        inputs[4] = nonce;
+
+        bool success = this.Verify(proofBytes[100:], inputs);
         if (!success) {
             revert InvalidProof();
         }
