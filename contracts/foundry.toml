@@ -58,4 +58,4 @@ monad = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?c
 mega = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=4326" }
 plasma = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=9745" }
 xlayer = { key = "${OKLINK_API_KEY}", url = "https://www.oklink.com/api/v5/explorer/contract/verify-source-code-plugin/XLAYER" }
-tempo = { key = "unused", url = "https://contracts.tempo.xyz/api" }
+tempo = { key = "unused", url = "https://contracts.tempo.xyz/" }
