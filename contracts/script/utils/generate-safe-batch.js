@@ -4,9 +4,8 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 const DEPLOY_DIR = path.join(__dirname, '../../deployments');
-const MAINNET_CHAINS = [1, 10, 42161, 8453, 534352];
-const TESTNET_CHAINS = [11155111, 421614, 84532, 11155420, 534351];
-const MULTISIG_CHAINS = [...MAINNET_CHAINS, ...TESTNET_CHAINS];
+// Only mainnets are multisig-owned — testnets are EOA-owned (use cast send --ledger)
+const MULTISIG_CHAINS = [1, 10, 42161, 8453, 534352];
 const CHAIN_NAMES = {
   1: 'Ethereum', 10: 'Optimism', 42161: 'Arbitrum', 8453: 'Base', 534352: 'Scroll',
   11155111: 'Sepolia', 421614: 'Arbitrum Sepolia',
@@ -145,12 +144,10 @@ function generateBatch(chainId, version, action) {
 function printUsage() {
   const available = fs.readdirSync(DEPLOY_DIR).filter(f => f.endsWith('.json')).map(f => f.slice(0, -5));
   console.log(`
-Usage: node generate-safe-batch.js [--chain=<id|all|mainnet|testnet>] [--version=<v>] [--action=<add|freeze>]
+Usage: node generate-safe-batch.js [--chain=<id|all>] [--version=<v>] [--action=<add|freeze>]
 
 Chain groups:
-  --chain=all       All multisig chains (mainnet + testnet)
-  --chain=mainnet   Mainnet chains: ${MAINNET_CHAINS.join(', ')}
-  --chain=testnet   Testnet chains: ${TESTNET_CHAINS.join(', ')}
+  --chain=all       All multisig chains: ${MULTISIG_CHAINS.join(', ')}
   --chain=<id>      Single chain by ID
 
 Available chains: ${available.join(', ')}
@@ -175,8 +172,6 @@ if (!['add', 'freeze'].includes(args.action)) {
 // Resolve chains
 let chains;
 if (args.chain === 'all') chains = MULTISIG_CHAINS;
-else if (args.chain === 'mainnet') chains = MAINNET_CHAINS;
-else if (args.chain === 'testnet') chains = TESTNET_CHAINS;
 else chains = [parseInt(args.chain) || (console.error(`Bad chain: ${args.chain}`), process.exit(1))];
 
 const actionLabel = args.action === 'freeze' ? 'freeze' : 'add-route';

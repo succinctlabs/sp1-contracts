@@ -1,11 +1,11 @@
 {
   "version": "1.0",
   "chainId": "1",
-  "createdAt": 1771256758113,
+  "createdAt": 1771257707370,
   "meta": {
     "name": "Add SP1 v6.0.0 Routes",
     "description": "Add v6.0.0 verifiers on Ethereum",
-    "checksum": "0xae40992a22267d0b0d31af9ef6f1257c41efa1599fef234a134c0c6d71c15bcb"
+    "checksum": "0xe6b897d62b3b6b6e762457ad6062959d1bcce31a4dbafc1ba77dfa519eb09a04"
   },
   "transactions": [
     {

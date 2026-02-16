@@ -1,11 +1,11 @@
 {
   "version": "1.0",
   "chainId": "10",
-  "createdAt": 1771256758140,
+  "createdAt": 1771257707398,
   "meta": {
     "name": "Add SP1 v6.0.0 Routes",
     "description": "Add v6.0.0 verifiers on Optimism",
-    "checksum": "0x90e4a5f064779859190407f444e8229a4d72d770ec572ff46973972e5ccc98b2"
+    "checksum": "0xfd81abbdc661622a42105c4c1edaedb6e96a9418401c58dcdaad6adeb0eea57a"
   },
   "transactions": [
     {

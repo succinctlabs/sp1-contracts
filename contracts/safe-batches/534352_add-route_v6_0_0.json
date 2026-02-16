@@ -1,11 +1,11 @@
 {
   "version": "1.0",
   "chainId": "534352",
-  "createdAt": 1771256758162,
+  "createdAt": 1771257707423,
   "meta": {
     "name": "Add SP1 v6.0.0 Routes",
     "description": "Add v6.0.0 verifiers on Scroll",
-    "checksum": "0xca770a7c2cae20d09b7b823569d85e251296dee4e92012be7d4ffe1cc94cb4bd"
+    "checksum": "0x36260e0d4686fe06f770a12619624d4fbd8891b80b0753fae95e76db09e8f1a2"
   },
   "transactions": [
     {

@@ -15,8 +15,8 @@ Register v6.0.0 Groth16 + Plonk verifier routes on all 18 chain gateways.
 |------|---------|
 | V6 Groth16 Verifier | `0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f` |
 | V6 Plonk Verifier | `0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C` |
-| Multisig Owner (10 chains) | `0xCafEf00d348Adbd57c37d1B77e0619C6244C6878` |
-| Ledger EOA Owner (8 chains) | `0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126` |
+| Multisig Owner (5 mainnets) | `0xCafEf00d348Adbd57c37d1B77e0619C6244C6878` |
+| Ledger EOA Owner (13 chains) | `0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126` |
 
 ## Pre-flight Check
 
@@ -31,32 +31,27 @@ Expected output: **36/36 NOT REGISTERED** (clean slate).
 
 ---
 
-## Phase 2a: Multisig Chains (10 chains via Safe TX Builder)
+## Phase 2a: Multisig Chains (5 mainnets via Safe TX Builder)
 
 **Owner:** `0xCafEf00d348Adbd57c37d1B77e0619C6244C6878` (Safe multisig)
 
 Each chain has a pre-generated Safe batch JSON in `safe-batches/`. Each JSON contains 2 transactions: `addRoute` for Groth16 + `addRoute` for Plonk.
 
-### Recommended Order (testnets first)
+> **Note:** Only the 5 mainnets use the multisig. All testnets are EOA-owned — see Phase 2b.
 
 | # | Chain | ID | Safe Prefix | JSON File |
 |---|-------|----|-------------|-----------|
-| 1 | Sepolia | 11155111 | `sep:` | `11155111_add-route_v6_0_0.json` |
-| 2 | Arbitrum Sepolia | 421614 | `arb-sep:` | `421614_add-route_v6_0_0.json` |
-| 3 | Base Sepolia | 84532 | `base-sep:` | `84532_add-route_v6_0_0.json` |
-| 4 | OP Sepolia | 11155420 | `oeth-sep:` | `11155420_add-route_v6_0_0.json` |
-| 5 | Scroll Sepolia | 534351 | `scr-sep:` | `534351_add-route_v6_0_0.json` |
-| 6 | Ethereum | 1 | `eth:` | `1_add-route_v6_0_0.json` |
-| 7 | Optimism | 10 | `oeth:` | `10_add-route_v6_0_0.json` |
-| 8 | Arbitrum | 42161 | `arb1:` | `42161_add-route_v6_0_0.json` |
-| 9 | Base | 8453 | `base:` | `8453_add-route_v6_0_0.json` |
-| 10 | Scroll | 534352 | `scr:` | `534352_add-route_v6_0_0.json` |
+| 1 | Ethereum | 1 | `eth:` | `1_add-route_v6_0_0.json` |
+| 2 | Optimism | 10 | `oeth:` | `10_add-route_v6_0_0.json` |
+| 3 | Arbitrum | 42161 | `arb1:` | `42161_add-route_v6_0_0.json` |
+| 4 | Base | 8453 | `base:` | `8453_add-route_v6_0_0.json` |
+| 5 | Scroll | 534352 | `scr:` | `534352_add-route_v6_0_0.json` |
 
 ### Steps per chain
 
 1. Go to Safe app: `https://app.safe.global/home?safe=<PREFIX><SAFE_ADDRESS>`
    - Safe address: `0xCafEf00d348Adbd57c37d1B77e0619C6244C6878`
-   - Example for Sepolia: `https://app.safe.global/home?safe=sep:0xCafEf00d348Adbd57c37d1B77e0619C6244C6878`
+   - Example for Ethereum: `https://app.safe.global/home?safe=eth:0xCafEf00d348Adbd57c37d1B77e0619C6244C6878`
 2. Open **Apps** > **Transaction Builder**
 3. Click the upload icon (or drag-and-drop) to load the JSON file from `safe-batches/`
 4. Review the 2 transactions:
@@ -70,32 +65,37 @@ Each chain has a pre-generated Safe batch JSON in `safe-batches/`. Each JSON con
 ```bash
 # Replace <RPC> with the chain's RPC URL from .env
 # Groth16 route:
-cast call <GROTH16_GATEWAY> "routes(bytes4)(address,bool)" 0x0e78f4db --rpc-url <RPC>
+cast call 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "routes(bytes4)(address,bool)" 0x0e78f4db --rpc-url <RPC>
 # Should return: (0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f, false)
 
 # Plonk route:
-cast call <PLONK_GATEWAY> "routes(bytes4)(address,bool)" 0xbb1a6f29 --rpc-url <RPC>
+cast call 0x3B6041173B80E77f038f3F2C0f9744f04837185e "routes(bytes4)(address,bool)" 0xbb1a6f29 --rpc-url <RPC>
 # Should return: (0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C, false)
 ```
 
 ---
 
-## Phase 2b: Ledger Chains (8 chains via `cast send --ledger`)
+## Phase 2b: Ledger Chains (13 chains via `cast send --ledger`)
 
 **Owner:** `0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126` (EOA — requires Ledger)
 
-### Recommended Order (testnet first)
+### Recommended Order (testnets first)
 
 | # | Chain | ID | Gateway (Groth16) | Gateway (Plonk) | RPC Var |
 |---|-------|----|-------------------|-----------------|---------|
-| 1 | Hoodi | 560048 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_HOODI` |
-| 2 | BSC | 56 | `0x940467b232cAD6A44FF36F2FBBe98CBd6509EFf2` | `0xfff6601146031815a84890aCBf0d926609a40249` | `RPC_BSC` |
-| 3 | X Layer | 196 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_XLAYER` |
-| 4 | Monad | 143 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_MONAD` |
-| 5 | MegaETH | 4326 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_MEGA` |
-| 6 | Plasma | 9745 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_PLASMA` |
-| 7 | HyperEVM | 999 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_HYPEREVM` |
-| 8 | Tempo | 4217 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_TEMPO` |
+| 1 | Sepolia | 11155111 | `0x397A5f7f3dBd538f23DE225B51f532c34448dA9B` | `0x3B6041173B80E77f038f3F2C0f9744f04837185e` | `RPC_SEPOLIA` |
+| 2 | Arbitrum Sepolia | 421614 | `0x397A5f7f3dBd538f23DE225B51f532c34448dA9B` | `0x3B6041173B80E77f038f3F2C0f9744f04837185e` | `RPC_ARBITRUM_SEPOLIA` |
+| 3 | Base Sepolia | 84532 | `0x397A5f7f3dBd538f23DE225B51f532c34448dA9B` | `0x3B6041173B80E77f038f3F2C0f9744f04837185e` | `RPC_BASE_SEPOLIA` |
+| 4 | OP Sepolia | 11155420 | `0x397A5f7f3dBd538f23DE225B51f532c34448dA9B` | `0x3B6041173B80E77f038f3F2C0f9744f04837185e` | `RPC_OPTIMISM_SEPOLIA` |
+| 5 | Scroll Sepolia | 534351 | `0x397A5f7f3dBd538f23DE225B51f532c34448dA9B` | `0x3B6041173B80E77f038f3F2C0f9744f04837185e` | `RPC_SCROLL_SEPOLIA` |
+| 6 | Hoodi | 560048 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_HOODI` |
+| 7 | BSC | 56 | `0x940467b232cAD6A44FF36F2FBBe98CBd6509EFf2` | `0xfff6601146031815a84890aCBf0d926609a40249` | `RPC_BSC` |
+| 8 | X Layer | 196 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_XLAYER` |
+| 9 | Monad | 143 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_MONAD` |
+| 10 | MegaETH | 4326 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_MEGA` |
+| 11 | Plasma | 9745 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_PLASMA` |
+| 12 | HyperEVM | 999 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_HYPEREVM` |
+| 13 | Tempo | 4217 | `0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd` | `0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462` | `RPC_TEMPO` |
 
 ### Commands per chain
 
@@ -115,35 +115,59 @@ cast send <PLONK_GATEWAY> "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3
 ```bash
 source .env
 
-# 1. Hoodi (testnet — do this first)
+# --- Testnets (do these first) ---
+
+# 1. Sepolia
+cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_SEPOLIA
+cast send 0x3B6041173B80E77f038f3F2C0f9744f04837185e "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_SEPOLIA
+
+# 2. Arbitrum Sepolia
+cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_ARBITRUM_SEPOLIA
+cast send 0x3B6041173B80E77f038f3F2C0f9744f04837185e "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_ARBITRUM_SEPOLIA
+
+# 3. Base Sepolia
+cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_BASE_SEPOLIA
+cast send 0x3B6041173B80E77f038f3F2C0f9744f04837185e "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_BASE_SEPOLIA
+
+# 4. OP Sepolia
+cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_OPTIMISM_SEPOLIA
+cast send 0x3B6041173B80E77f038f3F2C0f9744f04837185e "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_OPTIMISM_SEPOLIA
+
+# 5. Scroll Sepolia
+cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_SCROLL_SEPOLIA
+cast send 0x3B6041173B80E77f038f3F2C0f9744f04837185e "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_SCROLL_SEPOLIA
+
+# --- Other EOA chains ---
+
+# 6. Hoodi
 cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_HOODI
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_HOODI
 
-# 2. BSC
+# 7. BSC
 cast send 0x940467b232cAD6A44FF36F2FBBe98CBd6509EFf2 "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_BSC
 cast send 0xfff6601146031815a84890aCBf0d926609a40249 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_BSC
 
-# 3. X Layer
+# 8. X Layer
 cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_XLAYER
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_XLAYER
 
-# 4. Monad
+# 9. Monad
 cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_MONAD
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_MONAD
 
-# 5. MegaETH
+# 10. MegaETH
 cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_MEGA
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_MEGA
 
-# 6. Plasma
+# 11. Plasma
 cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_PLASMA
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_PLASMA
 
-# 7. HyperEVM
+# 12. HyperEVM
 cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_HYPEREVM
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_HYPEREVM
 
-# 8. Tempo
+# 13. Tempo
 cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_TEMPO
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_TEMPO
 ```
@@ -175,8 +199,8 @@ cast call <GATEWAY> "routes(bytes4)(address,bool)" <SELECTOR> --rpc-url <RPC>
 ### `OwnableUnauthorizedAccount`
 
 You're sending from the wrong address. The gateway's `owner()` must match your signer:
-- Multisig chains: must come from Safe `0xCafEf00d...`
-- Ledger chains: must come from EOA `0xBaB2c2aF...`
+- Multisig chains (5 mainnets): must come from Safe `0xCafEf00d...`
+- Ledger chains (13 others): must come from EOA `0xBaB2c2aF...`
 
 Check the gateway owner:
 ```bash
