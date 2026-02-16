@@ -41,21 +41,21 @@ bsc = "${RPC_BSC}"
 tempo = "${RPC_TEMPO}"
 
 [etherscan]
-mainnet = { key = "${ETHERSCAN_API_KEY_MAINNET}", url = "${ETHERSCAN_API_URL_MAINNET}" }
-sepolia = { key = "${ETHERSCAN_API_KEY_SEPOLIA}", url = "${ETHERSCAN_API_URL_SEPOLIA}" }
-hoodi = { key = "${ETHERSCAN_API_KEY_HOODI}", url = "${ETHERSCAN_API_URL_HOODI}" }
-arbitrum = { key = "${ETHERSCAN_API_KEY_ARBITRUM}", url = "${ETHERSCAN_API_URL_ARBITRUM}" }
-arbitrum_sepolia = { key = "${ETHERSCAN_API_KEY_ARBITRUM_SEPOLIA}", url = "${ETHERSCAN_API_URL_ARBITRUM_SEPOLIA}" }
-base = { key = "${ETHERSCAN_API_KEY_BASE}", url = "${ETHERSCAN_API_URL_BASE}" }
-base_sepolia = { key = "${ETHERSCAN_API_KEY_BASE_SEPOLIA}", url = "${ETHERSCAN_API_URL_BASE_SEPOLIA}" }
-optimism = { key = "${ETHERSCAN_API_KEY_OPTIMISM}", url = "${ETHERSCAN_API_URL_OPTIMISM}" }
-optimism_sepolia = { key = "${ETHERSCAN_API_KEY_OPTIMISM_SEPOLIA}", url = "${ETHERSCAN_API_URL_OPTIMISM_SEPOLIA}" }
-scroll = { key = "${ETHERSCAN_API_KEY_SCROLL}", url = "${ETHERSCAN_API_URL_SCROLL}" }
-scroll_sepolia = { key = "${ETHERSCAN_API_KEY_SCROLL_SEPOLIA}", url = "${ETHERSCAN_API_URL_SCROLL_SEPOLIA}" }
-hyperevm = { key = "${ETHERSCAN_API_KEY_HYPEREVM}", url = "${ETHERSCAN_API_URL_HYPEREVM}" }
-plasma = { key = "${ETHERSCAN_API_KEY_PLASMA}", url = "${ETHERSCAN_API_URL_PLASMA}" }
-monad = { key = "${ETHERSCAN_API_KEY_MONAD}", url = "${ETHERSCAN_API_URL_MONAD}" }
-mega = { key = "${ETHERSCAN_API_KEY_MEGA}", url = "${ETHERSCAN_API_URL_MEGA}" }
-xlayer = { key = "${ETHERSCAN_API_KEY_XLAYER}", url = "${ETHERSCAN_API_URL_XLAYER}" }
-bsc = { key = "${ETHERSCAN_API_KEY_BSC}", url = "${ETHERSCAN_API_URL_BSC}" }
-tempo = { key = "${ETHERSCAN_API_KEY_TEMPO}", url = "${ETHERSCAN_API_URL_TEMPO}" }
+mainnet = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=1" }
+sepolia = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=11155111" }
+hoodi = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=560048" }
+arbitrum = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=42161" }
+arbitrum_sepolia = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=421614" }
+base = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=8453" }
+base_sepolia = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=84532" }
+optimism = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=10" }
+optimism_sepolia = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=11155420" }
+scroll = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=534352" }
+scroll_sepolia = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=534351" }
+hyperevm = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=999" }
+bsc = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=56" }
+monad = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=143" }
+mega = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=4326" }
+plasma = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=9745" }
+xlayer = { key = "${OKLINK_API_KEY}", url = "https://www.oklink.com/api/v5/explorer/contract/verify-source-code-plugin/XLAYER" }
+tempo = { key = "unused", url = "https://contracts.tempo.xyz/api" }
