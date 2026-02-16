@@ -11,5 +11,5 @@ docs/
 # Dotenv file
 .env
 
-# Safe Transaction Builder generated files
-safe-batches/*.json
+# Safe Transaction Builder generated files (keep committed for handoff)
+# Regenerate with: node script/utils/generate-safe-batch.js

@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "chainId": "421614",
+  "createdAt": 1771256758177,
+  "meta": {
+    "name": "Add SP1 v6.0.0 Routes",
+    "description": "Add v6.0.0 verifiers on Arbitrum Sepolia",
+    "checksum": "0xa2e6a65ee86d1caae89122cd172987c9129ca1b78e507a878aca03c2d2548202"
+  },
+  "transactions": [
+    {
+      "to": "0x397A5f7f3dBd538f23DE225B51f532c34448dA9B",
+      "value": "0",
+      "data": null,
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "verifier",
+            "type": "address"
+          }
+        ],
+        "name": "addRoute",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "verifier": "0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f"
+      }
+    },
+    {
+      "to": "0x3B6041173B80E77f038f3F2C0f9744f04837185e",
+      "value": "0",
+      "data": null,
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "verifier",
+            "type": "address"
+          }
+        ],
+        "name": "addRoute",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "verifier": "0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C"
+      }
+    }
+  ]
+}

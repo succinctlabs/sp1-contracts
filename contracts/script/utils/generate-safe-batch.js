@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const DEPLOY_DIR = path.join(__dirname, '../../deployments');
 const MAINNET_CHAINS = [1, 10, 42161, 8453, 534352];
@@ -26,8 +27,7 @@ function createAddRouteTransaction(gateway, verifier) {
   return {
     to: gateway,
     value: '0',
-    data: ADD_ROUTE_SELECTOR + verifier.slice(2).toLowerCase().padStart(64, '0'),
-    operation: 0,
+    data: null,
     contractMethod: {
       inputs: [{ internalType: 'address', name: 'verifier', type: 'address' }],
       name: 'addRoute',
@@ -41,14 +41,53 @@ function createFreezeRouteTransaction(gateway, selector) {
   return {
     to: gateway,
     value: '0',
-    data: FREEZE_ROUTE_SELECTOR + selector.slice(2).padEnd(64, '0'),
-    operation: 0,
+    data: null,
     contractMethod: {
       inputs: [{ internalType: 'bytes4', name: 'selector', type: 'bytes4' }],
       name: 'freezeRoute',
       payable: false
     },
     contractInputsValues: { selector }
+  };
+}
+
+// --- Safe TX Builder checksum (replicates checksum.ts from safe-global/safe-react-apps) ---
+
+function stringifyReplacer(_key, value) {
+  return value === undefined ? null : value;
+}
+
+function serializeJSONObject(json) {
+  if (Array.isArray(json)) {
+    return `[${json.map(el => serializeJSONObject(el)).join(',')}]`;
+  }
+  if (typeof json === 'object' && json !== null) {
+    let acc = '';
+    const keys = Object.keys(json).sort();
+    acc += `{${JSON.stringify(keys, stringifyReplacer)}`;
+    for (let i = 0; i < keys.length; i++) {
+      acc += `${serializeJSONObject(json[keys[i]])},`;
+    }
+    return `${acc}}`;
+  }
+  return `${JSON.stringify(json, stringifyReplacer)}`;
+}
+
+function calculateChecksum(batchFile) {
+  const serialized = serializeJSONObject({
+    ...batchFile,
+    meta: { ...batchFile.meta, name: null },
+  });
+  // Convert to hex bytes to avoid shell escaping issues with JSON characters
+  const hexInput = '0x' + Buffer.from(serialized, 'utf8').toString('hex');
+  const hex = execSync(`cast keccak ${hexInput}`, { encoding: 'utf8' }).trim();
+  return hex;
+}
+
+function addChecksum(batchFile) {
+  return {
+    ...batchFile,
+    meta: { ...batchFile.meta, checksum: calculateChecksum(batchFile) },
   };
 }
 
@@ -151,8 +190,9 @@ for (const id of chains) {
   console.log(`${CHAIN_NAMES[id] || id} (${id})...`);
   const batch = generateBatch(id, args.version, args.action);
   if (batch) {
+    const withChecksum = addChecksum(batch);
     const out = path.join(outDir, `${id}_${actionLabel}_${versionToKey(args.version).toLowerCase()}.json`);
-    fs.writeFileSync(out, JSON.stringify(batch, null, 2));
+    fs.writeFileSync(out, JSON.stringify(withChecksum, null, 2));
     console.log(`  -> ${out}\n`);
     ok++;
   } else console.log('');
