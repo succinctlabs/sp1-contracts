@@ -15,11 +15,7 @@ async fn main() -> Result<()> {
     let mut artifact_dirs = Vec::new();
 
     for &artifact_type in &artifact_types {
-<<<<<<< HEAD
         let artifacts_dir = try_install_circuit_artifacts(artifact_type).await?;
-=======
-        let artifacts_dir = try_install_circuit_artifacts(artifact_type).await;
->>>>>>> yuwen/v6
         artifact_dirs.push(artifacts_dir);
     }
 
