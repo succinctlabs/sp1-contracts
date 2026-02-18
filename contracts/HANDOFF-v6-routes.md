@@ -13,7 +13,7 @@ Register v6.0.0 Groth16 + Plonk verifier routes on all 18 chain gateways.
 
 | Item | Address |
 |------|---------|
-| V6 Groth16 Verifier | `0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f` |
+| V6 Groth16 Verifier | `0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508` |
 | V6 Plonk Verifier | `0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C` |
 | Multisig Owner (5 mainnets) | `0xCafEf00d348Adbd57c37d1B77e0619C6244C6878` |
 | Ledger EOA Owner (13 chains) | `0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126` |
@@ -55,7 +55,7 @@ Each chain has a pre-generated Safe batch JSON in `safe-batches/`. Each JSON con
 2. Open **Apps** > **Transaction Builder**
 3. Click the upload icon (or drag-and-drop) to load the JSON file from `safe-batches/`
 4. Review the 2 transactions:
-   - tx1: `addRoute(0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f)` on Groth16 gateway
+   - tx1: `addRoute(0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508)` on Groth16 gateway
    - tx2: `addRoute(0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C)` on Plonk gateway
 5. Click **Create Batch** > **Send Batch**
 6. Collect required signatures and execute
@@ -66,7 +66,7 @@ Each chain has a pre-generated Safe batch JSON in `safe-batches/`. Each JSON con
 # Replace <RPC> with the chain's RPC URL from .env
 # Groth16 route:
 cast call 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "routes(bytes4)(address,bool)" 0x0e78f4db --rpc-url <RPC>
-# Should return: (0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f, false)
+# Should return: (0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508, false)
 
 # Plonk route:
 cast call 0x3B6041173B80E77f038f3F2C0f9744f04837185e "routes(bytes4)(address,bool)" 0xbb1a6f29 --rpc-url <RPC>
@@ -104,7 +104,7 @@ For each chain, run 2 commands (Groth16 then Plonk). Replace `$RPC_<CHAIN>` with
 **Template:**
 ```bash
 # addRoute on Groth16 gateway
-cast send <GROTH16_GATEWAY> "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_<CHAIN>
+cast send <GROTH16_GATEWAY> "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_<CHAIN>
 
 # addRoute on Plonk gateway
 cast send <PLONK_GATEWAY> "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_<CHAIN>
@@ -118,57 +118,57 @@ source .env
 # --- Testnets (do these first) ---
 
 # 1. Sepolia
-cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_SEPOLIA
+cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_SEPOLIA
 cast send 0x3B6041173B80E77f038f3F2C0f9744f04837185e "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_SEPOLIA
 
 # 2. Arbitrum Sepolia
-cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_ARBITRUM_SEPOLIA
+cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_ARBITRUM_SEPOLIA
 cast send 0x3B6041173B80E77f038f3F2C0f9744f04837185e "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_ARBITRUM_SEPOLIA
 
 # 3. Base Sepolia
-cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_BASE_SEPOLIA
+cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_BASE_SEPOLIA
 cast send 0x3B6041173B80E77f038f3F2C0f9744f04837185e "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_BASE_SEPOLIA
 
 # 4. OP Sepolia
-cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_OPTIMISM_SEPOLIA
+cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_OPTIMISM_SEPOLIA
 cast send 0x3B6041173B80E77f038f3F2C0f9744f04837185e "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_OPTIMISM_SEPOLIA
 
 # 5. Scroll Sepolia
-cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_SCROLL_SEPOLIA
+cast send 0x397A5f7f3dBd538f23DE225B51f532c34448dA9B "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_SCROLL_SEPOLIA
 cast send 0x3B6041173B80E77f038f3F2C0f9744f04837185e "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_SCROLL_SEPOLIA
 
 # --- Other EOA chains ---
 
 # 6. Hoodi
-cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_HOODI
+cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_HOODI
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_HOODI
 
 # 7. BSC
-cast send 0x940467b232cAD6A44FF36F2FBBe98CBd6509EFf2 "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_BSC
+cast send 0x940467b232cAD6A44FF36F2FBBe98CBd6509EFf2 "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_BSC
 cast send 0xfff6601146031815a84890aCBf0d926609a40249 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_BSC
 
 # 8. X Layer
-cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_XLAYER
+cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_XLAYER
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_XLAYER
 
 # 9. Monad
-cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_MONAD
+cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_MONAD
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_MONAD
 
 # 10. MegaETH
-cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_MEGA
+cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_MEGA
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_MEGA
 
 # 11. Plasma
-cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_PLASMA
+cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_PLASMA
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_PLASMA
 
 # 12. HyperEVM
-cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_HYPEREVM
+cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_HYPEREVM
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_HYPEREVM
 
 # 13. Tempo
-cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_TEMPO
+cast send 0x7DA83eC4af493081500Ecd36d1a72c23F8fc2abd "addRoute(address)" 0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508 --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_TEMPO
 cast send 0x2a5A70409Ee9F057503a50E0F4614A6d8CcBb462 "addRoute(address)" 0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C --from 0xBaB2c2aF5b91695e65955DA60d63aD1b2aE81126 --ledger --rpc-url $RPC_TEMPO
 ```
 

@@ -1,11 +1,11 @@
 {
   "version": "1.0",
   "chainId": "8453",
-  "createdAt": 1771257707415,
+  "createdAt": 1771377131881,
   "meta": {
     "name": "Add SP1 v6.0.0 Routes",
     "description": "Add v6.0.0 verifiers on Base",
-    "checksum": "0xfd634ee43a849796b73d5a48574a14b5784f51550bfdfb294d3ee189e261b764"
+    "checksum": "0x7550983e37a149e9a66027e4c0a04d3e1610ffba12ace8861887a0377d060c5d"
   },
   "transactions": [
     {
@@ -24,7 +24,7 @@
         "payable": false
       },
       "contractInputsValues": {
-        "verifier": "0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f"
+        "verifier": "0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508"
       }
     },
     {

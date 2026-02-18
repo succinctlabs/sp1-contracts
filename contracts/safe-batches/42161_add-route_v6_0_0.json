@@ -1,11 +1,11 @@
 {
   "version": "1.0",
   "chainId": "42161",
-  "createdAt": 1771257707407,
+  "createdAt": 1771377131873,
   "meta": {
     "name": "Add SP1 v6.0.0 Routes",
     "description": "Add v6.0.0 verifiers on Arbitrum",
-    "checksum": "0xee17a8b1bcb0ba7d1e1b7d2846265e12a75e979348933a6481956692fd619945"
+    "checksum": "0xc4c259903a897eab6b150a4477e94c0ce87fcbd0d839bf1a7245f199183a8bae"
   },
   "transactions": [
     {
@@ -24,7 +24,7 @@
         "payable": false
       },
       "contractInputsValues": {
-        "verifier": "0xEfe0156fe9C4013Dfd3F5D0BFa8dF01B28843e0f"
+        "verifier": "0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508"
       }
     },
     {
