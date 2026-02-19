@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "chainId": "534352",
+  "createdAt": 1771377131889,
+  "meta": {
+    "name": "Add SP1 v6.0.0 Routes",
+    "description": "Add v6.0.0 verifiers on Scroll",
+    "checksum": "0x56a18360925c36eaf4fa7fd34d82ce4122eb990027d6031424b038c3b2acf119"
+  },
+  "transactions": [
+    {
+      "to": "0x397A5f7f3dBd538f23DE225B51f532c34448dA9B",
+      "value": "0",
+      "data": null,
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "verifier",
+            "type": "address"
+          }
+        ],
+        "name": "addRoute",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "verifier": "0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508"
+      }
+    },
+    {
+      "to": "0x3B6041173B80E77f038f3F2C0f9744f04837185e",
+      "value": "0",
+      "data": null,
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "verifier",
+            "type": "address"
+          }
+        ],
+        "name": "addRoute",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "verifier": "0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C"
+      }
+    }
+  ]
+}

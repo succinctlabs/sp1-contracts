@@ -12,14 +12,17 @@ contract SP1VerifierScript is BaseScript {
     function run() external multichain(KEY) broadcaster {
         // Read config
         bytes32 CREATE2_SALT = readBytes32("CREATE2_SALT");
-        address SP1_VERIFIER_GATEWAY = readAddress("SP1_VERIFIER_GATEWAY_GROTH16");
 
         // Deploy contract
         address verifier = address(new SP1Verifier{salt: CREATE2_SALT}());
 
-        // Add the verifier to the gateway
-        SP1VerifierGateway gateway = SP1VerifierGateway(SP1_VERIFIER_GATEWAY);
-        gateway.addRoute(verifier);
+        // Register route to gateway (default: false for multisig deployments)
+        // Set REGISTER_ROUTE=true when deployer is gateway owner
+        if (vm.envOr("REGISTER_ROUTE", false)) {
+            address SP1_VERIFIER_GATEWAY = readAddress("SP1_VERIFIER_GATEWAY_GROTH16");
+            SP1VerifierGateway gateway = SP1VerifierGateway(SP1_VERIFIER_GATEWAY);
+            gateway.addRoute(verifier);
+        }
 
         // Write address
         writeAddress(KEY, verifier);

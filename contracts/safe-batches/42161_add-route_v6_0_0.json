@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "chainId": "42161",
+  "createdAt": 1771377131873,
+  "meta": {
+    "name": "Add SP1 v6.0.0 Routes",
+    "description": "Add v6.0.0 verifiers on Arbitrum",
+    "checksum": "0xc4c259903a897eab6b150a4477e94c0ce87fcbd0d839bf1a7245f199183a8bae"
+  },
+  "transactions": [
+    {
+      "to": "0x397A5f7f3dBd538f23DE225B51f532c34448dA9B",
+      "value": "0",
+      "data": null,
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "verifier",
+            "type": "address"
+          }
+        ],
+        "name": "addRoute",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "verifier": "0x99A74A05a0FaBEB217C1A329b0dac59a1FA52508"
+      }
+    },
+    {
+      "to": "0x3B6041173B80E77f038f3F2C0f9744f04837185e",
+      "value": "0",
+      "data": null,
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "verifier",
+            "type": "address"
+          }
+        ],
+        "name": "addRoute",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "verifier": "0x8a0fd5e825D14368d90Fe68F31fceAe3E17AFc5C"
+      }
+    }
+  ]
+}

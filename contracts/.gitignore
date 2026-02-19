@@ -10,3 +10,9 @@ docs/
 
 # Dotenv file
 .env
+
+# macOS
+.DS_Store
+
+# Safe Transaction Builder generated files (keep committed for handoff)
+# Regenerate with: node script/utils/generate-safe-batch.js
