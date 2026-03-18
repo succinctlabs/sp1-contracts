@@ -39,6 +39,7 @@ mega = "${RPC_MEGA}"
 xlayer = "${RPC_XLAYER}"
 bsc = "${RPC_BSC}"
 tempo = "${RPC_TEMPO}"
+tron = "${RPC_TRON}"
 
 [etherscan]
 mainnet = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=1" }
@@ -59,3 +60,4 @@ mega = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?ch
 plasma = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=9745" }
 xlayer = { key = "${OKLINK_API_KEY}", url = "https://www.oklink.com/api/v5/explorer/contract/verify-source-code-plugin/XLAYER" }
 tempo = { key = "unused", url = "https://contracts.tempo.xyz/" }
+# tron: no etherscan-compatible verification API (TronScan is manual only)
