@@ -11,7 +11,7 @@ path = "src/bin/artifacts.rs"
 anyhow = "1.0.86"
 dotenv = "0.15.0"
 log = "0.4.21"
-sp1-sdk = { version = "6.0.0", features = [
+sp1-sdk = { version = "6.1.0", features = [
     "blocking",
     "native-gnark",
     "network",
