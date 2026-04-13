@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Check v6.0.0 route registration status on all 18 chains.
+# Check v6.0.0 route registration status on all 16 chains.
 # Usage: ./check-routes.sh [path-to-.env]
 #
 # Reads gateway addresses from deployments/*.json and calls routes(bytes4)
@@ -35,14 +35,12 @@ CHAINS=(
   "421614:Arbitrum Sepolia:RPC_ARBITRUM_SEPOLIA"
   "84532:Base Sepolia:RPC_BASE_SEPOLIA"
   "11155420:OP Sepolia:RPC_OPTIMISM_SEPOLIA"
-  "534351:Scroll Sepolia:RPC_SCROLL_SEPOLIA"
   "560048:Hoodi:RPC_HOODI"
   # Mainnets
   "1:Ethereum:RPC_MAINNET"
   "10:Optimism:RPC_OPTIMISM"
   "42161:Arbitrum:RPC_ARBITRUM"
   "8453:Base:RPC_BASE"
-  "534352:Scroll:RPC_SCROLL"
   "56:BSC:RPC_BSC"
   "196:X Layer:RPC_XLAYER"
   "143:Monad:RPC_MONAD"

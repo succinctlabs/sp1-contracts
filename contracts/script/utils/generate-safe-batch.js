@@ -5,11 +5,11 @@ const { execSync } = require('child_process');
 
 const DEPLOY_DIR = path.join(__dirname, '../../deployments');
 // Only mainnets are multisig-owned — testnets are EOA-owned (use cast send --ledger)
-const MULTISIG_CHAINS = [1, 10, 42161, 8453, 534352];
+const MULTISIG_CHAINS = [1, 10, 42161, 8453];
 const CHAIN_NAMES = {
-  1: 'Ethereum', 10: 'Optimism', 42161: 'Arbitrum', 8453: 'Base', 534352: 'Scroll',
+  1: 'Ethereum', 10: 'Optimism', 42161: 'Arbitrum', 8453: 'Base',
   11155111: 'Sepolia', 421614: 'Arbitrum Sepolia',
-  84532: 'Base Sepolia', 11155420: 'Optimism Sepolia', 534351: 'Scroll Sepolia'
+  84532: 'Base Sepolia', 11155420: 'Optimism Sepolia'
 };
 const ADD_ROUTE_SELECTOR = '0x8c95ff1e'; // keccak256("addRoute(address)")[:4]
 const FREEZE_ROUTE_SELECTOR = '0x191ffb1e'; // keccak256("freezeRoute(bytes4)")[:4]

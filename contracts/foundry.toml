@@ -30,8 +30,6 @@ base = "${RPC_BASE}"
 base_sepolia = "${RPC_BASE_SEPOLIA}"
 optimism = "${RPC_OPTIMISM}"
 optimism_sepolia = "${RPC_OPTIMISM_SEPOLIA}"
-scroll = "${RPC_SCROLL}"
-scroll_sepolia = "${RPC_SCROLL_SEPOLIA}"
 hyperevm = "${RPC_HYPEREVM}"
 plasma = "${RPC_PLASMA}"
 monad = "${RPC_MONAD}"
@@ -50,8 +48,6 @@ base = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?ch
 base_sepolia = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=84532" }
 optimism = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=10" }
 optimism_sepolia = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=11155420" }
-scroll = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=534352" }
-scroll_sepolia = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=534351" }
 hyperevm = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=999" }
 bsc = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=56" }
 monad = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=143" }
