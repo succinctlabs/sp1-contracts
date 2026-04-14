@@ -35,7 +35,7 @@ contract SP1Verifier is PlonkVerifier, ISP1VerifierWithHash {
 
     /// @notice The recursion vk root.
     function VK_ROOT() public pure returns (bytes32) {
-        return 0x00995aa7753b437dfe98b936e602e002155914af1922d96e1af288578adc2251;
+        return 0x002f850ee998974d6cc00e50cd0814b098c05bfade466d28573240d057f25352;
     }
 
     /// @notice Hashes the public values to a field elements inside Bn254.

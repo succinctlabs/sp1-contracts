@@ -30,12 +30,12 @@ contract SP1Verifier is Verifier, ISP1VerifierWithHash {
 
     /// @inheritdoc ISP1VerifierWithHash
     function VERIFIER_HASH() public pure returns (bytes32) {
-        return 0x2b4aeaf7a8005e6072a35ba0faf7a8da72644a4bed28babcc972c257463b26ca;
+        return 0x4388a21c687fdd5f218d7e3d13190cac4c5355818d3605fd5fb811df468ee696;
     }
 
     /// @notice The recursion vk root.
     function VK_ROOT() public pure returns (bytes32) {
-        return 0x00995aa7753b437dfe98b936e602e002155914af1922d96e1af288578adc2251;
+        return 0x002f850ee998974d6cc00e50cd0814b098c05bfade466d28573240d057f25352;
     }
 
     /// @notice Hashes the public values to a field elements inside Bn254.
