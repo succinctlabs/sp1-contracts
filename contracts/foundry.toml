@@ -16,7 +16,7 @@ optimizer_runs = 200
 line_length = 100
 tab_width = 4
 func_attrs_with_params_multiline = true
-ignore = ["lib/**", "src/v*/Groth16Verifier.sol", "src/v*/PlonkVerifier.sol", "src/v*/zksync/PlonkVerifier.sol"]
+ignore = ["lib/**", "src/v*/Groth16Verifier.sol", "src/v*/PlonkVerifier.sol"]
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
 
@@ -33,8 +33,6 @@ optimism_sepolia = "${RPC_OPTIMISM_SEPOLIA}"
 hyperevm = "${RPC_HYPEREVM}"
 plasma = "${RPC_PLASMA}"
 monad = "${RPC_MONAD}"
-mega = "${RPC_MEGA}"
-xlayer = "${RPC_XLAYER}"
 bsc = "${RPC_BSC}"
 tempo = "${RPC_TEMPO}"
 
@@ -51,7 +49,5 @@ optimism_sepolia = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.
 hyperevm = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=999" }
 bsc = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=56" }
 monad = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=143" }
-mega = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=4326" }
 plasma = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=9745" }
-xlayer = { key = "${OKLINK_API_KEY}", url = "https://www.oklink.com/api/v5/explorer/contract/verify-source-code-plugin/XLAYER" }
 tempo = { key = "unused", url = "https://contracts.tempo.xyz/" }

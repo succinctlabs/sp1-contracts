@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Check v6.0.0 route registration status on all 16 chains.
+# Check v6.0.0 route registration status on all 14 chains.
 # Usage: ./check-routes.sh [path-to-.env]
 #
 # Reads gateway addresses from deployments/*.json and calls routes(bytes4)
@@ -42,9 +42,7 @@ CHAINS=(
   "42161:Arbitrum:RPC_ARBITRUM"
   "8453:Base:RPC_BASE"
   "56:BSC:RPC_BSC"
-  "196:X Layer:RPC_XLAYER"
   "143:Monad:RPC_MONAD"
-  "4326:MegaETH:RPC_MEGA"
   "9745:Plasma:RPC_PLASMA"
   "999:HyperEVM:RPC_HYPEREVM"
   "4217:Tempo:RPC_TEMPO"
