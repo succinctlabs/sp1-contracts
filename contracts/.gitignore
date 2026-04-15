@@ -14,5 +14,8 @@ docs/
 # macOS
 .DS_Store
 
+# Node modules (tron deploy script)
+node_modules/
+
 # Safe Transaction Builder generated files (keep committed for handoff)
 # Regenerate with: node script/utils/generate-safe-batch.js
