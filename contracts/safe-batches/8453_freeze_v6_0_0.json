@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "chainId": "8453",
+  "createdAt": 1777333776756,
+  "meta": {
+    "name": "Freeze SP1 v6.0.0 Routes",
+    "description": "Freeze v6.0.0 verifiers on Base",
+    "checksum": "0x51a6a9f07ac825c66f9e09a1492b3435a68196d46cbf440e88f6897f425eefc1"
+  },
+  "transactions": [
+    {
+      "to": "0x397A5f7f3dBd538f23DE225B51f532c34448dA9B",
+      "value": "0",
+      "data": null,
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "bytes4",
+            "name": "selector",
+            "type": "bytes4"
+          }
+        ],
+        "name": "freezeRoute",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "selector": "0x0e78f4db"
+      }
+    },
+    {
+      "to": "0x3B6041173B80E77f038f3F2C0f9744f04837185e",
+      "value": "0",
+      "data": null,
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "bytes4",
+            "name": "selector",
+            "type": "bytes4"
+          }
+        ],
+        "name": "freezeRoute",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "selector": "0xbb1a6f29"
+      }
+    }
+  ]
+}

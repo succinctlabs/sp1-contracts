@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "chainId": "10",
+  "createdAt": 1777333776721,
+  "meta": {
+    "name": "Freeze SP1 v6.0.0 Routes",
+    "description": "Freeze v6.0.0 verifiers on Optimism",
+    "checksum": "0xbcc888e93ba6998433971c3b82c43c302453f994b4aff605de6be15e5a7fb914"
+  },
+  "transactions": [
+    {
+      "to": "0x397A5f7f3dBd538f23DE225B51f532c34448dA9B",
+      "value": "0",
+      "data": null,
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "bytes4",
+            "name": "selector",
+            "type": "bytes4"
+          }
+        ],
+        "name": "freezeRoute",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "selector": "0x0e78f4db"
+      }
+    },
+    {
+      "to": "0x3B6041173B80E77f038f3F2C0f9744f04837185e",
+      "value": "0",
+      "data": null,
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "bytes4",
+            "name": "selector",
+            "type": "bytes4"
+          }
+        ],
+        "name": "freezeRoute",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "selector": "0xbb1a6f29"
+      }
+    }
+  ]
+}
