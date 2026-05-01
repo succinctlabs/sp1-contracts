@@ -105,6 +105,26 @@ For multisig gateways, use the Safe Transaction Builder JSON generator after dep
 node script/utils/generate-safe-batch.js --chain=1 --version=v6.0.0-beta.1
 ```
 
+### Tron Deployment
+
+Tron is not EVM-compatible at the RPC level, so Forge cannot be used directly. A dedicated TronWeb-based deploy script is provided:
+
+```bash
+cd contracts/script/tron
+npm install
+
+# Deploy (set PRIVATE_KEY in env)
+PRIVATE_KEY=<hex> node deploy.js
+
+# Transfer gateway ownership to operations multisig
+PRIVATE_KEY=<hex> node transfer-ownership.js
+
+# Transfer specific gateways only
+PRIVATE_KEY=<hex> GATEWAYS=plonk node transfer-ownership.js
+```
+
+The script is resume-safe — re-running it skips already-deployed contracts and already-registered routes.
+
 ### Freezing Verifiers
 
 > [!WARNING]

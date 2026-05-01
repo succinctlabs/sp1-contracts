@@ -35,6 +35,7 @@ plasma = "${RPC_PLASMA}"
 monad = "${RPC_MONAD}"
 bsc = "${RPC_BSC}"
 tempo = "${RPC_TEMPO}"
+tron = "${RPC_TRON}"
 
 [etherscan]
 mainnet = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=1" }
@@ -51,3 +52,4 @@ bsc = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?cha
 monad = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=143" }
 plasma = { key = "${ETHERSCAN_API_KEY}", url = "https://api.etherscan.io/v2/api?chainid=9745" }
 tempo = { key = "unused", url = "https://contracts.tempo.xyz/" }
+# tron: no etherscan-compatible verification API (TronScan is manual only)
