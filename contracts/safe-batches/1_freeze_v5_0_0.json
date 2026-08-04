@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "chainId": "1",
+  "createdAt": 1785821166666,
+  "meta": {
+    "name": "Freeze SP1 v5.0.0 Routes",
+    "description": "Freeze v5.0.0 verifiers on Ethereum",
+    "checksum": "0xf20df0153e18cc2cf34ea99799b6eda3321a536b6277512e9a66f2aafa5b2c42"
+  },
+  "transactions": [
+    {
+      "to": "0x397A5f7f3dBd538f23DE225B51f532c34448dA9B",
+      "value": "0",
+      "data": null,
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "bytes4",
+            "name": "selector",
+            "type": "bytes4"
+          }
+        ],
+        "name": "freezeRoute",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "selector": "0xa4594c59"
+      }
+    },
+    {
+      "to": "0x3B6041173B80E77f038f3F2C0f9744f04837185e",
+      "value": "0",
+      "data": null,
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "bytes4",
+            "name": "selector",
+            "type": "bytes4"
+          }
+        ],
+        "name": "freezeRoute",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "selector": "0xd4e8ecd2"
+      }
+    }
+  ]
+}
